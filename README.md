@@ -17,10 +17,18 @@ Looking to engage your audience through live participation? Having trouble findi
 - [Live Poll](#live-polllinkhere)
   - [Team](#team)
   - [Table of Contents](#table-of-contents)
+  - [Planning](#planning)
   - [Development](#development)
     - [Running the Development App](#running-the-development-app)
     - [Roadmap](#roadmap)
     - [Contributing](#contributing)
+
+## Planning
+
+- [Specs](#)
+- [Epics/User Stories](https://docs.google.com/spreadsheets/d/1hRcaUfP0kl2Ttw2uqlaQ7f7ede7f64S-bpEY9-YsukY/)
+- [Waffle Board](https://waffle.io/Team-Ravenclaw/LivePoll)
+
 
 ## Development
 
