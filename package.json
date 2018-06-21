@@ -1,0 +1,19 @@
+{
+  "name": "livepoll",
+  "version": "1.0.0",
+  "description": "[![Waffle.io - Issues Board](https://badge.waffle.io/Team-Ravenclaw/LivePoll.svg?columns=In%20Progress,Done)](http://waffle.io/Team-Ravenclaw/LivePoll)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Ravenclaw/LivePoll.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Team-Ravenclaw/LivePoll/issues"
+  },
+  "homepage": "https://github.com/Team-Ravenclaw/LivePoll#readme"
+}
