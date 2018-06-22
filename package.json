@@ -4,39 +4,57 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm install",
+    "start": "node server/index.js",
+    "build": "npm install && webpack && npm start",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "service-dev": "nodemon service/index.js"
+    "service-dev": "nodemon service/index.js",
+    "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
+  },"repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-Ravenclaw/LivePoll.git"
   },
-  "author": "Laurents Mohr, Rose Lin, Nick Rogers",
+  "author": "Team Ravenclaw",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/Team-Ravenclaw/LivePoll#readme",
+  "bugs": {
+    "url": "https://github.com/Team-Ravenclaw/LivePoll/issues"
+  },
   "devDependencies": {
+    "babel": "6.23.0",
+    "babel-cli": "6.26.0",
     "babel-core": "^6.23.1",
     "babel-loader": "^6.3.2",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "enzyme": "3.3.0",
+    "expect": "23.1.0",
+    "jsdom": "9.12.0",
+    "mocha": "5.2.0",
+    "react-addons-test-utils": "15.6.2",
     "webpack": "^2.2.1"
   },
   "dependencies": {
     "axios": "",
     "body-parser": "^1.17.2",
+    "chai": "4.1.2",
     "connect-history-api-fallback": "^1.5.0",
+    "enzyme-adapter-react-15": "1.0.5",
+    "enzyme-adapter-react-16": "1.1.1",
     "express": "^4.15.0",
     "mysql": "^2.13.0",
-    "nodemon": "^1.17.5",
+    "mongoose": "^4.9.6",
+    "nock": "9.3.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.3.0-rc.3",
     "socket.io": "^2.1.1",
     "url-loader": "^1.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Team-Ravenclaw/LivePoll.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Team-Ravenclaw/LivePoll/issues"
-  },
-  "homepage": "https://github.com/Team-Ravenclaw/LivePoll#readme"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
