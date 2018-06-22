@@ -14,5 +14,3 @@ class PollTestComponent extends React.Component {
 }
 
 export default PollTestComponent;
-
-//COMMENTING HERE FOR GIT PURPOSES
