@@ -8,7 +8,8 @@
     "build": "npm install && webpack && npm start",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "service-dev": "nodemon service/index.js",
+    "pollCRUD-dev": "nodemon pollCRUD/index.js",
+    "pollRUN-dev": "nodemon pollRUN/index.js",
     "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
   },"repository": {
     "type": "git",
