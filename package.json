@@ -10,17 +10,16 @@
     "server-dev": "nodemon server/index.js",
     "service-dev": "nodemon service/index.js",
     "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
-  },
-  "repository": {
+  },"repository": {
     "type": "git",
     "url": "git+https://github.com/Team-Ravenclaw/LivePoll.git"
   },
   "author": "Team Ravenclaw",
   "license": "Apache-2.0",
+  "homepage": "https://github.com/Team-Ravenclaw/LivePoll#readme",
   "bugs": {
     "url": "https://github.com/Team-Ravenclaw/LivePoll/issues"
   },
-  "homepage": "https://github.com/Team-Ravenclaw/LivePoll#readme",
   "devDependencies": {
     "babel": "6.23.0",
     "babel-cli": "6.26.0",

@@ -1,4 +1,5 @@
 import React from 'react';
+import PollTestComponent from './pollTestComponent.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -6,7 +7,12 @@ class App extends React.Component {
   }
 
   render() {
-    return (<div>Hello world!</div>);
+    return (
+      <div>
+        <div>Hello world!</div>
+        <PollTestComponent />
+      </div>
+    )
   }
 
 }
