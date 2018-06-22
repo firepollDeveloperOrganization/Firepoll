@@ -8,15 +8,11 @@
     "build": "npm install && webpack && npm start",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-<<<<<<< HEAD
     "pollCRUD-dev": "nodemon pollCRUD/index.js",
     "pollRUN-dev": "nodemon pollRUN/index.js",
-=======
-    "service-dev": "nodemon service/index.js",
     "sass-dev": "node-sass -w ./client/src/main.scss -o ./client/dist/",
     "build-css": "node-sass --include-path scss ./client/src/main.scss ./client/dist/main.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
->>>>>>> dev
     "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
   },
   "repository": {
@@ -53,6 +49,7 @@
   },
   "dependencies": {
     "axios": "",
+    "bcrypt": "^2.0.1",
     "body-parser": "^1.17.2",
     "chai": "4.1.2",
     "commitizen": "^2.10.1",
