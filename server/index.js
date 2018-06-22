@@ -8,8 +8,8 @@ const app = express();
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 8000;
 
 var server = app.listen(port, () => {
-  console.log('listening on port, ', port)
+  console.log('listening on port, ', port);
 });
