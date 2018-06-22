@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-node_modules
-=======
 node_modules/
 package-lock.json
 bundle.js
 .DS_Store
->>>>>>> master
