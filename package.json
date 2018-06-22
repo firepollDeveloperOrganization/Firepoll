@@ -11,7 +11,8 @@
     "pollCRUD-dev": "nodemon pollCRUD/index.js",
     "pollRUN-dev": "nodemon pollRUN/index.js",
     "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
-  },"repository": {
+  },
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/Team-Ravenclaw/LivePoll.git"
   },
@@ -40,12 +41,13 @@
     "axios": "",
     "body-parser": "^1.17.2",
     "chai": "4.1.2",
+    "commitizen": "^2.10.1",
     "connect-history-api-fallback": "^1.5.0",
     "enzyme-adapter-react-15": "1.0.5",
     "enzyme-adapter-react-16": "1.1.1",
     "express": "^4.15.0",
-    "mysql": "^2.13.0",
     "mongoose": "^4.9.6",
+    "mysql": "^2.13.0",
     "nock": "9.3.3",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
