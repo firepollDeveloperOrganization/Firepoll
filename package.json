@@ -9,6 +9,9 @@
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "service-dev": "nodemon service/index.js",
+    "sass-dev": "node-sass -w ./client/src/main.scss -o ./client/dist/",
+    "build-css": "node-sass --include-path scss ./client/src/main.scss ./client/dist/main.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
   },
   "repository": {
