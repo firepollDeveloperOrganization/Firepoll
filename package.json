@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm install",
     "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js"
+    "server-dev": "nodemon server/index.js",
+    "service-dev": "nodemon service/index.js"
   },
   "author": "Team Ravenclaw",
   "license": "MIT",
@@ -27,6 +28,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.3.0-rc.3",
+    "socket.io": "^2.1.1",
     "url-loader": "^1.0.1"
   }
 }
