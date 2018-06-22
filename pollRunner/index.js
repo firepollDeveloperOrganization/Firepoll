@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  // ========= SOCKET POLL ========
+  // ========= JOIN A POLL ========
 
   socket.on('join poll', (data) => {
     socket.join(data);
@@ -60,43 +60,41 @@ io.on('connection', (socket) => {
 
 // ========== POLL CHANNEL MANAGEMENT ==========
 
-});
+// });
 
-/*
-Data structure for staging polls
-{
-  "Poll" : {
-    "name": "Nick's Poll",
-    "protected: {
-      status: TRUE || FALSE,
-      password: #HASH
-    },
-    "startTrigger": {
-      "manual": null || "auto": "unicode [date]"
-    },
-    "executionBuckets": [
-      "bucket": {
-        "order": 1,
-        "name": #BUCKET NAME,
-        "questions" : [
-          {
-            "order": [integer],
-            "type": ["multiple-choice", "text-entry", "scale"],
-            "prompt": "[text]"
-            "answers" : ["answer1, answer2"]
-          }, 
-          {
-            "order": [integer],
-            "type": ["multiple-choice", "text-entry", "scale"],
-            "prompt": "[text]",
-            "answers" : ["answer1, answer2"]
-          }
-        ]
-      }
-    ]
-  }
-}
-*/
+// Data structure for staging polls
+// {
+//   "Poll" : {
+//     "name": "Nick's Poll",
+//     "protected: {
+//       status: TRUE || FALSE,
+//       password: #HASH
+//     },
+//     "startTrigger": {
+//       "manual": null || "auto": "unicode [date]"
+//     },
+//     "executionBuckets": [
+//       "bucket": {
+//         "order": 1,
+//         "name": #BUCKET NAME,
+//         "questions" : [
+//           {
+//             "order": [integer],
+//             "type": ["multiple-choice", "text-entry", "scale"],
+//             "prompt": "[text]"
+//             "answers" : ["answer1, answer2"]
+//           }, 
+//           {
+//             "order": [integer],
+//             "type": ["multiple-choice", "text-entry", "scale"],
+//             "prompt": "[text]",
+//             "answers" : ["answer1, answer2"]
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// }
 
 // Deprecated restful endpoints
 
