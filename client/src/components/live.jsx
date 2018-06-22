@@ -6,7 +6,7 @@ class App extends React.Component {
   }
   render() {
       return (
-        <div><h1>CREATE POLLS PAGE COMPONENT</h1></div>
+        <div><h1>LIVE POLLS CONTROL PAGE COMPONENT</h1></div>
       )
   }
 }
