@@ -8,31 +8,19 @@
     "build": "npm install && webpack && npm start",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-<<<<<<< HEAD
     "service-dev": "nodemon service/index.js",
-    "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
-  },"repository": {
-=======
     "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
   },
   "repository": {
->>>>>>> d8c931d1c84e28d0d5f8cfd84e0d34efbd5b87d7
     "type": "git",
     "url": "git+https://github.com/Team-Ravenclaw/LivePoll.git"
   },
   "author": "Team Ravenclaw",
   "license": "Apache-2.0",
-<<<<<<< HEAD
-  "homepage": "https://github.com/Team-Ravenclaw/LivePoll#readme",
-  "bugs": {
-    "url": "https://github.com/Team-Ravenclaw/LivePoll/issues"
-  },
-=======
   "bugs": {
     "url": "https://github.com/Team-Ravenclaw/LivePoll/issues"
   },
   "homepage": "https://github.com/Team-Ravenclaw/LivePoll#readme",
->>>>>>> d8c931d1c84e28d0d5f8cfd84e0d34efbd5b87d7
   "devDependencies": {
     "babel": "6.23.0",
     "babel-cli": "6.26.0",
