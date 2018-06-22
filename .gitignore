@@ -1,11 +1,4 @@
-<<<<<<< HEAD
 package-lock.json
 bundle.js
 .DS_Store
 node_modules
-=======
-node_modules/
-package-lock.json
-bundle.js
-.DS_Store
->>>>>>> d8c931d1c84e28d0d5f8cfd84e0d34efbd5b87d7
