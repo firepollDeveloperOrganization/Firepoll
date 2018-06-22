@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm install",
+    "start": "node server/index.js",
+    "build": "npm install && webpack && npm start",
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
     "test": "babel spec/components > spec/components.spec.js && mocha --reporter spec spec/testSetup.js \"spec/*.spec.js\""
