@@ -1,5 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client'
+import Axios from 'axios';
 
 const socket = io.connect('http://localhost:5000');
 
@@ -8,9 +9,18 @@ class PollTestComponent extends React.Component {
     super(props); 
   }
 
+// Add function to create a poll [HTTP]
+
+  createPoll() {
+    Axios.post('http://localhost:3000/polls', {
+      question: 'This is a question',
+      answers: ['answer1', 'answer2', 'answer3'],
+      type: 'multiple-choice'
+    }
+  )
+}
 
 // Add function to get poll [HTTP]
-// Add function to create a poll [HTTP]
 // Add function to update a poll [HTTP]
 // Add function to delete a poll [HTTP]
 
@@ -25,6 +35,7 @@ class PollTestComponent extends React.Component {
     return (
     <div>
       <div>Hello, I am to be as a test manager for live poll functionality</div>
+      <button onClick = {this.createPoll}>Create Poll</button>
       <button>Stage Poll</button>
       <button>Start Poll</button>
       <button>End Poll</button>
