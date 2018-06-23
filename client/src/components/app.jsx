@@ -1,5 +1,6 @@
 import React from 'react';
-import PollTestComponent from './pollTestComponent.jsx';
+import PollAudienceClientTest from './pollAudienceClientTest';
+import PollManagerClientTest from './pollManagerClientTest';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 class App extends React.Component {
@@ -12,7 +13,8 @@ class App extends React.Component {
         <Switch>
           <div>
             <div>Hello world!</div>
-            <PollTestComponent />
+            <PollAudienceClientTest />
+            <PollManagerClientTest />
           </div>
           {/* <Route exact path="/login"> render={props => <Login {...props} /> } /> */}
           {/* <Route exact path="/register"> render={props => <Register {...props} /> } /> */}
