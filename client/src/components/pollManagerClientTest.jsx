@@ -25,11 +25,11 @@ class PollTestComponent extends React.Component {
     return (
     <div>
       <div>Hello, I am to be as a test manager for live poll functionality</div>
-      <button onClick = {}>Stage Poll</button>
-      <button onClick = {}>Start Poll</button>
-      <button onClick = {}>End Poll</button>
-      <button onClick = {}>Release Question</button>
-      <button onClick = {}>Get Analytics</button>
+      <button>Stage Poll</button>
+      <button>Start Poll</button>
+      <button>End Poll</button>
+      <button>Release Question</button>
+      <button>Get Analytics</button>
     </div>
     );
   }

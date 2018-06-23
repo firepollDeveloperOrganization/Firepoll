@@ -22,10 +22,10 @@ class PollTestComponent extends React.Component {
     return (
     <div>
       <div>Hello, I am to be used as a test audience for live poll functionality</div>
-      <button onClick = {}>Test subscribe</button>
-      <button onClick = {}>Test unsubscribe</button>
-      <button onClick = {}>Test submit answer</button>
-      <button onClick = {}>Test get last question</button>
+      <button>Subscribe to poll</button>
+      <button>Unsubscribe from</button>
+      <button>Submit answer</button>
+      <button>Get last question</button>
     </div>
     );
   }
