@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pollRouter = require('./routers/pollRouter');
 const resultHistRouter = require('./routers/resultsRouter');
-const cors = require('cors')
+const cors = require('cors');
+const firebase = require('firebase');
 require('dotenv').config();
 
 var config = {
