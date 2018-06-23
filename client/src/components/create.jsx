@@ -26,6 +26,7 @@ class Create extends React.Component {
         <div>
           <h1>Create Your New Poll!</h1>
           <div className="nav">
+          <h2>Logged in as {this.props.user}</h2>
             <button>Dashboard</button>
             <button>Log Out</button>
           </div>
