@@ -2,6 +2,7 @@ import React from 'react';
 import PollTestComponent from './pollTestComponent.jsx';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Landing from './landing.jsx';
+import Create from './create.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,8 +13,8 @@ class App extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" render={props => <Landing {...props} /> } />
+          <Route exact path="/create" render={props => <Create {...props} /> } />
           {/* <Route exact path="/login" render={props => <Login {...props} /> } /> */}
-          {/* <Route exact path="/register" render={props => <Register {...props} /> } /> */}
           {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
           {/* <AuthRoute exact path="/auth" component={Auth} /> */}
           <PollTestComponent />

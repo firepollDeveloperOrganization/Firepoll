@@ -1,6 +1,6 @@
 import React from 'react';
 
-class App extends React.Component {
+class Create extends React.Component {
   constructor(props) {
     super(props); 
   }
@@ -10,3 +10,5 @@ class App extends React.Component {
       )
   }
 }
+
+export default Create;
