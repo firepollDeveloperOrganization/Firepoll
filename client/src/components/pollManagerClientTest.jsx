@@ -1,8 +1,5 @@
 import React from 'react';
-import io from 'socket.io-client'
 import Axios from 'axios';
-
-const socket = io.connect('http://localhost:5000');
 
 class PollTestComponent extends React.Component {
   constructor(props) {
