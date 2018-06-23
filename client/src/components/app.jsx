@@ -1,5 +1,6 @@
 import React from 'react';
-import PollTestComponent from './pollTestComponent.jsx';
+import PollAudienceClientTest from './pollAudienceClientTest';
+import PollManagerClientTest from './pollManagerClientTest';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Landing from './landing.jsx';
 import Create from './create.jsx';
@@ -23,7 +24,8 @@ class App extends React.Component {
           {/* <Route exact path="/login" render={props => <Login {...props} /> } /> */}
           {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
           {/* <AuthRoute exact path="/auth" component={Auth} /> */}
-          <PollTestComponent />
+          <PollAudienceClientTest />  {/* enter any nonexistent route to render your test components */}
+          <PollManagerClientTest />
        </Switch>
       </BrowserRouter>
     )
