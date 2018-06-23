@@ -3,3 +3,4 @@ bundle.js
 .DS_Store
 node_modules
 client/dist/main.css
+client/dist/config.js
