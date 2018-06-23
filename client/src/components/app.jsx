@@ -1,13 +1,21 @@
 import React from 'react';
-import PollAudienceClientTest from './pollAudienceClientTest';
-import PollManagerClientTest from './pollManagerClientTest';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Landing from './landing.jsx';
 import Create from './create.jsx';
 import Dashboard from './dashboard.jsx';
 import Analytics from './analytics.jsx';
 import Live from './live.jsx';
 import Login from './login.jsx';
+
+var config = {
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID
+};
+firebase.initializeApp(config);
 
 class App extends React.Component {
   constructor(props) {
