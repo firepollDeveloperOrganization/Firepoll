@@ -1,13 +1,16 @@
 const express = require('express');
+const pollTestData = require('../pollTestData.js');
 
 const pollRouter = express.Router();
 
+// User should be able to create, read, update and delete polls
+
 pollRouter.post('/', (req, res) => {
-  console.log('someone wants to make a poll');
 })
 
 pollRouter.get('/', (req, res) => {
-  console.log('someone wants a specific poll');
+  res.status(200).send(pollTestData);
 })
 
 module.exports = pollRouter;
+

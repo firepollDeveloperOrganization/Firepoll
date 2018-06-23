@@ -10,20 +10,9 @@ var server = app.listen(port, () => {
 
 app.use(bodyParser.json());
 
+// add a small number of HTTP methods to CRUD a single poll to be run
+
 const io = require('socket.io')(server);
-
-// ========= STAGED POLL (in-memory) ========
-
-var stageTheSubmittedPoll = (pollObj) => {
-  pollObj.isLive = false;
-  pollObj.currBucket = 0;
-  pollObj.currQuestion = 0;
-  stagedPolls[pollObj.poll.name] = pollObj;
-}
-
-var stagedPolls = {};
-
-// ========= SOCKET CONNECTION MONITORING =========
 
 io.on('connection', (socket) => {
   console.log('a user connected');
@@ -32,101 +21,22 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  // ========= JOIN A POLL ========
+// Stage a single poll
 
-  socket.on('join poll', (data) => {
-    socket.join(data);
-    console.log('client has joined poll');
-  })
+  // add a listener to start poll - 'Start Poll'
 
-// ========= RUN POLL ========
+  // add a listener to release next question - 'Release Question'
 
-  var runTheSelectedPoll = (poll) => {
-    poll.isLive = true;
-    socket.emit('poll created', {name: poll});
-  }
+  // add a listener for user response - Sub Answer'
 
-// ========== STAGE / START POLLS ==========
+  // add a listener for current stats - 'Get Stats'
 
-  socket.on('stage poll', (pollData) => {
-    stageTheSubmittedPoll(pollData);
-  });
+  // add a listener for end poll - 'End Poll'
 
-  socket.on('start poll', (pollToStart) => {
-    runTheSelectedPoll(stagedPolls[pollToStart.name]);
-    console.log(stagedPolls);
-    console.log('started the poll');
-  });
+  // add an emitter for next question + answers - 'Release Question'
 
-// ========== POLL CHANNEL MANAGEMENT ==========
+  // add an emitter for current stats - 'Send Stats'
 
-// });
+  // add an emitter for end survey - 'Poll End'
 
-// Data structure for staging polls
-// {
-//   "Poll" : {
-//     "name": "Nick's Poll",
-//     "protected: {
-//       status: TRUE || FALSE,
-//       password: #HASH
-//     },
-//     "startTrigger": {
-//       "manual": null || "auto": "unicode [date]"
-//     },
-//     "executionBuckets": [
-//       "bucket": {
-//         "order": 1,
-//         "name": #BUCKET NAME,
-//         "questions" : [
-//           {
-//             "order": [integer],
-//             "type": ["multiple-choice", "text-entry", "scale"],
-//             "prompt": "[text]"
-//             "answers" : ["answer1, answer2"]
-//           }, 
-//           {
-//             "order": [integer],
-//             "type": ["multiple-choice", "text-entry", "scale"],
-//             "prompt": "[text]",
-//             "answers" : ["answer1, answer2"]
-//           }
-//         ]
-//       }
-//     ]
-//   }
-// }
-
-// Deprecated restful endpoints
-
-// ========= STAGING POLLS FOR EXECUTION =========
-
-// app.post('/stage', (req, res) => {
-//   console.log(req.body);
-//   console.log('we are trying to stage a poll to be run');
-//   res.status(200).send();
-// });
-
-// app.get('/stage', () => {
-//   console.log('we are trying to get all of the staged polls');
-//   // Get them based on what?
-// });
-
-// // ========= POLL ANALYTICS DURING RUNTIME (RESTFUL REQUESTS) =========
-
-// app.get('/analytics', () => {
-//   console.log('we want analytics for a poll that is currently being run');
-//   //create a sockets room
-//   //create tracker variables
-// });
-
-// app.get('/stage', () => {
-//   console.log('we are trying to get all of the staged polls');
-//   // Get them based on what?
-// });
-
-// // ========= POLL EXECUTION =========
-
-// app.post('/run', () => {
-//   // emit start event to all connected users
-//   console.log('we are trying to run a particular poll');
-// });
+});
