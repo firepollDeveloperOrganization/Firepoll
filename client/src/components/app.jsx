@@ -14,7 +14,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false,
       user: null
     };
   }
@@ -38,17 +37,16 @@ class App extends React.Component {
 
   }
   render() {
-    let isAuth = this.state.authenticated;
-    let user = this.state.user;
+    let user = this.state.user || 'anonymous';
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/" render={props => <Landing {...props} /> } />
-          <Route exact path="/create" render={(props) => <Create {...props} isAuth={isAuth} user={user}/> } />
+          <Route exact path="/create" render={(props) => <Create {...props} user={user}/> } />
           <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} /> } />
           <Route exact path="/analytics" render={props => <Analytics {...props} /> } />
           <Route exact path="/live" render={props => <Live {...props} /> } />
-          <Route exact path="/login" render={props => <Login {...props} isAuth={isAuth} user={user} /> } />
+          <Route exact path="/login" render={props => <Login {...props} user={user} /> } />
           {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
           {/* <AuthRoute exact path="/auth" component={Auth} /> */}
           {/* <PollAudienceClientTest />  enter any nonexistent route to render your test components */}
