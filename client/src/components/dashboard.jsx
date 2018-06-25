@@ -6,7 +6,7 @@ class Dashboard extends React.Component {
   }
   render() {
       return (
-        <div><h1>DASHBOARD PAGE COMPONENT</h1></div>
+        <div><h1>DASHBOARD: Welcome {this.props.user}!</h1></div>
       )
   }
 }
