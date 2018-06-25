@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Landing extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class Landing extends React.Component {
             <button>Signup</button>
             <button>Login</button>
             <button onClick = {this.props.vote}>Vote</button>
+            <Link to="/login"><button>Signup/Login</button></Link>
           </div>
           <div id="landing-carousel">
             <h2>See our features!</h2>

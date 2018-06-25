@@ -1,5 +1,7 @@
 // Initialize Firebase
-import firebase from 'firebase';
+// import * as firebase from 'firebase';
+// import 'firebase/auth';
+import firebase from 'firebase/app';
 
 // var config = {
 //   apiKey: process.env.apiKey,
