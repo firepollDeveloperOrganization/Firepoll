@@ -20,17 +20,23 @@ const app = express();
 
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 3000;
-
-var server = app.listen(port, () => {
-  console.log('listening on port, ', port)
-});
+// Serve static files to the client
+app.use(express.static(__dirname + '/../client/dist'));
 
 app.options('*', cors());
 
 app.use('/polls', cors(), pollRouter);
 
 app.use('/results', resultHistRouter);
-// Add Read / Update for results
-// Add function to post to pollRunner with new question
-// app.use whatever
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../client/dist/index.html'), (err) => {
+    if (err) res.status(500).send(err);
+  });
+})
+
+var port = process.env.PORT || 8000;
+
+var server = app.listen(port, () => {
+  console.log('listening on port, ', port);
+});
