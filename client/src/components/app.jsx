@@ -16,15 +16,21 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
+      email: null,
     };
 
     this.vote = this.vote.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   vote() {
     console.log('should be changing');
     this.props.history.push('/polldist');
+  }
+
+  logout() {
+    firebase.auth.signOut();
   }
 
   componentDidMount() {
@@ -34,7 +40,7 @@ class App extends React.Component {
                   console.log(user.displayName);
                   console.log(user.email);
                   if (user) {
-                    this.setState({user: user.displayName});
+                    this.setState({ user: user.displayName, email: user.email });
                   } else {
                     // document.getElementById('sign-in-status').textContent = 'Signed out';
                     // document.getElementById('sign-in').textContent = 'Sign in';
@@ -49,11 +55,12 @@ class App extends React.Component {
   
   render() {
     let user = this.state.user || 'anonymous';
+    let email = this.state.email || 'no email';
     return (
       <div>
         <Route exact path="/" render={props => <Landing {...props} vote={this.vote}/> } />
         <Route exact path="/create" render={(props) => <Create {...props} user={user}/> } />
-        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user}/> } />
+        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} email={email} /> } />
         <Route exact path="/analytics" render={props => <Analytics {...props} /> } />
         <Route exact path="/live" render={props => <Live {...props} /> } />
         <Route exact path="/login" render={props => <Login {...props} user={user} /> } />
