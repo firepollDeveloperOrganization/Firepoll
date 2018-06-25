@@ -4,7 +4,7 @@ const pollRouter = require('./routers/pollRouter');
 const resultHistRouter = require('./routers/resultsRouter');
 const stageRouter = require('./routers/stageRouter');
 const cors = require('cors');
-const firebase = require('./firebaseServerConfig/firebaseConfig.js');
+const path = require('path');
 require('dotenv').config();
 
 console.log(process.env.DATABASE_URL);
