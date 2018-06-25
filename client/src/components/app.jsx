@@ -16,7 +16,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false,
       user: null
     };
 
@@ -49,8 +48,7 @@ class App extends React.Component {
   }
   
   render() {
-    let isAuth = this.state.authenticated;
-    let user = this.state.user;
+    let user = this.state.user || 'anonymous';
     return (
       <div>
         <Route exact path="/" render={props => <Landing {...props} vote={this.vote}/> } />
