@@ -4,6 +4,7 @@ const pollRouter = require('./routers/pollRouter');
 const resultHistRouter = require('./routers/resultsRouter');
 const cors = require('cors');
 const firebase = require('firebase');
+const path = require('path');
 require('dotenv').config();
 
 var config = {
