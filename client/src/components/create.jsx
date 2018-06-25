@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 class Create extends React.Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Create extends React.Component {
     console.log('adding answer to question');
   }
   render() {
+    if (this.props.user === 'anonymous') return <Redirect to='/login' />
       return (
         <div>
           <h1>Create Your New Poll!</h1>
