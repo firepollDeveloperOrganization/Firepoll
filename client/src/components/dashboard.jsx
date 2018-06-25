@@ -1,12 +1,13 @@
 import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
 
 class Dashboard extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
   }
   render() {
     let { user, email } = this.props;
-    if (!user) return <Redirect to='/login' />
+    if (!user) return <Link to="/login"><button>Log In!</button></Link>;
       return (
         <div>
           <h1>DASHBOARD: Welcome {user}!</h1>
