@@ -5,6 +5,7 @@ class Live extends React.Component {
     super(props); 
   }
   render() {
+    if (!this.props.user) return <Redirect to='/login' />
       return (
         <div><h1>LIVE POLLS CONTROL PAGE COMPONENT</h1></div>
       )

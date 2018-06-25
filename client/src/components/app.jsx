@@ -30,16 +30,19 @@ class App extends React.Component {
   }
 
   logout() {
-    firebase.auth.signOut();
+    firebase.auth().signOut()
+      .then(() => this.props.history.push('/login'))
+      .then(() => this.setState({user: null, email: null}))
+      .catch(err => console.log('firebase auth error!'));
   }
 
   componentDidMount() {
               const initApp = () => {
                 firebase.auth().onAuthStateChanged(user => {
-                  console.log(user);
-                  console.log(user.displayName);
-                  console.log(user.email);
+                  console.log('current user is', user);
                   if (user) {
+                    console.log(user.displayName);
+                    console.log(user.email);
                     this.setState({ user: user.displayName, email: user.email });
                   } else {
                     // document.getElementById('sign-in-status').textContent = 'Signed out';
@@ -58,13 +61,13 @@ class App extends React.Component {
     let email = this.state.email || 'no email';
     return (
       <div>
-        <Route exact path="/" render={props => <Landing {...props} vote={this.vote}/> } />
-        <Route exact path="/create" render={(props) => <Create {...props} user={user}/> } />
-        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} email={email} /> } />
-        <Route exact path="/analytics" render={props => <Analytics {...props} /> } />
-        <Route exact path="/live" render={props => <Live {...props} /> } />
-        <Route exact path="/login" render={props => <Login {...props} user={user} /> } />
-        <Route exact path="/polldist" render={props => <PollDist {...props}/> } />
+        <Route exact path="/" render={props => <Landing {...props} vote={this.vote} />} />
+        <Route exact path="/create" render={(props) => <Create {...props} user={user} />} />
+        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} email={email} logout={this.logout} />} />
+        <Route exact path="/analytics" render={props => <Analytics {...props} user={user} logout={this.logout} />} />
+        <Route exact path="/live" render={props => <Live {...props} user={user} />} />
+        <Route exact path="/login" render={props => <Login {...props} user={user} />} />
+        <Route exact path="/polldist" render={props => <PollDist {...props} /> } />
         {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
         {/* <AuthRoute exact path="/auth" component={Auth} /> */}
         {/* <PollAudienceClientTest />  enter any nonexistent route to render your test components */}
