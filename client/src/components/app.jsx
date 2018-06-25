@@ -6,16 +6,36 @@ import Dashboard from './dashboard.jsx';
 import Analytics from './analytics.jsx';
 import Live from './live.jsx';
 import Login from './login.jsx';
-// import firebase from '../config.js';
-require('../auth.js');
+import firebase from '../config.js';
+// require('../auth.js');
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       authenticated: false,
-      user: 'Rose'
+      user: null
     };
+  }
+  componentDidMount() {
+              const initApp = () => {
+                firebase.auth().onAuthStateChanged(user => {
+                  console.log(user);
+                  console.log(user.displayName);
+                  console.log(user.email);
+                  if (user) {
+                    this.setState({user: user.displayName});
+                  } else {
+                    // document.getElementById('sign-in-status').textContent = 'Signed out';
+                    // document.getElementById('sign-in').textContent = 'Sign in';
+                    // document.getElementById('account-details').textContent = 'null';
+                  }
+                }, err => console.log(err));
+              };
+              
+              window.addEventListener('load', () => initApp());
+
   }
   render() {
     let isAuth = this.state.authenticated;
