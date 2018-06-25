@@ -35,8 +35,8 @@ class Login extends React.Component {
   //   console.table([{email: this.emailInput.value, password: this.passwordInput.value} ]);
   // }
   render() {
-    if (this.props.isAuth) this.state.redirect = true;
-    if (this.state.redirect) return <Redirect to='/dashboard' />
+    // if (this.props.isAuth) this.state.redirect = true;
+    // if (this.state.redirect) return <Redirect to='/dashboard' />
       return (
         <div id="firebaseui-auth-container">
           {/* <button onClick={() => this.authWithGoogle()}>Log In With Google</button>
