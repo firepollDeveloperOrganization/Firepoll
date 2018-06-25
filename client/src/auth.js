@@ -1,5 +1,4 @@
 /* AUTHENTICATION INTERFACE (HELPERS) FILE */
-
 import firebase from './config.js';
 import * as firebaseui from 'firebaseui';
 

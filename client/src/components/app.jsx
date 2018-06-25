@@ -7,14 +7,10 @@ import Dashboard from './dashboard.jsx';
 import Analytics from './analytics.jsx';
 import Live from './live.jsx';
 import Login from './login.jsx';
-<<<<<<< HEAD
 import PollDist from './pollDist.jsx';
-import fire from '../config.js';
-=======
 import firebase from '../config.js';
 // require('../auth.js');
 
->>>>>>> dev
 
 class App extends React.Component {
   constructor(props) {
@@ -27,17 +23,11 @@ class App extends React.Component {
     this.vote = this.vote.bind(this);
   }
 
-  componentDidMount() {
-    this.props.history.push('/polldist');
-  }
-<<<<<<< HEAD
-
   vote() {
     console.log('should be changing');
     this.props.history.push('/polldist');
   }
 
-=======
   componentDidMount() {
               const initApp = () => {
                 firebase.auth().onAuthStateChanged(user => {
@@ -57,16 +47,15 @@ class App extends React.Component {
               window.addEventListener('load', () => initApp());
 
   }
->>>>>>> dev
+  
   render() {
     let isAuth = this.state.authenticated;
     let user = this.state.user;
     return (
-<<<<<<< HEAD
       <div>
-        <Route exact path="/landing" render={props => <Landing {...props} vote={this.vote}/> } />
+        <Route exact path="/" render={props => <Landing {...props} vote={this.vote}/> } />
         <Route exact path="/create" render={(props) => <Create {...props} isAuth={isAuth} user={user}/> } />
-        <Route exact path="/dashboard" render={props => <Dashboard {...props} /> } />
+        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={this.props.user}/> } />
         <Route exact path="/analytics" render={props => <Analytics {...props} /> } />
         <Route exact path="/live" render={props => <Live {...props} /> } />
         <Route exact path="/login" render={props => <Login {...props} isAuth={isAuth} user={user} /> } />
@@ -76,22 +65,6 @@ class App extends React.Component {
         {/* <PollAudienceClientTest />  enter any nonexistent route to render your test components */}
         {/* <PollManagerClientTest /> */}
       </div>
-=======
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" render={props => <Landing {...props} /> } />
-          <Route exact path="/create" render={(props) => <Create {...props} isAuth={isAuth} user={user}/> } />
-          <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} /> } />
-          <Route exact path="/analytics" render={props => <Analytics {...props} /> } />
-          <Route exact path="/live" render={props => <Live {...props} /> } />
-          <Route exact path="/login" render={props => <Login {...props} isAuth={isAuth} user={user} /> } />
-          {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
-          {/* <AuthRoute exact path="/auth" component={Auth} /> */}
-          {/* <PollAudienceClientTest />  enter any nonexistent route to render your test components */}
-          {/* <PollManagerClientTest /> */}
-       </Switch>
-      </BrowserRouter>
->>>>>>> dev
     )
   }
 }
