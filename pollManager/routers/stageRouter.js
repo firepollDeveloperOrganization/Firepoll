@@ -9,7 +9,7 @@ require('dotenv').config();
 db = firebase.database()
 
 stageRouter.post('/', (req, res) => {
-  db.ref('/polls').set(testData).then(() => {
+  db.ref('/polls').push(testData).then(() => {
     res.status(200).send();
   }).catch((err) => {
     console.log(err);
