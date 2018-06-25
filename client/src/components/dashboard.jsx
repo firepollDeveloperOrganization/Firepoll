@@ -12,6 +12,7 @@ class Dashboard extends React.Component {
         <div>
           <h1>DASHBOARD: Welcome {user}!</h1>
           <h1>You are signing in with {email}</h1>
+          <Link to="/create"><button>Create a poll!</button></Link>
           <button onClick={() => this.props.logout()}>Log Out</button>
         </div>
       )
