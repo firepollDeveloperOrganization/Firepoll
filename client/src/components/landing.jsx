@@ -14,6 +14,7 @@ class Landing extends React.Component {
           <div id="auth-nav" >
             <button>Signup</button>
             <button>Login</button>
+            <button onClick = {this.props.vote}>Vote</button>
           </div>
           <div id="landing-carousel">
             <h2>See our features!</h2>
