@@ -1,7 +1,7 @@
 const express = require('express');
 const pollTestData = require('../pollTestData.js');
 const pollRouter = express.Router();
-const db = require('../db/index.js');
+const db = require('../../db/index.js');
 
 // User should be able to create, read, update and delete polls
 
