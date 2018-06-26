@@ -1,7 +1,8 @@
 const schema = {
   author: String,
   title: String,
-  status: String,
+  staged: Boolean,
+  completed: Boolean,
   executionDate: Date,
   totalAnswers: Number,
   winningAnswer: String,
