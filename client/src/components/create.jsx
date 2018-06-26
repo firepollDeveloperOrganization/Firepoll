@@ -41,7 +41,7 @@ class Create extends React.Component {
             <input type="text" placeholder="Input poll name here"/>
             {/*NEW QUESTION*/}
             <div className="new-question box">
-              Question #{this.state.questions.length + 1}</h1>
+              <h1>Question #{this.state.questions.length + 1}</h1>
               <input type="text" placeholder="Type question here" />
               <input type="text" placeholder="Type answer here to automatically populate next" />
               <button>Add Question</button>
