@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 class Landing extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
   }
   render() {
       return (
@@ -13,8 +13,6 @@ class Landing extends React.Component {
             <p>Cupcake ipsum dolor sit amet. Pudding macaroon caramels. Macaroon gingerbread jujubes jelly-o topping candy. Marshmallow powder pie macaroon oat cake chupa chups tiramisu. Pudding oat cake chocolate bar croissant. Bear claw sesame snaps candy canes icing.</p>
           </div>
           <div id="auth-nav" >
-            <button>Signup</button>
-            <button>Login</button>
             <button onClick = {this.props.vote}>Vote</button>
             <Link to="/login"><button>Signup/Login</button></Link>
           </div>
