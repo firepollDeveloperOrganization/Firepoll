@@ -8,7 +8,7 @@ var testPoll = {
   winningAnswer: "answerId",
   questions: [
     {
-      questionId: "someID",
+      questionId: "234234",
       question: "What is your favorite dog?",
       questionType: "multipleChoice",
       answers: [
@@ -33,8 +33,8 @@ var testPoll = {
       ]
     },
     {
-      questionId: "someID",
-      question: "What is your favorite dog?",
+      questionId: "3243243",
+      question: "What is your favorite cat?",
       questionType: "multipleChoice",
       answers: [
         {
