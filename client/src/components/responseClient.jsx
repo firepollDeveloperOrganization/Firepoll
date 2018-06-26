@@ -14,6 +14,7 @@ class ResponseClient extends React.Component {
 
   componentDidMount() {
 
+    // Get all polls
     firebase.firestore().collection('polls').get().then( (snapshot) => {
       const data = [];
       snapshot.forEach((doc) => {
@@ -31,6 +32,7 @@ class ResponseClient extends React.Component {
       console.log(err);
     });
 
+    //Get question from poll
     firebase.firestore().collection('polls').doc('YROTzLFtNPbhxlAGVbAx').onSnapshot((snapshot) => {
       let snapShotData = snapshot.data();
       let snapShotDataObj = {
