@@ -1,7 +1,8 @@
 var testPoll = {
   author: "username/userID",
   title: "pollname",
-  status: "created/staged/complete",
+  staged: false,
+  completed: false,
   executionDate: "6/25/2018, 3:28:30 PM",
   totalAnswers: 1031,
   winningAnswer: "answerId",
