@@ -7,8 +7,9 @@ import Dashboard from './dashboard.jsx';
 import Analytics from './analytics.jsx';
 import Live from './live.jsx';
 import Login from './login.jsx';
-import PollDist from './pollDist.jsx';
+import PollDist from './responseClient';
 import firebase from '../config.js';
+import ResponseClient from './responseClient';
 // require('../auth.js');
 
 
