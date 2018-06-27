@@ -1,16 +1,4 @@
-// Initialize Firebase
-// import * as firebase from 'firebase';
-// import 'firebase/auth';
 import firebase from 'firebase';
-
-// var config = {
-//   apiKey: process.env.apiKey,
-//   authDomain: process.env.authDomain,
-//   databaseURL: process.env.databaseURL,
-//   projectId: process.env.projectId,
-//   storageBucket: process.env.storageBucket,
-//   messagingSenderId: process.env.messagingSenderId
-// };
 
 var config = {
   apiKey: "AIzaSyCL6Wv_NdqmEG8f7ukbfvkkXpQgiSHhzK8",
