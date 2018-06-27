@@ -13,27 +13,22 @@ class Create extends React.Component {
       currentAnswer: '',
       answers: []
     };
-    this.createPoll = this.createPoll.bind(this);
-    this.addQuestion = this.addQuestion.bind(this);
-    this.addAnswer = this.addAnswer.bind(this);
-    this.deleteAnswer = this.deleteAnswer.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-
   }
-  createPoll() {
+  createPoll = () => {
     console.log('creating Poll: ', this.state.pollname);
     let poll = {
       author: this.props.user,
       title: this.state.pollname,
       staged: false,
       completed: false,
-      executionDate: "6/25/2018, 3:28:30 PM",
-      totalAnswers: 0,
-      winningAnswer: "",
+      num_questions: this.state.questions.length,
+      total_answers: 0,
+      winning_response: null,
+      start_time: null,
       questions: this.state.questions
     }
     
-    axios.post('/polls/', {poll})
+    axios.post('/polls/', poll)
     .then(res => {
       console.log('saved: ', res);
       axios.get('/dashboard');
@@ -44,11 +39,13 @@ class Create extends React.Component {
     //then redirect to dashboard
   }
 
-  addQuestion() {
+  addQuestion = () => {
     console.log('addQuestion runs');
     var newQuestion = {
       question: this.state.currentQuestion,
       answers: this.state.answers,
+      question_type: "multiple-choice",
+      total_voting_time: 10000
     }
     var allQuestions = this.state.questions;
     allQuestions.push(newQuestion);
@@ -61,7 +58,7 @@ class Create extends React.Component {
     })
   }
   
-  addAnswer(e) {
+  addAnswer = (e) => {
     e.preventDefault();
     let newAnswerArray = this.state.answers;
     newAnswerArray.push({
@@ -75,7 +72,7 @@ class Create extends React.Component {
     })
   }
 
-  deleteAnswer(e) {
+  deleteAnswer = (e) => {
     let i = parseInt(e.target.id);
     this.setState(prevState => {
       prevState.answers.splice(i, 1)
@@ -83,7 +80,7 @@ class Create extends React.Component {
     })
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     })
