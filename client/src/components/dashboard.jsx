@@ -15,14 +15,21 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      allPolls: sortByDateDescending(dummypolls),
       polls: sortByDateDescending(dummypolls)
     }
     this.deploy = this.deploy.bind(this);
+    this.filterPolls = this.filterPolls.bind(this);
   }
   deploy(pollId) {
     console.log('deploying poll', pollId);
     // send put request? to update poll to `staged` = true,
     // should trigger a rerender of the polls
+  }
+  filterPolls(staged, completed) {
+    console.log(`filtering for: staged ${staged}, completed ${completed}`);
+    let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.staged === staged);
+    this.setState({polls: filtered}, () => console.log('filtered polls!'));
   }
 
   render() {
@@ -35,6 +42,12 @@ class Dashboard extends React.Component {
             <h1>You are signing in with {email}</h1>
             <Link to="/create"><button>Create a poll!</button></Link>
             <button onClick={() => this.props.logout()}>Log Out</button>
+          </div>
+          <div id="polls-filter">
+            <button onClick={() => this.setState({polls: this.state.allPolls})}>Show All Polls</button>
+            <button onClick={() => this.filterPolls(false, false)}>Show Only Undeployed</button>
+            <button onClick={() => this.filterPolls(true, false)}>Show Only Live</button>
+            <button onClick={() => this.filterPolls(true, true)}>Show Only Completed</button>
           </div>
           <div id="polls-container">
             {this.state.polls.map(poll => <Poll key={poll.title} poll={poll} deploy={this.deploy} />)}
