@@ -21,7 +21,7 @@ module.exports = {
         include: SRC_DIR,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
+        query: {
           presets: ['react', 'env', 'stage-2'],
         },
       },
