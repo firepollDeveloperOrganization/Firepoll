@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 
-
 class Create extends React.Component {
   constructor(props) {
     super(props);
@@ -110,7 +109,6 @@ class Create extends React.Component {
 
           </div>
         </div>
-        
       )
   }
 }
