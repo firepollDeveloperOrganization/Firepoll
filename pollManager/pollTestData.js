@@ -1,13 +1,14 @@
 var testPoll = {
   author: "username/userID",
   title: "pollname",
-  status: "created/staged/complete",
+  staged: false,
+  completed: false,
   executionDate: "6/25/2018, 3:28:30 PM",
   totalAnswers: 1031,
   winningAnswer: "answerId",
   questions: [
     {
-      questionId: "someID",
+      questionId: "234234",
       question: "What is your favorite dog?",
       questionType: "multipleChoice",
       answers: [
@@ -32,8 +33,8 @@ var testPoll = {
       ]
     },
     {
-      questionId: "someID",
-      question: "What is your favorite dog?",
+      questionId: "3243243",
+      question: "What is your favorite cat?",
       questionType: "multipleChoice",
       answers: [
         {

@@ -20,7 +20,7 @@ firestore.settings(settings);
 
 const firepoll = {}
 
-// VOTING FUNCTIONALITY
+// VOTING FUNCTIONALITY (CLIENT ONLY)
 
 firepoll.vote = {}
 
