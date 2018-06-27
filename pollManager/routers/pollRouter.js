@@ -8,7 +8,6 @@ const db = require('../../db/index.js');
 // ADDS A POLL TO DB
 pollRouter.post('/', (req, res) => {
   console.log('saving a poll ...');
-  console.log('req body: ', req.body);
   db.savePoll(req.body, function(err, result) {
     if (err) {
       console.error(err);

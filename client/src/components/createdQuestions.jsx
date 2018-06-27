@@ -33,7 +33,7 @@ class CreatedQuestions extends React.Component {
             </p>
             <ul id="selectedQuestionAnswers">
               {this.props.questions[this.state.selectedQuestion].answers.map((answer, index) => {
-                return (<li className="selectedQuestionAnswer" key={index}>{answer}</li>)
+                return (<li className="selectedQuestionAnswer" key={index}>{answer.choice}</li>)
               })}
             </ul>
           </div>  

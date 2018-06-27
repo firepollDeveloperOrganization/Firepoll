@@ -7,11 +7,8 @@ const schema = {
   totalAnswers: Number,
   winningAnswer: String,
   questions: [{
-    questionId: String,
     question: String,
-    questionType: String,
     answers: [{
-      choiceId: String,
       choice: String,
       responders: [String],
       votes: Number

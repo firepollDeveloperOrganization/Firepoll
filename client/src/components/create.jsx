@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import CreatedQuestions from './createdQuestions.jsx'
+import CreatedQuestions from './createdQuestions.jsx';
+import axios from 'axios';
 
 class Create extends React.Component {
   constructor(props) {
@@ -12,16 +13,34 @@ class Create extends React.Component {
       currentAnswer: '',
       answers: []
     };
-    this.sendPoll = this.sendPoll.bind(this);
+    this.createPoll = this.createPoll.bind(this);
     this.addQuestion = this.addQuestion.bind(this);
     this.addAnswer = this.addAnswer.bind(this);
     this.deleteAnswer = this.deleteAnswer.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
   }
-  sendPoll() {
-    console.log(this.state.pollname);
-    //then reset current poll
+  createPoll() {
+    console.log('creating Poll: ', this.state.pollname);
+    let poll = {
+      author: this.props.user,
+      title: this.state.pollname,
+      staged: false,
+      completed: false,
+      executionDate: "6/25/2018, 3:28:30 PM",
+      totalAnswers: 0,
+      winningAnswer: "",
+      questions: this.state.questions
+    }
+    
+    axios.post('/polls/', {poll})
+    .then(res => {
+      console.log('saved: ', res);
+      axios.get('/dashboard');
+    })
+    .catch(err => {
+      console.error(err);
+    })
     //then redirect to dashboard
   }
 
@@ -29,7 +48,7 @@ class Create extends React.Component {
     console.log('addQuestion runs');
     var newQuestion = {
       question: this.state.currentQuestion,
-      answers: this.state.answers
+      answers: this.state.answers,
     }
     var allQuestions = this.state.questions;
     allQuestions.push(newQuestion);
@@ -45,7 +64,11 @@ class Create extends React.Component {
   addAnswer(e) {
     e.preventDefault();
     let newAnswerArray = this.state.answers;
-    newAnswerArray.push(this.state.currentAnswer);
+    newAnswerArray.push({
+      choice: this.state.currentAnswer,
+      responders: [],
+      votes: 0
+    });
     this.setState({
       answers: newAnswerArray,
       currentAnswer: ''
@@ -97,7 +120,7 @@ class Create extends React.Component {
             {/*CURRENT ANSWERS*/}
             {this.state.answers.length > 0 &&
               this.state.answers.map((answer, i) => {
-                return (<li className="answer"><span>{answer}</span><button id={i.toString()} onClick={this.deleteAnswer}>delete</button></li>)
+                return (<li className="answer"><span>{answer.choice}</span><button id={i.toString()} onClick={this.deleteAnswer}>delete</button></li>)
               })
             }
             <form onSubmit={this.addAnswer} className="field">
@@ -111,6 +134,9 @@ class Create extends React.Component {
           </div>
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
           <CreatedQuestions questions={this.state.questions}/>
+          <div id="createPollButtonWrapper">
+            <button onClick={this.createPoll}>Create Poll</button>
+          </div>
         </div>
       )
   }
