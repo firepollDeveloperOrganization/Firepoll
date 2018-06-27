@@ -19,10 +19,12 @@ class Dashboard extends React.Component {
     }
     this.deploy = this.deploy.bind(this);
   }
-  deploy(poll) {
-    console.log('deploying poll', poll.id);
+  deploy(pollId) {
+    console.log('deploying poll', pollId);
+    // send put request? to update poll to `staged` = true,
+    // should trigger a rerender of the polls
   }
-  
+
   render() {
     let { user, email } = this.props;
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
