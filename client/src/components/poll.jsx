@@ -6,8 +6,8 @@ const Poll = (props) => {
   let deployButton = (<button onClick={() => props.deploy(poll.pollId)}>DEPLOY</button>);
   let liveButton = (<Link to="/live"><button>VIEW LIVE</button></Link>);
   let analyticsButton = (<Link to="/analytics"><button>VIEW ANALYTICS</button></Link>);
-  let status = !poll.staged ? 'DEPLOY' : poll.complete ? 'VIEW ANALYTICS' : 'VIEW LIVE';
-  let statusButton = !poll.staged ? deployButton : poll.complete ? analyticsButton : liveButton;
+  let status = !poll.staged ? 'DEPLOY' : poll.completed ? 'VIEW ANALYTICS' : 'VIEW LIVE';
+  let statusButton = !poll.staged ? deployButton : poll.completed ? analyticsButton : liveButton;
   return (
     <div>
       <div>
