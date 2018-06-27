@@ -65,7 +65,7 @@ class App extends React.Component {
         <Route exact path="/create" render={(props) => <Create {...props} user={user} logout={this.logout}/>} />
         <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} email={email} logout={this.logout} history={this.props.history} />} />
         <Route exact path="/analytics" render={props => <Analytics {...props} user={user} logout={this.logout} />} />
-        <Route exact path="/live" render={props => <Live {...props} user={user} />} />
+        <Route exact path="/live/:pollId" render={props => <Live {...props} user={user} email={email}/>} />
         <Route exact path="/login" render={props => <Login {...props} />} />
         <Route exact path="/polldist" render={props => <PollDist {...props} /> } />
         {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
