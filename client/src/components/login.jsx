@@ -6,9 +6,9 @@ import { ui, uiConfig } from '../auth.js';
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      redirect: false
-    };
+    // this.state = {
+    //   redirect: false
+    // };
     // this.authWithGoogle = this.authWithGoogle.bind(this);
     // this.authWithEmail = this.authWithEmail.bind(this);
     // auth.onAuthStateChanged(user => {
@@ -36,7 +36,7 @@ class Login extends React.Component {
   // }
   render() {
     // if (this.props.isAuth) this.state.redirect = true;
-    // if (this.state.redirect) return <Redirect to='/dashboard' />
+    // if (this.props.user) return <Redirect to='/dashboard' />
       return (
         <div id="firebaseui-auth-container">
           {/* <button onClick={() => this.authWithGoogle()}>Log In With Google</button>

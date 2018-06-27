@@ -17,7 +17,14 @@ class Dashboard extends React.Component {
     this.state = {
       polls: sortByDateDescending(dummypolls)
     }
+    this.deploy = this.deploy.bind(this);
   }
+  deploy(pollId) {
+    console.log('deploying poll', pollId);
+    // send put request? to update poll to `staged` = true,
+    // should trigger a rerender of the polls
+  }
+
   render() {
     let { user, email } = this.props;
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
@@ -30,7 +37,7 @@ class Dashboard extends React.Component {
             <button onClick={() => this.props.logout()}>Log Out</button>
           </div>
           <div id="polls-container">
-            {this.state.polls.map(poll => <Poll key={poll.title} poll={poll} />)}
+            {this.state.polls.map(poll => <Poll key={poll.title} poll={poll} deploy={this.deploy} />)}
           </div>
         </div>
       )
