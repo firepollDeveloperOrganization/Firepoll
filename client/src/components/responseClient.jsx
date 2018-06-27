@@ -1,120 +1,118 @@
 import React from 'react';
-import firebase from '../config.js'
+import firePollManagementClient from '../firepollManagementClient'
+import firePollResponseClient from '../firepollResponseClient'
 
 class ResponseClient extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      polls: [],
-      questions: [],
-      responses: [],
+      poll: false,
+      questions: false,
+      responses: false,
       currChoice: null
     };
   };
 
   componentDidMount() {
 
-    // Get all polls
-    firebase.firestore().collection('polls').get().then( (snapshot) => {
-      const data = [];
-      snapshot.forEach((doc) => {
-        data.push({
-          id: doc.id,
-          data: doc.data()
-        });
-      });
-        return data;
-      }).then((data) => {
+      // GET POLL & SETUP LISTENER
+      firePollManagementClient.get.poll('YROTzLFtNPbhxlAGVbAx').then((data) => {
         this.setState({
-          polls: data
+          poll: data
+        }, () => {
+          firePollManagementClient.listen.poll(this.state.poll, (data) => {
+            console.log('listening to stuff');
+            this.setState({
+              poll: data
+            }, () => {
+              firePollManagementClient.get.allQuestionsFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
+                this.setState({
+                  questions: data
+                })
+              }).then(() => {
+                firePollManagementClient.get.allResponsesFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
+                  this.setState({
+                    responses: data
+                  })
+                });
+              })
+            });
+          });
         });
-      }).catch((err) => {
-      console.log(err);
-    });
+      })
 
-    //Get question from poll
-    firebase.firestore().collection('polls').doc('YROTzLFtNPbhxlAGVbAx').onSnapshot((snapshot) => {
-      let snapShotData = snapshot.data();
-      let snapShotDataObj = {
-        id: snapshot.id,
-        data: snapShotData
-      };
-      this.setState({
-        polls: [snapShotDataObj]
+      // GET ALL QUESTIONS & SETUP LISTENER
+      firePollManagementClient.get.allQuestionsFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
+        this.setState({
+          questions: data
+        }, () => {
+          firePollManagementClient.listen.question(this.state.questions, (data) => {
+            firePollManagementClient.get.allQuestionsFromPoll(data.poll_id).then((data) => {
+              this.setState({
+                questions: data
+              });
+            });
+          });
+        });
       });
-    })
 
-    firebase.firestore().collection('questions').doc('kBmo5FP8cmxnZXvW2kSX').get().then((snapshot) => {
-      var snapShotData = snapshot.data();
-      this.setState({
-        questions: [snapShotData]
+      // GET ALL RESPONSES & SETUP LISTENER
+      firePollManagementClient.get.allResponsesFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
+        this.setState({
+          responses: data
+        }, () => {
+          firePollManagementClient.listen.response(this.state.responses, (data) => {
+            firePollManagementClient.get.allResponsesFromPoll(data.poll_id).then((data) => {
+              this.setState({
+                responses: data
+              });
+            });
+          });
+        });
       });
-    });
 
-    firebase.firestore().collection('responses').doc('uw87eMrJUZebGtlnc9XB').get().then((snapshot) => {
-      var snapShotData = snapshot.data();
-      this.setState({
-        responses: [snapShotData]
-      });
-    });
+  };
 
-  }
-
-  handleUserChoice(option) {
+  handleUserChoice(response) {
     this.setState({
-      currChoice: option
-    })
+      currChoice: response.target.value
+    });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.currChoice !== null) {
-      console.log(this.state.currChoice);
-    }
 
     let userAnswer = {
       answer: this.state.currChoice,
       userID: 'TEST USER ID'
     }
 
-    firebase.database().ref('/votes').push(userAnswer).then(() => {
-      console.log('You have voted');
-    }).catch((err) => {
-      console.log(err);
-    });
-
+    firePollResponseClient.vote.submit(userAnswer).then(() => {
+      console.log('Thanks for voting');
+    })
   }
 
   render() {
     return (
     <div> 
-      <h1>TEST POLL</h1> 
+        <h1>{this.state.poll ? this.state.poll.poll_title : ''}</h1>
       {
-        this.state.polls.map((poll) => {
-          return (
-            <div key = {poll.id}>
-              <h2>{poll.data.poll_title}</h2>
-            </div>
-          );
-        })
-      }
-      {
-        this.state.questions.map((question) => {
+        this.state.questions ? this.state.questions.map(question => {
           return (<div>
-            <div>{question.question_title}</div>
+            {question.question_title}
           </div>);
-        })
+        }) : <div></div>
       }
       {
         <form>
-          <select>
-            {this.state.responses.map((response) => {
+          <select onChange = {(val) => {this.handleUserChoice(val)}}>
+            {this.state.responses ? (this.state.responses.map((response) => {
               return (
-                <option onSelect = {() => {this.handleUserChoice(response.value)}}>{response.value}</option>
+                <option value = {response.value}>{response.value}</option>
               );
-            })}
+            })) : ''}
           </select>
-          <button onClick = {this.handleSubmit}>Select Answer</button>
+          <button onClick = {(e) => {this.handleSubmit(e)}}>Select Answer</button>
         </form>
       }
     </div>
