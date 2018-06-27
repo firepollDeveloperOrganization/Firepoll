@@ -7,14 +7,17 @@ class Landing extends React.Component {
   }
   render() {
       return (
-        <div>
-          <div id="landing-banner">
-            <h1>Welcome to Live Poll!</h1>
-            <p>Cupcake ipsum dolor sit amet. Pudding macaroon caramels. Macaroon gingerbread jujubes jelly-o topping candy. Marshmallow powder pie macaroon oat cake chupa chups tiramisu. Pudding oat cake chocolate bar croissant. Bear claw sesame snaps candy canes icing.</p>
-          </div>
-          <div id="auth-nav" >
-            <button onClick = {this.props.vote}>Vote</button>
-            <Link to="/login"><button>Signup/Login</button></Link>
+        <div id="landing-container">
+          <div id="landing-nav">
+            <div id="landing-banner">
+              <h1>Welcome to Fire Poll</h1>
+              <h2>Ignite engagement with your audience today</h2>
+              <h3>Send real-time polls with a single link and view live responses!</h3>
+            </div>
+            <div id="auth-nav" >
+              <div><button onClick = {this.props.vote}>Vote</button></div>
+              <div><Link to="/login"><button>Signup/Login</button></Link></div>
+            </div>
           </div>
           <div id="landing-carousel">
             <h2>See our features!</h2>

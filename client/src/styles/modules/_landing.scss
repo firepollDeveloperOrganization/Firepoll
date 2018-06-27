@@ -1,3 +1,22 @@
-body {
-    background-color: $color1;
+#landing-container {
+  background: url("./tic-tac-toe.png") $redder;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+#landing-nav {
+  display: flex;
+  flex-direction: row;
+  #landing-banner {
+    flex: 10;
+  }
+  #auth-nav {
+    padding-left: 1em;
+    flex: 2;
+    display: flex;
+    justify-content: space-around;
+    // align-items: right;
+    float: right;
+  }
 }
