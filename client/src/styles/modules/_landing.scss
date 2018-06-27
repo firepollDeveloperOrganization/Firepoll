@@ -10,12 +10,17 @@
   flex-direction: row;
   #landing-banner {
     flex: 10;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
   #auth-nav {
-    padding-left: 1em;
+    // padding-left: 1em;
+    // padding-left: 3em;
     flex: 2;
     display: flex;
     justify-content: space-around;
+    align-content: center;
     // align-items: right;
     float: right;
   }

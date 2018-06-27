@@ -5,6 +5,15 @@
 //     overflow: auto;
 //   }
 
+
+
 * div {
-    border: 1px solid red;
+  border: 1px solid red;
+}
+
+body {
+  font-family: 'Courgette', cursive;
+  h2, h3, p {
+    font-family: 'Exo', sans-serif;
+  }
 }
