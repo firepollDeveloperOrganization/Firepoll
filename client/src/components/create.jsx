@@ -8,8 +8,15 @@ class Create extends React.Component {
       pollname: '',
       questions: [],
       currentQuestion: '',
+      currentAnswer: '',
       answers: []
     };
+    this.sendPoll = this.sendPoll.bind(this);
+    this.addQuestion = this.addQuestion.bind(this);
+    this.addAnswer = this.addAnswer.bind(this);
+    this.deleteAnswer = this.deleteAnswer.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
   }
   sendPoll() {
     console.log(this.state.pollname);
@@ -17,11 +24,43 @@ class Create extends React.Component {
     //then redirect to dashboard
   }
   addQuestion() {
-    console.log('adding question to poll', this.state.pollname);
+    var newQuestion = {
+      question: this.state.currentQuestion,
+      answers: this.state.answers
+    }
+    var allQuestions = this.state.questions;
+    allQuestions.push(newQuestion);
+    this.setState({
+      questions: allQuestions,
+      answers: [],
+      currentQuestion: '',
+      currentAnswer: ''
+    })
   }
-  addAnswer() {
-    console.log('adding answer to question');
+  addAnswer(e) {
+    e.preventDefault();
+    let newAnswerArray = this.state.answers;
+    newAnswerArray.push(this.state.currentAnswer);
+    this.setState({
+      answers: newAnswerArray,
+      currentAnswer: ''
+    })
   }
+
+  deleteAnswer(e) {
+    let i = parseInt(e.target.id);
+    this.setState(prevState => {
+      prevState.answers.splice(i, 1)
+      return {answers: prevState.answers}
+    })
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.id]: e.target.value
+    })
+  }
+
   render() {
     if (this.props.user === 'anonymous') return <Redirect to='/login' />
       return (
@@ -37,21 +76,39 @@ class Create extends React.Component {
           <h2>Logged in as {this.props.user}</h2>
           </div>
           <div id="create-poll">
-            <label class="label">Poll Title:</label>
-            <input type="text" placeholder="Input poll name here"/>
-            {/*NEW QUESTION*/}
-            <div className="new-question box">
-              <h1>Question #{this.state.questions.length + 1}</h1>
-              <input type="text" placeholder="Type question here" />
-              <input type="text" placeholder="Type answer here to automatically populate next" />
-              <button>Add Question</button>
+            <label className="label">Poll Title:</label>
+            <div className="control">
+              <input className="input" type="text" id="pollName" value={this.state.pollName} onChange={this.handleChange} placeholder="Name your poll"/>
             </div>
           </div>
+            {/*NEW QUESTION*/}
+            <div className="new-question box">
+              <div>Question #{this.state.questions.length + 1}</div>
+              <div className="field">
+                <div className="control">
+                  <input className="input" type="text" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here" />
+                </div>
+              </div>
+              {/*CURRENT ANSWERS*/}
+              {this.state.answers.length > 0 &&
+                this.state.answers.map((answer, i) => {
+                  return (<li className="answer"><span>{answer}</span><button id={i.toString()} onClick={this.deleteAnswer}>delete</button></li>)
+                })
+              }
+              <form onSubmit={this.addAnswer} className="field">
+                <div className="control">
+                  <input className="input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here to automatically add answer" />
+                </div>
+              </form>
+              <div className="addQuestionWrapper">
+                <button onClick={this.addQuestion}>Add Question</button>
+              </div>
+            </div>
+            {/*SIDE ELEMENT CREATED QUESTIONS*/}
           <div id="created-questions-display">
 
           </div>
         </div>
-        
       )
   }
 }

@@ -4,7 +4,7 @@ const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
-  entry: `${SRC_DIR}/index.jsx`,
+  entry: ["babel-polyfill", `${SRC_DIR}/index.jsx`],
   mode: 'production',
   output: {
     filename: 'bundle.js',
@@ -21,8 +21,8 @@ module.exports = {
         include: SRC_DIR,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
-          presets: ['react', 'env'],
+        options: {
+          presets: ['react', 'env', 'stage-2'],
         },
       },
       {
