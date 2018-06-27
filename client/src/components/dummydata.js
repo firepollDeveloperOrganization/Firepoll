@@ -7,7 +7,7 @@ var dummypolls = [{
   executionDate: "Tue Jun 26 2018 18:56:19 GMT-0400 (Eastern Daylight Time)",
   timeMS: '1530054086896',
   totalAnswers: 1031,
-  winningAnswer: "answerId",
+  winningAnswer: "choiceId",
   questions: [
     {
       questionId: "234234",
@@ -15,19 +15,19 @@ var dummypolls = [{
       questionType: "multipleChoice",
       answers: [
         {
-          choiceId: "hexadecimalsomething",
+          choiceId: "234324324",
           choice: "Labrador",
           responders: ["someClient", "anotherClient", "andSoOn"],
           votes: 3
         },
         {
-          choiceId: "hexadecimalsomething",
+          choiceId: "4324",
           choice: "Pitbull",
           responders: [],
           votes: 0
         },
         {
-          choiceId: "hexadecimalsomething",
+          choiceId: "34234",
           choice: "Corgi",
           responders: ["someClient", "anotherClient"],
           votes: 2
@@ -40,19 +40,19 @@ var dummypolls = [{
       questionType: "multipleChoice",
       answers: [
         {
-          answerId: "hexadecimalsomething",
+          choiceId: "234324",
           choice: "Labrador",
           responders: ["someClient", "anotherClient", "andSoOn"],
           votes: 3
         },
         {
-          answerId: "hexadecimalsomething",
+          choiceId: "2343233324",
           choice: "Pitbull",
           responders: [],
           votes: 0
         },
         {
-          answerId: "hexadecimalsomething",
+          choiceId: "44444",
           choice: "Corgi",
           responders: ["someClient", "anotherClient"],
           votes: 2
@@ -70,7 +70,7 @@ var dummypolls = [{
   executionDate: "6/25/2018, 3:28:30 PM",
   timeMS: '1530054150024',
   totalAnswers: 1031,
-  winningAnswer: "answerId",
+  winningAnswer: "choiceId",
   questions: [
     {
       questionId: "234234",
@@ -78,20 +78,20 @@ var dummypolls = [{
       questionType: "multipleChoice",
       answers: [
         {
-          choiceId: "hexadecimalsomething",
-          choice: "Labrador",
+          choiceId: "4444",
+          choice: "YAAAAAAAS",
           responders: ["someClient", "anotherClient", "andSoOn"],
           votes: 3
         },
         {
-          choiceId: "hexadecimalsomething",
-          choice: "Pitbull",
+          choiceId: "hexadecima222lsomething",
+          choice: "NO",
           responders: [],
           votes: 0
         },
         {
-          choiceId: "hexadecimalsomething",
-          choice: "Corgi",
+          choiceId: "hexadecimals5235325omething",
+          choice: "Is it a pot cookie?",
           responders: ["someClient", "anotherClient"],
           votes: 2
         },      
@@ -99,26 +99,32 @@ var dummypolls = [{
     },
     {
       questionId: "3243243",
-      question: "What about cupcakes?",
+      question: "What's your favorite dog?",
       questionType: "multipleChoice",
       answers: [
         {
-          answerId: "hexadecimalsomething",
+          choiceId: "235235",
           choice: "Labrador",
           responders: ["someClient", "anotherClient", "andSoOn"],
           votes: 3
         },
         {
-          answerId: "hexadecimalsomething",
+          choiceId: "hexadecim6alsome46465thing",
           choice: "Pitbull",
           responders: [],
-          votes: 0
+          votes: 2
         },
         {
-          answerId: "hexadecimalsomething",
-          choice: "Corgi",
+          choiceId: "3222",
+          choice: "SHIBE, MUCH FLOOF, SUCH CUDDLE",
+          responders: [],
+          votes: 20
+        },
+        {
+          choiceId: "hexadecimals234324324omething",
+          choice: "Lina told me to pick corgi",
           responders: ["someClient", "anotherClient"],
-          votes: 2
+          votes: 232
         }      
       ]
     }
@@ -133,7 +139,7 @@ var dummypolls = [{
   executionDate: "6/25/2018, 3:28:30 PM",
   timeMS: '1530054172961',
   totalAnswers: 1031,
-  winningAnswer: "answerId",
+  winningAnswer: "choiceId",
   questions: [
     {
       questionId: "234234",
@@ -141,19 +147,19 @@ var dummypolls = [{
       questionType: "multipleChoice",
       answers: [
         {
-          choiceId: "hexadecimalsomething",
+          choiceId: "hexadecimals435235omething",
           choice: "Labrador",
           responders: ["someClient", "anotherClient", "andSoOn"],
           votes: 3
         },
         {
-          choiceId: "hexadecimalsomething",
+          choiceId: "23423466",
           choice: "Pitbull",
           responders: [],
           votes: 0
         },
         {
-          choiceId: "hexadecimalsomething",
+          choiceId: "2222245",
           choice: "Corgi",
           responders: ["someClient", "anotherClient"],
           votes: 2
@@ -166,19 +172,19 @@ var dummypolls = [{
       questionType: "multipleChoice",
       answers: [
         {
-          answerId: "hexadecimalsomething",
+          choiceId: "7456747",
           choice: "Labrador",
           responders: ["someClient", "anotherClient", "andSoOn"],
           votes: 3
         },
         {
-          answerId: "hexadecimalsomething",
+          choiceId: "745674766",
           choice: "Pitbull",
           responders: [],
           votes: 0
         },
         {
-          answerId: "hexadecimalsomething",
+          choiceId: "74567472",
           choice: "Corgi",
           responders: ["someClient", "anotherClient"],
           votes: 2
