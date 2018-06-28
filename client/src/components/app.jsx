@@ -12,7 +12,6 @@ import firebase from '../config.js';
 import ResponseClient from './responseClient';
 // require('../auth.js');
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +20,6 @@ class App extends React.Component {
       email: null,
       userId: null
     };
-
     this.vote = this.vote.bind(this);
     this.logout = this.logout.bind(this);
   }
@@ -54,7 +52,6 @@ class App extends React.Component {
       }, err => console.log(err));
     };
     window.addEventListener('load', () => initApp());
-
   }
   
   render() {

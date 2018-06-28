@@ -96,20 +96,22 @@ class ResponseClient extends React.Component {
 
   render() {
     return (
-    <div> 
-        <h1>{this.state.poll ? this.state.poll.title : ''}</h1>
+    <div id="poll-dist">
+    <div>
+        <h1 className="title is-1">{this.state.poll ? this.state.poll.title : ''}</h1>
+        <hr id="poll-hr"/>
       { 
-        this.state.questions ? this.state.questions.map(question => {
+        this.state.questions ? this.state.questions.map((question) => {
           return (
-            <form>
-              <select onChange = {(val) => {this.handleUserChoice(val)}}>
-                {question.answers.map((answer) => {
+            <form className="field control" key={question.id}>
+              <select className="select is-danger is-rounded is-large" onChange = {(val) => {this.handleUserChoice(val)}}>
+                {question.answers.map((answer, i) => {
                   return (
-                    <option value = {JSON.stringify(answer)}>{answer.value}</option>
+                    <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
                   );
                 })}
               </select>
-              <button onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
+              <button className="button is-danger is-rounded is-large" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
             </form>
             );
         })
@@ -126,6 +128,7 @@ class ResponseClient extends React.Component {
           </div> 
         </div> : <div></div>
       }
+    </div>
     </div>
     );
   }
