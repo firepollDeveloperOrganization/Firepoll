@@ -20,33 +20,23 @@ if (!admin.apps.length) {
   admin.initializeApp(config);
 }
 
-const db = admin.firestore();
-
-
-
-exports.aggregateVotes = functions.firestore
-  .document('polls/{pollId}/{questionCollectionId}/{questionId}/votes/{voteId}')
-  .onCreate((snap, context) => {
-      const voteData = snap.data();
-      var aggregateRef = db.collection(`polls/${context.params.pollId}/${context.params.questionCollectionId}/${context.params.questionId}/aggregates`).doc(`${voteData.answer_id}`);
-
-      aggregateRef.get().then((snapShot) => {
-
-        console.log(snapShot.exists);
-
-        // We need to find a more clever trigger for these functions to run
-        // Run once every second
-        // Only start running on poll creation
-        // Aggregators should already be there with counts set to 0
-        // clound function dispatches other counter cloud functions
-
-        aggregateRef.set(voteData).then(()=> {
-          console.log('new aggregate created');
-        }).catch((err) => {
-          console.log(err);
-          process.exit();
-        });
-  
-      });
+exports.aggregateVotes = functions.database
+  .ref(`/polls/{poll_id}/questions/{question_id}/votes`)
+  .onWrite((change, context) => {
+      const dataToExtract = change.after.val();
+      const dataForAggregation = Object.keys(dataToExtract).map(key => dataToExtract[key])[0];
+      dataForAggregation.timeStamp = Date.now();
+      // realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')})
+      return admin.database().ref(`/polls/${context.params.poll_id}/questions/${context.params.question_id}/aggregates`).child(`${dataForAggregation.answer_id}`).transaction((aggregate) => {
+        if (!aggregate) {
+          dataForAggregation.vote_count = 1;
+          return dataForAggregation;
+        } else {
+          aggregate.vote_count = parseInt(aggregate.vote_count) + 1;
+          return aggregate;
+        }
+      })
 
   });
+
+  // Bucket data as it comes in -- limit total computation needed
