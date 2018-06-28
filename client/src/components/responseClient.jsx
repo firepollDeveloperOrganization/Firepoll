@@ -9,7 +9,7 @@ class ResponseClient extends React.Component {
       poll: false,
       questions: false,
       answers: false,
-      currChoice: null,
+      currChoice: 1,
       alreadyVoted: false
     };
   };
