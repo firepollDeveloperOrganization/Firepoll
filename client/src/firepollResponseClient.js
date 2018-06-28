@@ -16,6 +16,7 @@ if (!firebase.apps.length) {
 /* Firebase Interface */
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 const firestore = firebase.firestore();
+const realTimeDB = firebase.database();
 firestore.settings(settings);
 
 const firepoll = {}
@@ -26,7 +27,8 @@ firepoll.vote = {}
 
   //allow the user to vote
   firepoll.vote.submit = (vote, cb) => {
-    return firestore.collection(`polls/${vote.poll_id}/questions/${vote.question_id}/votes`).doc(vote.user_id).set(vote);
+    console.log(vote);
+    return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')});
   }
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
@@ -110,5 +112,11 @@ firepoll.get = {}
         return docData;
       });
   }
+
+  // GET LIVE RESULTS
+  firepoll.get.result = (poll_id, question_id, answer_id, cb) => {
+    realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates/${answer_id}`).set(vote).then(() => {console.log('vote complete')});
+  }
+
 
   export default firepoll;

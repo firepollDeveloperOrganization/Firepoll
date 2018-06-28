@@ -60,10 +60,15 @@ class ResponseClient extends React.Component {
   handleSubmit(e, question_id) {
     e.preventDefault();
 
+    const answer = JSON.parse(this.state.currChoice);
+
+    console.log(JSON.stringify(answer));
+
     let userAnswer = {
       poll_id: this.state.poll.id,
-      answer_id: this.state.currChoice,
-      user_id: 'TEST USER ID',
+      answer_id: answer.position,
+      answer_value: answer.value,
+      user_id: 'ANOTHER DIFFERENT TEST USER ID',
       question_id: question_id,
     }
 
@@ -89,7 +94,7 @@ class ResponseClient extends React.Component {
               <select onChange = {(val) => {this.handleUserChoice(val)}}>
                 {question.answers.map((answer) => {
                   return (
-                    <option value = {answer.position}>{answer.value}</option>
+                    <option value = {JSON.stringify(answer)}>{answer.value}</option>
                   );
                 })}
               </select>
