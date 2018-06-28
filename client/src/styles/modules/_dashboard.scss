@@ -1,16 +1,24 @@
 #dashboard {
-    background-color: $red;
-    display: flex;
-    flex-direction: column;
+  background: url("./tic-tac-toe.png") $redder;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav {
-    display: block;
-    padding-bottom: 2em;
+  display: block;
+  padding-bottom: 2em;
+  background-color: rgba($red, .7);
+}
+
+#polls-filter {
+  background-color: rgba($red, .7);
 }
 
 #polls-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: rgba($red, .7);
 }

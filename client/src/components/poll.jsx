@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const Poll = (props) => {
   let {poll} = props;
-  let deployButton = (<button onClick={() => props.deploy(poll.pollId)}>DEPLOY</button>);
-  let liveButton = (<Link to={`/live/${poll.pollId}`}><button>VIEW LIVE</button></Link>);
-  let analyticsButton = (<Link to="/analytics"><button>VIEW ANALYTICS</button></Link>);
+  let deployButton = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => props.deploy(poll.pollId)}>DEPLOY</button>);
+  let liveButton = (<Link to={`/live/${poll.pollId}`}><button className="button is-danger is-rounded is-small is-inverted is-outlined">VIEW LIVE</button></Link>);
+  let analyticsButton = (<Link to="/analytics"><button className="button is-danger is-rounded is-small is-inverted is-outlined">VIEW ANALYTICS</button></Link>);
   let status = !poll.staged ? 'DEPLOY' : poll.completed ? 'VIEW ANALYTICS' : 'VIEW LIVE';
   let statusButton = !poll.staged ? deployButton : poll.completed ? analyticsButton : liveButton;
   return (
