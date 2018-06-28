@@ -88,13 +88,13 @@ class ResponseClient extends React.Component {
     <div> 
         <h1>{this.state.poll ? this.state.poll.title : ''}</h1>
       { 
-        this.state.questions ? this.state.questions.map(question => {
+        this.state.questions ? this.state.questions.map((question) => {
           return (
-            <form>
+            <form key={question.id}>
               <select onChange = {(val) => {this.handleUserChoice(val)}}>
-                {question.answers.map((answer) => {
+                {question.answers.map((answer, i) => {
                   return (
-                    <option value = {JSON.stringify(answer)}>{answer.value}</option>
+                    <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
                   );
                 })}
               </select>
