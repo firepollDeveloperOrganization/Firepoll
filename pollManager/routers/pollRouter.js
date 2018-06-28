@@ -5,7 +5,7 @@ const db = require('../../db/index.js');
 
 // User should be able to create, read, update and delete polls
 
-// ADDS A POLL TO DB
+// ADDS OR UPDATES A POLL TO DB
 pollRouter.post('/', (req, res) => {
   console.log('saving a poll ...');
   db.savePoll(req.body, function(err, result) {
@@ -18,6 +18,7 @@ pollRouter.post('/', (req, res) => {
     }
   })
 })
+
 
 // RESPONDS WITH ALL POLLS IN THE DB
 pollRouter.get('/', (req, res) => {
@@ -46,7 +47,8 @@ pollRouter.get('/:id', (req, res) => {
 })
 
 // RESPONDS WITH ALL POLLS OF BY A SPECIFIC USER
-pollRouter.get('user/:id', (req, res) => {
+pollRouter.get('/user/:id', (req, res) => {
+  console.log('all polls by user requested: userID: ', req.params.id);
   db.retrieveAllPollsOfUser(req.params.id, function(err, result) {
     if (err) {
       console.error(err);
