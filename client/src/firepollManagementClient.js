@@ -21,16 +21,27 @@ firestore.settings(settings);
 const firepoll = {}
 
 // STAGE POLL
-firepoll.stage = {}
   // allow the user to stage a poll
-
-  firepoll.stage.poll = (polls, cb) => {
-    
-    if (!Array.isArray(questions)) {
-      poll = [polls]
-    }
-
+  firepoll.stage = (pollId, cb) => {
+    firestore.collection('stagedPolls').doc(pollId).set({
+      active: true
+    })
+    .then(() => {
+      console.log("Poll successfully staged");
+      cb();
+    })
+    .catch(err => {
+      console.error("Staging poll to firestore: ", err);
+    })
   }
+
+  // RUN POLL 
+  firepoll.run = () => {
+    // SEND ALL POLL INFORMATION INTO RIGHT COLLECTION/DOCUMENT IN FIRESTORE
+    // UPDATE DOCUMENT IN STAGEDPOOLS TO ACTIVE: TRUE;
+  };
+
+
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
 firepoll.listen = {}
