@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Carousel from 'nuka-carousel';
 
 class Landing extends React.Component {
   constructor(props) {
@@ -23,10 +24,12 @@ class Landing extends React.Component {
               <div><Link to="/login"><span className="button is-primary is-large">Signup/Login</span></Link></div>
             </div>
           </div>
-          <div id="landing-carousel">
-            <h2>See our features!</h2>
-            <img src="http://www.afd-techtalk.com/wp-content/uploads/2018/02/poll-time.jpg" />
-            <p>Gingerbread dessert soufflé gummi bears wafer apple pie ice cream. Bear claw jujubes carrot cake candy chocolate bar marshmallow apple pie. Lemon drops gummies ice cream jujubes brownie tiramisu chocolate cake wafer.</p>
+          <div id="carousel-container">
+            <Carousel className="carousel">
+              <img src="https://www.rcn.org.uk/-/media/royal-college-of-nursing/images/news-800x400/2017/april/pay-poll.jpg" />
+              <img src="http://www.afd-techtalk.com/wp-content/uploads/2018/02/poll-time.jpg" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMtCJLC4-iiVMEhQQINQySJJaDQouEWSceHBNQcqovSV2ok-zm" />
+            </Carousel>
           </div>
         </div>
       )
