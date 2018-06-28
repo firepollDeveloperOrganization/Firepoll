@@ -22,22 +22,31 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
+
+
 exports.aggregateVotes = functions.firestore
-  .document('polls/{pollId}/votes/{voteId}')
+  .document('polls/{pollId}/{questionCollectionId}/{questionId}/votes/{voteId}')
   .onCreate((snap, context) => {
-      console.log(snap.data());
-      db.collection('aggregates').doc().set({
-        data: snap.data()
-      }).then(()=> {
-        console.log('new aggregate created');
-      }).catch((err) => {
-        console.log(err);
-        process.exit();
+      const voteData = snap.data();
+      var aggregateRef = db.collection(`polls/${context.params.pollId}/${context.params.questionCollectionId}/${context.params.questionId}/aggregates`).doc(`${voteData.answer_id}`);
+
+      aggregateRef.get().then((snapShot) => {
+
+        console.log(snapShot.exists);
+
+// We need to find a more clever trigger for these functions to run
+// Run once every second
+// Only start running on poll creation
+// Aggregators should already be there with counts set to 0
+// clound function dispatches other counter cloud functions
+
+        aggregateRef.set(voteData).then(()=> {
+          console.log('new aggregate created');
+        }).catch((err) => {
+          console.log(err);
+          process.exit();
+        });
+  
       });
 
   });
-
-
-  // .onCreate((snap, context) => {
-  //   const createdData = snap.val(); // data that was created
-  // });
