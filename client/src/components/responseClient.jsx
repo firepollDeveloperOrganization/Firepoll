@@ -10,7 +10,8 @@ class ResponseClient extends React.Component {
       questions: false,
       answers: false,
       currChoice: 1,
-      alreadyVoted: false
+      alreadyVoted: false,
+      results: false
     };
   };
 
@@ -62,8 +63,6 @@ class ResponseClient extends React.Component {
 
     const answer = JSON.parse(this.state.currChoice);
 
-    console.log(JSON.stringify(answer));
-
     let userAnswer = {
       poll_id: this.state.poll.id,
       answer_id: answer.position,
@@ -77,6 +76,18 @@ class ResponseClient extends React.Component {
         alreadyVoted: true
       });
     }
+
+    firePollResponseClient.get.result(this.state.poll.id, question_id, answer.position).then((data) => {
+      this.setState({
+        results: data
+      });
+    });
+
+    firePollResponseClient.listen.result(this.state.poll.id, question_id, answer.position, (data) => {
+      this.setState({
+        results: data
+      });
+    });
 
     firePollResponseClient.vote.submit(userAnswer).then(() => {
       console.log('Thanks for voting');
@@ -103,6 +114,17 @@ class ResponseClient extends React.Component {
             );
         })
         : <div></div>
+      }
+      {
+        this.state.results ? 
+        <div>
+          <div>
+            {this.state.results.answer_value} 
+          </div>
+          <div> 
+            {this.state.results.vote_count}
+          </div> 
+        </div> : <div></div>
       }
     </div>
     );

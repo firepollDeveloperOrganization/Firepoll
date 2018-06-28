@@ -26,8 +26,7 @@ const firepoll = {}
 firepoll.vote = {}
 
   //allow the user to vote
-  firepoll.vote.submit = (vote, cb) => {
-    console.log(vote);
+  firepoll.vote.submit = (vote) => {
     return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')});
   }
 
@@ -59,6 +58,14 @@ firepoll.listen = {}
         cb(snapShotData);
       });
     }
+  }
+
+  //listen for changes to result
+  firepoll.listen.result = (poll_id, question_id, answer_id, cb) => {
+    return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates/${answer_id}`)
+    .on('value', (snapshot) => {
+      cb(snapshot.val());
+    });
   }
 
 // GET DATA FROM FIRESTORE INTERFACE
@@ -114,9 +121,10 @@ firepoll.get = {}
   }
 
   // GET LIVE RESULTS
-  firepoll.get.result = (poll_id, question_id, answer_id, cb) => {
-    realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates/${answer_id}`).set(vote).then(() => {console.log('vote complete')});
+  firepoll.get.result = (poll_id, question_id, answer_id) => {
+    return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates/${answer_id}`).once('value').then((snap) => {
+      return snap.val();
+    });
   }
-
 
   export default firepoll;
