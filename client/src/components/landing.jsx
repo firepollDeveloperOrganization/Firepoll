@@ -9,11 +9,15 @@ class Landing extends React.Component {
       return (
         <div id="landing-container">
           <div id="landing-nav">
+          {/* <section className="hero">
+          <div className="hero-body"> */}
             <div id="landing-banner">
               <h1>Welcome to Fire Poll</h1>
               <h2>Ignite engagement with your audience today</h2>
               <h3>Send real-time polls with a single link and view live responses!</h3>
             </div>
+          {/* </div>
+          </section> */}
             <div id="auth-nav" >
               <div><button onClick = {this.props.vote}>Vote</button></div>
               <div><Link to="/login"><button>Signup/Login</button></Link></div>
