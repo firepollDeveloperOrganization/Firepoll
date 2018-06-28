@@ -34,6 +34,7 @@ class Live extends React.Component {
     console.log('loading live poll', this.state.pollId, 'for', email);
     console.log(this.state.poll);
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
+    if (!this.state.poll) return <div>LOADING FIRE POLL!</div>;
       return (
         <div>
           <h1>🔥🔥🔥 FIRE POLL #{this.state.pollId} FOR {email} 🔥🔥🔥</h1>

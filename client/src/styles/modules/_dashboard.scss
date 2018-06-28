@@ -1,16 +1,55 @@
 #dashboard {
-    background-color: $red;
+  background: url("./tic-tac-toe.png") $redder;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  .nav {
+    font-family: 'Courgette', cursive;
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    flex-direction: row;
+    padding: 2em;
+    background-color: rgba($red, .7);
+    h1 {
+      font-size: 3em;
+    }
+  }
 }
 
-.nav {
-    display: block;
-    padding-bottom: 2em;
+
+#dashboard-nav {
+  float: right;
+}
+
+#polls-filter {
+  background-color: rgba($red, .7);
+  padding: 10px;
+  .button {
+    margin: 10px;
+  }
 }
 
 #polls-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-around;
+  background-color: rgba($red, .7);
+  align-items: center;
+  text-align: center;
+}
+
+.poll-item {
+  flex: 1;
+  max-width: 30%;
+  margin: 1em;
+  padding: 1em;
+  background-color: rgba($white, .7);
+  h1 {
+    display: inline;
+  }
+  button {
+    float: right;
+  }
 }

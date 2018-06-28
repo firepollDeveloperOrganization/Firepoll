@@ -92,16 +92,20 @@ class Dashboard extends React.Component {
       return (
         <div id="dashboard">
           <div className="nav">
-            <h1>DASHBOARD: Welcome {user}!</h1>
-            <h1>You are signing in with {email}</h1>
-            <Link to="/create"><button>Create a poll!</button></Link>
-            <button onClick={() => this.props.logout()}>Log Out</button>
+            <div>
+              <h1 className="title is-1">Welcome {user}!</h1>
+              {/* <h1 className="subtitle is-4">You are signing in with {email}</h1> */}
+            </div>
+            <div id="dashboard-nav">
+              <Link to="/create"><button className="button is-danger is-rounded is-large is-inverted is-outlined">Create a poll!</button></Link>
+              <button className="button is-danger is-rounded is-large is-inverted is-outlined" onClick={() => this.props.logout()}>Log Out</button>
+            </div>
           </div>
           <div id="polls-filter">
-            <button onClick={() => this.setState({polls: this.state.allPolls})}>Show All Polls</button>
-            <button onClick={() => this.filterPolls(false, false)}>Show Only Undeployed</button>
-            <button onClick={() => this.filterPolls(true, false)}>Show Only Live</button>
-            <button onClick={() => this.filterPolls(true, true)}>Show Only Completed</button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({polls: this.state.allPolls})}>Show All Polls</button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed</button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live</button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, true)}>Show Only Completed</button>
           </div>
           <div id="polls-container">
             {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} deploy={this.deploy} />)}
