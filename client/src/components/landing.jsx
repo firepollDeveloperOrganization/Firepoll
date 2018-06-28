@@ -25,7 +25,7 @@ class Landing extends React.Component {
             </div>
           </div>
           <div id="carousel-container">
-            <Carousel className="carousel">
+            <Carousel id="carousel">
               <img src="https://www.rcn.org.uk/-/media/royal-college-of-nursing/images/news-800x400/2017/april/pay-poll.jpg" />
               <img src="http://www.afd-techtalk.com/wp-content/uploads/2018/02/poll-time.jpg" />
               <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMtCJLC4-iiVMEhQQINQySJJaDQouEWSceHBNQcqovSV2ok-zm" />
