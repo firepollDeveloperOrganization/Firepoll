@@ -1,22 +1,30 @@
-const schema = {
+const schema = { 
   author: String,
   title: String,
   staged: Boolean,
   completed: Boolean,
-  executionDate: Date,
-  totalAnswers: Number,
-  winningAnswer: String,
+  num_questions: Number,
+  total_answers: Number,
+  winning_response: String, // SEND AS NULL
+  start_time: String, // SEND AS NULL
   questions: [{
-    questionId: String,
     question: String,
-    questionType: String,
+    question_type: String, // "multiple-choice"
+    total_voting_time: Number, 
     answers: [{
-      choiceId: String,
       choice: String,
-      responders: [String],
-      votes: Number
+      responders: [String], // DON'T SEND
+      votes: Number // DON'T SEND
     }]
   }]
 }
+
+// QUESTIONS IN POLL AS ARRAY OF QUESTION ID'S
+
+// UNIQUE QUESTIONS DATA
+ // HAS:
+ // DISPLAY_RESULTS: BOOLEAN,
+ // QUESTION_TITLE: STRING,
+ // ARRAY OF ANSWERS ANSWER ID
 
 module.exports = schema;
