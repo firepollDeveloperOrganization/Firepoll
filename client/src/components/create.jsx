@@ -13,11 +13,12 @@ class Create extends React.Component {
       currentAnswer: '',
       answers: []
     };
-  }
+ }
+
   createPoll = () => {
     console.log('creating Poll: ', this.state.pollname);
     let poll = {
-      author: this.props.email,
+      author: this.props.userId,
       title: this.state.pollname,
       staged: false,
       completed: false,
@@ -31,7 +32,13 @@ class Create extends React.Component {
     axios.post('/polls/', poll)
     .then(res => {
       console.log('saved: ', res);
-      axios.get('/dashboard');
+      this.setState({
+        pollname: '',
+        questions: [],
+        currentQuestion: '',
+        currentAnswer: '',
+        answers: []
+      })
     })
     .catch(err => {
       console.error(err);

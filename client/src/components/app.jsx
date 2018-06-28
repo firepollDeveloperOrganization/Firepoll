@@ -19,6 +19,7 @@ class App extends React.Component {
     this.state = {
       user: null,
       email: null,
+      userId: null
     };
 
     this.vote = this.vote.bind(this);
@@ -44,7 +45,7 @@ class App extends React.Component {
         if (user) {
           console.log(user.displayName);
           console.log(user.email);
-          this.setState({ user: user.displayName, email: user.email });
+          this.setState({ user: user.displayName, email: user.email, userId: user.uid });
         } else {
           // document.getElementById('sign-in-status').textContent = 'Signed out';
           // document.getElementById('sign-in').textContent = 'Sign in';
@@ -59,11 +60,12 @@ class App extends React.Component {
   render() {
     let user = this.state.user;
     let email = this.state.email || 'no email';
+    let userId = this.state.userId;
     return (
       <div>
         <Route exact path="/" render={props => <Landing {...props} vote={this.vote} />} />
-        <Route exact path="/create" render={(props) => <Create {...props} user={user} email={email} logout={this.logout}/>} />
-        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} email={email} logout={this.logout} history={this.props.history} />} />
+        <Route exact path="/create" render={(props) => <Create {...props} user={user} userId={userId} logout={this.logout}/>} />
+        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} userId={userId} logout={this.logout} /*history={this.props.history}*/ />} />
         <Route exact path="/analytics" render={props => <Analytics {...props} user={user} logout={this.logout} />} />
         <Route exact path="/live/:pollId" render={props => <Live {...props} user={user} email={email}/>} />
         <Route exact path="/login" render={props => <Login {...props} />} />
