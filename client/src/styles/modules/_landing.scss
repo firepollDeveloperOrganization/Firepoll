@@ -8,6 +8,8 @@
 #landing-nav {
   display: flex;
   flex-direction: row;
+  background-color: rgba($red, .7);
+  padding: 2em;
   #landing-banner {
     flex: 10;
     align-items: center;

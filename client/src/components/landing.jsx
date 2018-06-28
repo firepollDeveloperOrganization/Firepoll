@@ -19,8 +19,8 @@ class Landing extends React.Component {
           {/* </div>
           </section> */}
             <div id="auth-nav" >
-              <div><button onClick = {this.props.vote}>Vote</button></div>
-              <div><Link to="/login"><button>Signup/Login</button></Link></div>
+              <div><a className="button is-primary is-large" onClick={this.props.vote}>Vote</a></div>
+              <div><Link to="/login"><span className="button is-primary is-large">Signup/Login</span></Link></div>
             </div>
           </div>
           <div id="landing-carousel">
