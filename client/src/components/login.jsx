@@ -11,7 +11,11 @@ class Login extends React.Component {
   }
   render() {
       return (
-        <div id="firebaseui-auth-container"></div>
+        <div id="auth-container">
+          <div>
+            <div id="firebaseui-auth-container"></div>
+          </div>
+        </div>
       )
   }
 }
