@@ -11,14 +11,21 @@
 @import url('https://fonts.googleapis.com/css?family=Courgette|Exo');
 
 // BULMA
-@import "~bulma/sass/utilities/initial-variables";
-@import "~bulma/sass/utilities/functions";
+@import "../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../node_modules/bulma/sass/utilities/functions";
 
+// overwrite bulma defaults
+$family-sans-serif: 'Exo', "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$red: rgba(107, 15, 26, 1);
+$redder: rgba(107, 15, 26, 1);
+$primary: $red;
+$link: $redder;
 
-
-
-
-
-
-
-@import 'bulma';
+// IMPORT REST OF BULMA
+@import '../../node_modules/bulma/sass/utilities/_all';
+@import '../../node_modules/bulma/sass/utilities/functions';
+@import '../../node_modules/bulma/sass/utilities/derived-variables';
+@import '../../node_modules/bulma/sass/utilities/controls';
+@import '../../node_modules/bulma/sass/utilities/mixins';
+@import '../../node_modules/bulma/sass/utilities/animations';
+@import '../../node_modules/bulma/bulma';

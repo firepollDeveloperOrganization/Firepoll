@@ -12,9 +12,9 @@ class Landing extends React.Component {
           {/* <section className="hero">
           <div className="hero-body"> */}
             <div id="landing-banner">
-              <h1>Welcome to Fire Poll</h1>
-              <h2>Ignite engagement with your audience today</h2>
-              <h3>Send real-time polls with a single link and view live responses!</h3>
+              <h1 className="title is-1 heading">🔥 Welcome to Fire Poll 🔥</h1>
+              <h2 className="subtitle is-3">Ignite engagement with your audience today</h2>
+              <h3 className="subtitle is-5">Send real-time polls with a single link and view live responses!</h3>
             </div>
           {/* </div>
           </section> */}
