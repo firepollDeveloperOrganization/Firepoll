@@ -9,10 +9,9 @@ const Poll = (props) => {
   let status = !poll.staged ? 'DEPLOY' : poll.completed ? 'VIEW ANALYTICS' : 'VIEW LIVE';
   let statusButton = !poll.staged ? deployButton : poll.completed ? analyticsButton : liveButton;
   return (
-    <div>
+    <div className="poll-item">
       <div>
-        <h1>{poll.title}</h1>
-        {/* <button>{status}</button> */}
+        <h1 className="title is-1">{poll.title}</h1>
         {statusButton}
       </div>
       <div className="questions-box">
