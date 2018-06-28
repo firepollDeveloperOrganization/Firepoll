@@ -85,25 +85,28 @@ class ResponseClient extends React.Component {
 
   render() {
     return (
-    <div> 
-        <h1>{this.state.poll ? this.state.poll.title : ''}</h1>
+    <div id="poll-dist">
+    <div>
+        <h1 className="title is-1">{this.state.poll ? this.state.poll.title : ''}</h1>
+        <hr id="poll-hr"/>
       { 
         this.state.questions ? this.state.questions.map((question) => {
           return (
-            <form key={question.id}>
-              <select onChange = {(val) => {this.handleUserChoice(val)}}>
+            <form className="field control" key={question.id}>
+              <select className="select is-danger is-rounded is-large" onChange = {(val) => {this.handleUserChoice(val)}}>
                 {question.answers.map((answer, i) => {
                   return (
                     <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
                   );
                 })}
               </select>
-              <button onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
+              <button className="button is-danger is-rounded is-large" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
             </form>
             );
         })
         : <div></div>
       }
+    </div>
     </div>
     );
   }
