@@ -17,7 +17,7 @@ class Create extends React.Component {
   createPoll = () => {
     console.log('creating Poll: ', this.state.pollname);
     let poll = {
-      author: this.props.user,
+      author: this.props.email,
       title: this.state.pollname,
       staged: false,
       completed: false,
