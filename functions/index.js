@@ -34,11 +34,11 @@ exports.aggregateVotes = functions.firestore
 
         console.log(snapShot.exists);
 
-// We need to find a more clever trigger for these functions to run
-// Run once every second
-// Only start running on poll creation
-// Aggregators should already be there with counts set to 0
-// clound function dispatches other counter cloud functions
+        // We need to find a more clever trigger for these functions to run
+        // Run once every second
+        // Only start running on poll creation
+        // Aggregators should already be there with counts set to 0
+        // clound function dispatches other counter cloud functions
 
         aggregateRef.set(voteData).then(()=> {
           console.log('new aggregate created');

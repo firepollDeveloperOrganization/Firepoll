@@ -26,7 +26,7 @@ firepoll.vote = {}
 
   //allow the user to vote
   firepoll.vote.submit = (vote, cb) => {
-    return firestore.collection(`polls/${vote.poll_id}/questions/${vote.question_id}/votes`).doc().set(vote);
+    return firestore.collection(`polls/${vote.poll_id}/questions/${vote.question_id}/votes`).doc(vote.user_id).set(vote);
   }
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
