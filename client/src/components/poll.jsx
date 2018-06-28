@@ -12,7 +12,7 @@ const Poll = (props) => {
   return (
     <div className="poll-item">
       <div>
-        <h1 className="title is-1">{poll.title}</h1>
+        <h1 className="title is-3">{poll.title}</h1>
         {statusButton}
       </div>
       <div className="questions-box">

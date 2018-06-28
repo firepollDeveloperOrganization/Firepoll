@@ -94,7 +94,7 @@ class Dashboard extends React.Component {
           <div className="nav">
             <div>
               <h1 className="title is-1">Welcome {user}!</h1>
-              <h1 className="subtitle is-4">You are signing in with {email}</h1>
+              {/* <h1 className="subtitle is-4">You are signing in with {email}</h1> */}
             </div>
             <div id="dashboard-nav">
               <Link to="/create"><button className="button is-danger is-rounded is-large is-inverted is-outlined">Create a poll!</button></Link>
