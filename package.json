@@ -77,6 +77,7 @@
     "react-dom": "^15.4.2",
     "react-slick": "^0.23.1",
     "socket.io": "^2.1.1",
+    "underscore": "^1.9.1",
     "url-loader": "^1.0.1"
   },
   "config": {
