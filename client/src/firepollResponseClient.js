@@ -16,6 +16,7 @@ if (!firebase.apps.length) {
 /* Firebase Interface */
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 const firestore = firebase.firestore();
+const realTimeDB = firebase.database();
 firestore.settings(settings);
 
 const firepoll = {}
@@ -26,7 +27,8 @@ firepoll.vote = {}
 
   //allow the user to vote
   firepoll.vote.submit = (vote, cb) => {
-    return firestore.collection('votes').doc().set(vote);
+    console.log(vote);
+    return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')});
   }
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
@@ -46,26 +48,12 @@ firepoll.listen = {}
   }
 
   //listen for changes to question
-  firepoll.listen.question = (questions, cb) => {
+  firepoll.listen.question = (poll_id, questions, cb) => {
     if (!Array.isArray(questions)) {
       questions = [questions]
     }
     for (let aQuestion of questions) {
-      firestore.collection('questions').doc(aQuestion.id).onSnapshot((snapshot) => {
-        const snapShotData = snapshot.data();
-        snapShotData.id = snapshot.id;
-        cb(snapShotData);
-      });
-    }
-  }
-
-  //listen for changes to response
-  firepoll.listen.response = (responses, cb) => {
-    if (!Array.isArray(responses)) {
-      responses = [responses]
-    }
-    for (let aResponse of responses) {
-      firestore.collection('responses').doc(aResponse.id).onSnapshot((snapshot) => {
+      firestore.collection(`polls/${poll_id}/questions`).doc(aQuestion.id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
         snapShotData.id = snapshot.id;
         cb(snapShotData);
@@ -102,7 +90,7 @@ firepoll.get = {}
 
   // Get all questions from specific poll
   firepoll.get.allQuestionsFromPoll = (poll_id) => {
-    return firestore.collection('questions').where('poll_id', '==', poll_id).get().then( (snapshot) => {
+    return firestore.collection(`polls/${poll_id}/questions`).get().then( (snapshot) => {
       const data = [];
       snapshot.forEach((doc) => {
           var docData = doc.data();
@@ -114,53 +102,21 @@ firepoll.get = {}
   }
 
   // Get a specific question
-  firepoll.get.question = (question_id) => {
+  firepoll.get.question = (poll_id, question_id) => {
     if (!question_id) {
       return null;
     }
-    return firestore.collection('questions').doc(question_id).get().then( (snapshot) => {
+    return firestore.collection(`polls/${poll_id}/questions`).doc(question_id).get().then( (snapshot) => {
         var docData = snapshot.data();
         docData.id = snapshot.id;
         return docData;
       });
   }
 
-  // Get all responses from a poll
-  firepoll.get.allResponsesFromPoll = (poll_id) => {
-    return firestore.collection('responses').where('poll_id', '==', poll_id).get().then( (snapshot) => {
-      const data = [];
-      snapshot.forEach((doc) => {
-          var docData = doc.data();
-          docData.id = doc.id;
-          data.push(docData);
-      });
-        return data;
-      });
+  // GET LIVE RESULTS
+  firepoll.get.result = (poll_id, question_id, answer_id, cb) => {
+    realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates/${answer_id}`).set(vote).then(() => {console.log('vote complete')});
   }
 
-  // Get all responses from a question
-  firepoll.get.allResponsesFromQuestion = (question_id) => {
-    return firestore.collection('responses').where('question_id', '==', question_id).get().then( (snapshot) => {
-      const data = [];
-      snapshot.forEach((doc) => {
-          var docData = doc.data();
-          docData.id = doc.id;
-          data.push(docData);
-      });
-        return data;
-      });
-  }
-
-  // Get a specific response
-  firepoll.get.response = (response_id) => {
-    if (!response_id) {
-      return null;
-    }
-    return firestore.collection('responses').doc(response_id).get().then( (snapshot) => {
-        var docData = snapshot.data();
-        docData.id = snapshot.id;
-        return docData;
-      });
-  }
 
   export default firepoll;

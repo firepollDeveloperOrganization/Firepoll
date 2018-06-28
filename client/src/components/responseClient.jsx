@@ -8,8 +8,9 @@ class ResponseClient extends React.Component {
     this.state = {
       poll: false,
       questions: false,
-      responses: false,
-      currChoice: null
+      answers: false,
+      currChoice: 1,
+      alreadyVoted: false
     };
   };
 
@@ -21,21 +22,14 @@ class ResponseClient extends React.Component {
           poll: data
         }, () => {
           firePollManagementClient.listen.poll(this.state.poll, (data) => {
-            console.log('listening to stuff');
             this.setState({
               poll: data
             }, () => {
               firePollManagementClient.get.allQuestionsFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
                 this.setState({
                   questions: data
-                })
-              }).then(() => {
-                firePollManagementClient.get.allResponsesFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
-                  this.setState({
-                    responses: data
-                  })
                 });
-              })
+              }).catch((err) => {console.log(err)});
             });
           });
         });
@@ -46,8 +40,8 @@ class ResponseClient extends React.Component {
         this.setState({
           questions: data
         }, () => {
-          firePollManagementClient.listen.question(this.state.questions, (data) => {
-            firePollManagementClient.get.allQuestionsFromPoll(data.poll_id).then((data) => {
+          firePollManagementClient.listen.question(this.state.poll.id, this.state.questions, () => {
+            firePollManagementClient.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
               this.setState({
                 questions: data
               });
@@ -55,22 +49,6 @@ class ResponseClient extends React.Component {
           });
         });
       });
-
-      // GET ALL RESPONSES & SETUP LISTENER
-      firePollManagementClient.get.allResponsesFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
-        this.setState({
-          responses: data
-        }, () => {
-          firePollManagementClient.listen.response(this.state.responses, (data) => {
-            firePollManagementClient.get.allResponsesFromPoll(data.poll_id).then((data) => {
-              this.setState({
-                responses: data
-              });
-            });
-          });
-        });
-      });
-
   };
 
   handleUserChoice(response) {
@@ -79,12 +57,25 @@ class ResponseClient extends React.Component {
     });
   }
 
-  handleSubmit(e) {
+  handleSubmit(e, question_id) {
     e.preventDefault();
 
+    const answer = JSON.parse(this.state.currChoice);
+
+    console.log(JSON.stringify(answer));
+
     let userAnswer = {
-      answer: this.state.currChoice,
-      userID: 'TEST USER ID'
+      poll_id: this.state.poll.id,
+      answer_id: answer.position,
+      answer_value: answer.value,
+      user_id: 'ANOTHER DIFFERENT TEST USER ID',
+      question_id: question_id,
+    }
+
+    if (this.state.alreadyVoted === false) {
+      this.setState({
+        alreadyVoted: true
+      });
     }
 
     firePollResponseClient.vote.submit(userAnswer).then(() => {
@@ -95,25 +86,23 @@ class ResponseClient extends React.Component {
   render() {
     return (
     <div> 
-        <h1>{this.state.poll ? this.state.poll.poll_title : ''}</h1>
-      {
+        <h1>{this.state.poll ? this.state.poll.title : ''}</h1>
+      { 
         this.state.questions ? this.state.questions.map(question => {
-          return (<div>
-            {question.question_title}
-          </div>);
-        }) : <div></div>
-      }
-      {
-        <form>
-          <select onChange = {(val) => {this.handleUserChoice(val)}}>
-            {this.state.responses ? (this.state.responses.map((response) => {
-              return (
-                <option value = {response.value}>{response.value}</option>
-              );
-            })) : ''}
-          </select>
-          <button onClick = {(e) => {this.handleSubmit(e)}}>Select Answer</button>
-        </form>
+          return (
+            <form>
+              <select onChange = {(val) => {this.handleUserChoice(val)}}>
+                {question.answers.map((answer) => {
+                  return (
+                    <option value = {JSON.stringify(answer)}>{answer.value}</option>
+                  );
+                })}
+              </select>
+              <button onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
+            </form>
+            );
+        })
+        : <div></div>
       }
     </div>
     );
