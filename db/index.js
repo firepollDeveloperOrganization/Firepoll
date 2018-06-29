@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const schema = require('./schema')
-mongoose.connect('mongodb://laurents:stx7JBM-X@ds217131.mlab.com:17131/live-polling-service');
+require('dotenv').config();
+mongoose.connect(`mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@ds217131.mlab.com:17131/live-polling-service`);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

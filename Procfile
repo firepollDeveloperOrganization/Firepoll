@@ -1,0 +1,1 @@
+web: webpack -d | node pollManager/index.js

@@ -18,7 +18,11 @@ class ResponseClient extends React.Component {
   componentDidMount() {
 
       // GET POLL & SETUP LISTENER
-      firePollManagementClient.get.poll('YROTzLFtNPbhxlAGVbAx').then((data) => {
+      var pollUniqueKey = this.props.location.pathname.slice(10)
+      console.log(pollUniqueKey);
+      //'YROTzLFtNPbhxlAGVbAx'
+
+      firePollManagementClient.get.poll(pollUniqueKey).then((data) => {
         this.setState({
           poll: data
         }, () => {
@@ -26,7 +30,7 @@ class ResponseClient extends React.Component {
             this.setState({
               poll: data
             }, () => {
-              firePollManagementClient.get.allQuestionsFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
+              firePollManagementClient.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
                 this.setState({
                   questions: data
                 });
@@ -37,7 +41,7 @@ class ResponseClient extends React.Component {
       })
 
       // GET ALL QUESTIONS & SETUP LISTENER
-      firePollManagementClient.get.allQuestionsFromPoll('YROTzLFtNPbhxlAGVbAx').then((data) => {
+      firePollManagementClient.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
         this.setState({
           questions: data
         }, () => {
@@ -77,13 +81,14 @@ class ResponseClient extends React.Component {
       });
     }
 
-    firePollResponseClient.get.result(this.state.poll.id, question_id, answer.position).then((data) => {
+    firePollResponseClient.get.results(this.state.poll.id, question_id).then((data) => {
+      console.log(data);
       this.setState({
         results: data
       });
     });
 
-    firePollResponseClient.listen.result(this.state.poll.id, question_id, answer.position, (data) => {
+    firePollResponseClient.listen.results(this.state.poll.id, question_id, (data) => {
       this.setState({
         results: data
       });
@@ -97,38 +102,43 @@ class ResponseClient extends React.Component {
   render() {
     return (
     <div id="poll-dist">
-    <div>
-        <h1 className="title is-1">{this.state.poll ? this.state.poll.title : ''}</h1>
-        <hr id="poll-hr"/>
+    {this.state.poll ? <div>
+        <h1 className="title is-4">{this.state.poll.title}</h1>
       { 
         this.state.questions ? this.state.questions.map((question) => {
           return (
-            <form className="field control" key={question.id}>
-              <select className="select is-danger is-rounded is-large" onChange = {(val) => {this.handleUserChoice(val)}}>
-                {question.answers.map((answer, i) => {
-                  return (
-                    <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
-                  );
-                })}
-              </select>
-              <button className="button is-danger is-rounded is-large" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
+            <div>
+              <div className="title is-3">{question.question_title}</div>
+              <form className="field control flex" key={question.id}>
+                <select className="select is-danger is-rounded is-medium" onChange = {(val) => {this.handleUserChoice(val)}}>
+                  {question.answers.map((answer, i) => {
+                    return (
+                      <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
+                    );
+                  })}
+                </select>
+              <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
             </form>
+
+            </div>
             );
         })
         : <div></div>
       }
       {
-        this.state.results ? 
-        <div>
-          <div>
-            {this.state.results.answer_value} 
+        this.state.results ? this.state.results.map((result) => {
+          let total = this.state.results.reduce((acc, ele) => acc + ele.vote_count, 0);
+          const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
+          return (
+          <div className = "title is-5 flex results">
+              <span>{result.answer_value}</span>
+              <span>{isLit}</span>
+              <span>{result.vote_count}</span>
           </div>
-          <div> 
-            {this.state.results.vote_count}
-          </div> 
-        </div> : <div></div>
+          )}
+        ) : <div></div>
       }
-    </div>
+    </div> : ''}
     </div>
     );
   }

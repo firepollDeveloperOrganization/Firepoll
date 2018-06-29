@@ -8,12 +8,25 @@
   &>div {
     padding: 20px;
     background-color: rgba($redder, .7);
-    box-shadow: 0 0 10px 10px rgba($redder, .7);
+    border-radius: 5px;
     // box-shadow: 0 0 10px 20px $redder;
   }
   button {
     float: right;
-  }  
+  }
+  .title {
+    color: #ffffff;
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .results {
+    margin-top: 20px;
+  }
+
 }
 
 #poll-hr {
