@@ -6,10 +6,10 @@ const Poll = (props) => {
   let deployButton = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => props.deploy(props.index)}>DEPLOY</button>);
   let liveButton = (<Link to={`/live/${poll.pollId}`}><button className="button is-danger is-rounded is-small is-inverted is-outlined">VIEW LIVE</button></Link>);
   let analyticsButton = (<Link to="/analytics"><button className="button is-danger is-rounded is-small is-inverted is-outlined">VIEW ANALYTICS</button></Link>);
-  let status = !poll.active ? 'DEPLOY' : poll.completed ? 'VIEW ANALYTICS' : 'VIEW LIVE';
-  let statusButton = !poll.active ? deployButton : poll.completed ? analyticsButton : liveButton;
-  // let status = poll.completed ? 'VIEW ANALYTICS' : poll.active ? 'VIEW LIVE' : 'DEPLOY';
-  // let statusButton = 
+  // let status = !poll.active ? 'DEPLOY' : poll.completed ? 'VIEW ANALYTICS' : 'VIEW LIVE';
+  // let statusButton = !poll.active ? deployButton : poll.completed ? analyticsButton : liveButton;
+  let status = poll.completed ? 'VIEW ANALYTICS' : poll.active ? 'VIEW LIVE' : 'DEPLOY';
+  let statusButton = poll.completed ? analyticsButton : poll.active ? liveButton : deployButton;
   return (
     <div className="poll-item">
       <div>
