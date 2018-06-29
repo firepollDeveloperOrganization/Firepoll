@@ -22,9 +22,9 @@ const firepoll = {}
 
 // STAGE POLL
   // allow the user to stage a poll
-  firepoll.stage = (pollId, cb) => {
+  firepoll.stage = (pollId,cb) => {
     firestore.collection('stagedPolls').doc(pollId).set({
-      active: true
+      active: false,
     })
     .then(() => {
       console.log("Poll successfully staged");
@@ -36,9 +36,32 @@ const firepoll = {}
   }
 
   // RUN POLL 
-  firepoll.run = () => {
-    // SEND ALL POLL INFORMATION INTO RIGHT COLLECTION/DOCUMENT IN FIRESTORE
-    // UPDATE DOCUMENT IN STAGEDPOOLS TO ACTIVE: TRUE;
+  firepoll.run = ({poll, questions}) => {
+    // Send poll data into the right collections/subcollections
+    firestore.collection("polls").doc(poll.id).set(poll.data)
+    .then(() => {
+      let batch = firestore.batch();
+      questions.forEach(question => {
+        let docRef = firestore.collection("polls").doc(poll.id).collection("questions").doc(question.id);
+        batch.set(docRef, question.data);
+      })
+      batch.commit().then(() => {
+        // update stagedPolls collection for poll to active
+        firestore.collection("polls").doc(poll.id).update({active: true})
+        .then(() => {
+          console.log("Poll is deployed!");
+        })
+        .catch(err => {
+          console.error("updating staged polls: ", err);
+        })
+      })
+      .catch(err => {
+        console.error("adding questions as subcollections of poll: ", err);
+      })
+    })
+    .catch(err => {
+      console.error("adding poll to polls collection: ", err);
+    })
   };
 
 
