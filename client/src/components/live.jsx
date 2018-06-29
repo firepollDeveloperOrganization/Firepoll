@@ -1,13 +1,15 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import dummypolls from './dummydata';
+import firePollManagementClient from '../firepollManagementClient';
 
 class Live extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       pollId: this.props.location.pathname.slice(6),
-      poll: null
+      poll: null,
+      questions: null
     }
     this.fetchPoll = this.fetchPoll.bind(this);
     this.computeTimeRemaining = this.computeTimeRemaining.bind(this);
@@ -16,11 +18,25 @@ class Live extends React.Component {
     this.fetchPoll();
   }
   fetchPoll() {
+    let pollId = this.state.pollId;
     console.log('fetching live poll info from firebase for', this.state.pollId);
-    // check that user is the owner of that poll, if not, offer up the voting link for the poll instead
-    // if user is owner, take the retrieved poll and set it onto the state
-    // this.setState({poll: data});
-    this.setState({poll: dummypolls[1]});
+    firePollManagementClient.get.poll(pollId).then((data) => {
+      this.setState({
+        poll: data
+      }, () => {
+        firePollManagementClient.listen.poll(this.state.poll, (data) => {
+          this.setState({
+            poll: data
+          }, () => {
+            firePollManagementClient.get.allQuestionsFromPoll(pollId).then((data) => {
+              this.setState({
+                questions: data
+              });
+            }).catch((err) => {console.log(err)});
+          });
+        });
+      });
+    })
   }
   computeTimeRemaining() {
     // a method for figuring out how much time is remaining for a question if it's live
@@ -32,23 +48,24 @@ class Live extends React.Component {
   render() {
     let {user, email} = this.props;
     console.log('loading live poll', this.state.pollId, 'for', email);
-    console.log(this.state.poll);
+    console.log('current poll in live view:', this.state.poll);
+    console.log('current questions in live view:', this.state.questions);
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
-    if (!this.state.poll) return <div>LOADING FIRE POLL!</div>;
+    if (!this.state.poll || !this.state.questions) return <div>LOADING FIRE POLL!</div>;
+    // return <div>HI</div>
       return (
         <div>
           <h1>🔥🔥🔥 FIRE POLL #{this.state.pollId} FOR {email} 🔥🔥🔥</h1>
           <div>
-            {this.state.poll.questions.map(q => (
-                <div key={q.questionId}>
-                  <h1 className="question-question">{q.question}</h1>
+            {this.state.questions.map(q => (
+                <div key={q.id}>
+                  <h1 className="question-question">{q.question_title}</h1>
                   <h3 className="question-time">{this.computeTimeRemaining()} Remains!</h3>
                   <button>START VOTING!</button>
                   <button>STOP VOTING!</button>
-                  {/* <button>NEXT QUESTION!</button> */}
                   <div className="question-answers">
                     {q.answers.map(ans => (
-                      <p key={ans.choiceId}>{ans.choice}: {ans.votes}</p>
+                      <p key={ans.id}>{ans.value}: {ans.position}</p>
                     )
                       )}
                   </div>
