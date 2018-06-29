@@ -75,6 +75,8 @@ class ResponseClient extends React.Component {
       question_id: question_id,
     }
 
+    console.log(this.state.results)
+
     if (this.state.alreadyVoted === false) {
       this.setState({
         alreadyVoted: true
@@ -126,7 +128,6 @@ class ResponseClient extends React.Component {
         : <div></div>
       }
       {
-        console.log(this.state.results);
         this.state.results ? this.state.results.map((result) => {
           let total = this.state.results.reduce((acc, ele) => acc + ele.vote_count, 0);
           const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
