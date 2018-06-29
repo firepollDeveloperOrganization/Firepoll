@@ -21,7 +21,7 @@ pollRouter.post('/', (req, res) => {
 
 // UPDATES A POLL
 pollRouter.put('/:id', (req, res) => {
-  console.log('updating poll my dude ...', req.params.id);
+  console.log('updating poll again my dude ...', req.params.id);
   console.log('update: ', req.body)
 
   db.updatePoll(req.params.id, req.body, function(err, result) {
