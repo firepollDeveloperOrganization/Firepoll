@@ -22,7 +22,7 @@ const firepoll = {}
 
 // STAGE POLL
   // allow the user to stage a poll
-  firepoll.stage = (pollId,cb) => {
+  firepoll.stage = (pollId, cb) => {
     firestore.collection('stagedPolls').doc(pollId).set({
       active: false,
     })
