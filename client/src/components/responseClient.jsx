@@ -32,7 +32,8 @@ class ResponseClient extends React.Component {
             }, () => {
               firePollManagementClient.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
                 this.setState({
-                  questions: data
+                  questions: data,
+                  currChoice: JSON.stringify(data[0].answers[0])
                 });
               }).catch((err) => {console.log(err)});
             });
@@ -82,7 +83,6 @@ class ResponseClient extends React.Component {
     }
 
     firePollResponseClient.get.results(this.state.poll.id, question_id).then((data) => {
-      console.log(data);
       this.setState({
         results: data
       });
@@ -100,6 +100,7 @@ class ResponseClient extends React.Component {
   }
 
   render() {
+    console.log(this.state.results);
     return (
     <div id="poll-dist">
     {this.state.poll ? <div>
