@@ -1,0 +1,25 @@
+#poll-dist {
+  background: url("./tic-tac-toe.png") $redder;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &>div {
+    padding: 20px;
+    background-color: rgba($redder, .7);
+    box-shadow: 0 0 10px 10px rgba($redder, .7);
+    // box-shadow: 0 0 10px 20px $redder;
+  }
+  button {
+    float: right;
+  }  
+}
+
+#poll-hr {
+  color: $red;
+  border-color: $red;
+  background-color: $red;
+  height: 1px; border: 0;
+  padding: 1px;
+}

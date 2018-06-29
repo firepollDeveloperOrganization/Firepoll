@@ -10,7 +10,8 @@ class ResponseClient extends React.Component {
       questions: false,
       answers: false,
       currChoice: 1,
-      alreadyVoted: false
+      alreadyVoted: false,
+      results: false
     };
   };
 
@@ -62,8 +63,6 @@ class ResponseClient extends React.Component {
 
     const answer = JSON.parse(this.state.currChoice);
 
-    console.log(JSON.stringify(answer));
-
     let userAnswer = {
       poll_id: this.state.poll.id,
       answer_id: answer.position,
@@ -78,6 +77,18 @@ class ResponseClient extends React.Component {
       });
     }
 
+    firePollResponseClient.get.result(this.state.poll.id, question_id, answer.position).then((data) => {
+      this.setState({
+        results: data
+      });
+    });
+
+    firePollResponseClient.listen.result(this.state.poll.id, question_id, answer.position, (data) => {
+      this.setState({
+        results: data
+      });
+    });
+
     firePollResponseClient.vote.submit(userAnswer).then(() => {
       console.log('Thanks for voting');
     })
@@ -85,25 +96,39 @@ class ResponseClient extends React.Component {
 
   render() {
     return (
-    <div> 
-        <h1>{this.state.poll ? this.state.poll.title : ''}</h1>
+    <div id="poll-dist">
+    <div>
+        <h1 className="title is-1">{this.state.poll ? this.state.poll.title : ''}</h1>
+        <hr id="poll-hr"/>
       { 
-        this.state.questions ? this.state.questions.map(question => {
+        this.state.questions ? this.state.questions.map((question) => {
           return (
-            <form>
-              <select onChange = {(val) => {this.handleUserChoice(val)}}>
-                {question.answers.map((answer) => {
+            <form className="field control" key={question.id}>
+              <select className="select is-danger is-rounded is-large" onChange = {(val) => {this.handleUserChoice(val)}}>
+                {question.answers.map((answer, i) => {
                   return (
-                    <option value = {JSON.stringify(answer)}>{answer.value}</option>
+                    <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
                   );
                 })}
               </select>
-              <button onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
+              <button className="button is-danger is-rounded is-large" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
             </form>
             );
         })
         : <div></div>
       }
+      {
+        this.state.results ? 
+        <div>
+          <div>
+            {this.state.results.answer_value} 
+          </div>
+          <div> 
+            {this.state.results.vote_count}
+          </div> 
+        </div> : <div></div>
+      }
+    </div>
     </div>
     );
   }
