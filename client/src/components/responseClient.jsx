@@ -102,7 +102,7 @@ class ResponseClient extends React.Component {
   render() {
     console.log(this.state.results);
     return (
-    <div id="poll-dist">
+    <div id="poll-dist" className = "poll-dist-class">
     {this.state.poll ? <div>
         <h1 className="title is-4">{this.state.poll.title}</h1>
       { 

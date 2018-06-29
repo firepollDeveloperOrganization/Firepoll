@@ -114,6 +114,8 @@
     justify-content: space-between; }
   #poll-dist .results {
     margin-top: 20px; }
+  #poll-dist .poll-dist-class {
+    min-width: 400px; }
 
 #poll-hr {
   color: #b0212f;
