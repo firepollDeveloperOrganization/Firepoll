@@ -31,14 +31,11 @@ const destructurePoll = (poll) => {
   let questions = poll.questions.map(question => {
     let answers = question.answers.map((answer, i) => {
       let answerObj = {
+        id: answer._id,
         position: i + 1,
         value: answer.choice
       }
-      let answerWrapper = {
-        id: answer._id,
-        data: answerObj
-      }
-      return answerWrapper;
+      return answerObj;
     })
     let obj = {
       answers: answers,
@@ -124,17 +121,21 @@ class Dashboard extends React.Component {
     // send db request to update poll to `active` = true,
     axios.put(`/polls/${destructured.poll.id}`, {active: true})
     .then(() => {
-      console.log('updated ', destructured.poll.title);
+      console.log('updated ', destructured.poll.data.title);
     })
     .catch(err => {
       console.error('Updating poll in MongoDB to active:true :', err)
     });
     // should trigger a rerender of the polls
+    this.setState((prevState, props) => {
+      prevState.filteredPolls[index].active = true;
+      return prevState;
+    })
   }
 
-  filterPolls = (staged, completed) => {
-    console.log(`filtering for: staged ${staged}, completed ${completed}`);
-    let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.staged === staged);
+  filterPolls = (active, completed) => {
+    console.log(`filtering for: active ${active}, completed ${completed}`);
+    let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.active === active);
     this.setState({filteredPolls: filtered}, () => console.log('filtered polls!'));
   }
 
@@ -143,7 +144,6 @@ class Dashboard extends React.Component {
   render() {
     let { user, email } = this.props;
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
-    console.log('render function ', this.props);
       return (
         <div id="dashboard">
           <div className="nav">
