@@ -19,6 +19,7 @@ const destructurePoll = (poll) => {
     id: poll._id,
     data: {
     active: true,
+    completed: false,
     author: poll.author,
     num_questions: poll.questions.length,
     start_time: new Date(),
@@ -115,11 +116,19 @@ class Dashboard extends React.Component {
 
   
   deploy = (index) => {
+    // formats the poll
     var destructured = destructurePoll(this.state.filteredPolls[index]);
     console.log('destructured: ', destructured);
-    firepoll.run(destructured);
     // should send poll to firestore
-    // send db request to update poll to `staged` = true,
+    firepoll.run(destructured);
+    // send db request to update poll to `active` = true,
+    axios.put(`/polls/${destructured.poll.id}`, {active: true})
+    .then(() => {
+      console.log('updated ', destructured.poll.title);
+    })
+    .catch(err => {
+      console.error('Updating poll in MongoDB to active:true :', err)
+    });
     // should trigger a rerender of the polls
   }
 
