@@ -11,15 +11,22 @@
     flex-direction: row;
     padding: 2em;
     background-color: rgba($red, .7);
+    div {
+      flex: 6;
+    }
     h1 {
       font-size: 3em;
     }
   }
 }
 
-
 #dashboard-nav {
   float: right;
+  flex: 1;
+  button {
+    float: right;
+    margin: 10px;
+  }
 }
 
 #polls-filter {
