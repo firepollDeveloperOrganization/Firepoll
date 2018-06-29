@@ -103,23 +103,23 @@ class Create extends React.Component {
             {/*HEADER*/}
             <div className="nav">
               <h1 className="title is-1">Create Your Fire Poll!</h1>
-              <h2 className="subtitle is-3">Logged in as {this.props.user}</h2>
+              <h2 className="subtitle is-3">🔥 Logged in as {this.props.user}</h2>
             </div>
           {/*NAVBAR*/}
             <div id="topnav">
-              <button className="button is-danger is-rounded is-large is-inverted is-outlined" onClick={() => this.props.logout()}>Log Out</button>
-              <Link to="/dashboard"><button className="button is-danger is-rounded is-large is-inverted is-outlined">Dashboard</button></Link>
+              <button className="button is-danger is-rounded is-large is-inverted is-outlined" onClick={() => this.props.logout()}>Log Out <span className="fa-fw fas fa-sign-out-alt"></span></button>
+              <Link to="/dashboard"><button className="button is-danger is-rounded is-large is-inverted is-outlined">Dashboard <i className="fa-fw fas fa-address-card"></i></button></Link>
             </div>
           </div>
           <div id="create-poll">
-            <label className="label subtitle is-5">Poll Title:</label>
+            <label className="label subtitle is-5"><i className="fa-fw fas fa-boxes"></i> Poll Title:</label>
             <div className="control">
               <input className="input" type="text" id="pollname" value={this.state.pollname} onChange={this.handleChange} placeholder="Name your poll"/>
             </div>
           </div>
           {/*NEW QUESTION*/}
           <div className="new-question box">
-            <div className="subtitle is-5">Question #{this.state.questions.length + 1}</div>
+            <div className="subtitle is-5"><i className="fa-fw far fa-question-circle"></i> Question #{this.state.questions.length + 1}</div>
             <div className="field">
               <div className="control">
                 <input className="input" type="text" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here" />
@@ -143,7 +143,7 @@ class Create extends React.Component {
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
           <CreatedQuestions questions={this.state.questions}/>
           <div id="createPollButtonWrapper">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll</button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll  <i className="fa-fw far fa-calendar-plus"></i></button>
           </div>
         </div>
       )
