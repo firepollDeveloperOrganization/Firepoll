@@ -157,7 +157,7 @@ class Dashboard extends React.Component {
             </div>
           </div>
           <div id="polls-filter">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({polls: this.state.allPolls})}>Show All Polls <i className="fa-fw fas fa-sync-alt"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls <i className="fa-fw fas fa-sync-alt"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed <i className="fa-fw fas fa-rocket"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live <i className="fa-fw fas fa-fire"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, true)}>Show Only Completed <i className="fa-fw fas fa-calendar-check"></i></button>
