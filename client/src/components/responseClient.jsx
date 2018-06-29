@@ -126,6 +126,7 @@ class ResponseClient extends React.Component {
         : <div></div>
       }
       {
+        console.log(this.state.results);
         this.state.results ? this.state.results.map((result) => {
           let total = this.state.results.reduce((acc, ele) => acc + ele.vote_count, 0);
           const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
