@@ -21,7 +21,7 @@ class Create extends React.Component {
     let poll = {
       author: this.props.userId,
       title: this.state.pollname,
-      staged: false,
+      active: false,
       completed: false,
       num_questions: this.state.questions.length,
       total_answers: 0,
@@ -51,7 +51,6 @@ class Create extends React.Component {
   }
 
   addQuestion = () => {
-    console.log('addQuestion runs');
     var newQuestion = {
       question: this.state.currentQuestion,
       answers: this.state.answers,
@@ -60,7 +59,6 @@ class Create extends React.Component {
     }
     var allQuestions = this.state.questions;
     allQuestions.push(newQuestion);
-    console.log(allQuestions);
     this.setState({
       answers: [],
       currentQuestion: '',
