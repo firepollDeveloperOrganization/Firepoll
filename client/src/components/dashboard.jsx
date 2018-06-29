@@ -3,7 +3,7 @@ import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
 import dummypolls from './dummydata';
 import axios from 'axios';
-import _ from 'underscore';
+import firepoll from '../firepollManagementClient';
 // import dummyData from '../../../pollManager/PollTestData.js';
 
 const sortByDateDescending = arr => {
@@ -11,6 +11,50 @@ const sortByDateDescending = arr => {
     if (a.timeMS < b.timeMS) return 1;
     else return -1;
   })
+}
+
+const destructurePoll = (poll) => {
+  var returnObj = {};
+  returnObj.poll = {
+    id: poll._id,
+    data: {
+    active: true,
+    author: poll.author,
+    num_questions: poll.questions.length,
+    start_time: new Date(),
+    title: poll.title,
+    winning_response: null
+    }
+  };
+
+  let questions = poll.questions.map(question => {
+    let answers = question.answers.map((answer, i) => {
+      let answerObj = {
+        position: i + 1,
+        value: answer.choice
+      }
+      let answerWrapper = {
+        id: answer._id,
+        data: answerObj
+      }
+      return answerWrapper;
+    })
+    let obj = {
+      answers: answers,
+      display_results: true,
+      num_responses: question.answers.length,
+      question_title: question.question,
+      total_voting_time: 10000,
+      type: "multiple-choice"
+    }
+    let questionWrapper = {
+      id: question._id,
+      data: obj
+    }
+    return questionWrapper;
+  })
+  returnObj.questions = questions;
+  return returnObj;
 }
 
 class Dashboard extends React.Component {
@@ -71,7 +115,9 @@ class Dashboard extends React.Component {
 
   
   deploy = (index) => {
-    console.log('deploying poll w/ index', index);
+    var destructured = destructurePoll(this.state.filteredPolls[index]);
+    console.log('destructured: ', destructured);
+    firepoll.run(destructured);
     // should send poll to firestore
     // send db request to update poll to `staged` = true,
     // should trigger a rerender of the polls

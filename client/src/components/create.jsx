@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import CreatedQuestions from './createdQuestions.jsx';
 import axios from 'axios';
+import firestore from '../firepollManagementClient';
 
 class Create extends React.Component {
   constructor(props) {
@@ -29,21 +30,24 @@ class Create extends React.Component {
       questions: this.state.questions
     }
     
+    //  adding poll to MongoDB
     axios.post('/polls/', poll)
     .then(res => {
       console.log('saved: ', res);
-      this.setState({
-        pollname: '',
-        questions: [],
-        currentQuestion: '',
-        currentAnswer: '',
-        answers: []
-      })
+      firestore.stage(res.data._id, () => {
+        this.setState({
+          pollname: '',
+          questions: [],
+          currentQuestion: '',
+          currentAnswer: '',
+          answers: []
+        })
+        //then redirect to dashboard
+      });
     })
     .catch(err => {
       console.error(err);
     })
-    //then redirect to dashboard
   }
 
   addQuestion = () => {
@@ -110,7 +114,7 @@ class Create extends React.Component {
           <div id="create-poll">
             <label className="label">Poll Title:</label>
             <div className="control">
-              <input className="input" type="text" id="pollname" value={this.state.pollName} onChange={this.handleChange} placeholder="Name your poll"/>
+              <input className="input" type="text" id="pollname" value={this.state.pollname} onChange={this.handleChange} placeholder="Name your poll"/>
             </div>
           </div>
           {/*NEW QUESTION*/}

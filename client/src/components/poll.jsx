@@ -18,6 +18,7 @@ const Poll = (props) => {
       <div className="questions-box">
         {poll.questions.map(question => <p key={question._id}>{question.question}</p>)}
       </div>
+      <p>Response url: {`firepoll.com/response/${poll._id}`}</p>
     </div>
   )
 }
