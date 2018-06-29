@@ -103,21 +103,24 @@ class ResponseClient extends React.Component {
     return (
     <div id="poll-dist">
     {this.state.poll ? <div>
-        <h1 className="title is-1">{this.state.poll.title}</h1>
-        <hr id="poll-hr"/>
+        <h1 className="title is-4">{this.state.poll.title}</h1>
       { 
         this.state.questions ? this.state.questions.map((question) => {
           return (
-            <form className="field control flex" key={question.id}>
-              <select className="select is-danger is-rounded is-medium" onChange = {(val) => {this.handleUserChoice(val)}}>
-                {question.answers.map((answer, i) => {
-                  return (
-                    <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
-                  );
-                })}
-              </select>
+            <div>
+              <div className="title is-3">{question.question_title}</div>
+              <form className="field control flex" key={question.id}>
+                <select className="select is-danger is-rounded is-medium" onChange = {(val) => {this.handleUserChoice(val)}}>
+                  {question.answers.map((answer, i) => {
+                    return (
+                      <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
+                    );
+                  })}
+                </select>
               <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
             </form>
+
+            </div>
             );
         })
         : <div></div>
@@ -125,11 +128,11 @@ class ResponseClient extends React.Component {
       {
         this.state.results ? this.state.results.map((result) => {
           let total = this.state.results.reduce((acc, ele) => acc + ele.vote_count, 0);
-          const isLit = '🔥'.repeat(Math.floor(result.vote_count / total)*10);
-          console.log(isLit)
+          const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
           return (
-          <div>
+          <div className = "title is-5 flex results">
               <span>{result.answer_value}</span>
+              <span>{isLit}</span>
               <span>{result.vote_count}</span>
           </div>
           )}
