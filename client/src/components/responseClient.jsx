@@ -117,7 +117,7 @@ class ResponseClient extends React.Component {
                     );
                   })}
                 </select>
-              <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>
+              {this.state.alreadyVoted ? <div></div> : <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>}
             </form>
 
             </div>

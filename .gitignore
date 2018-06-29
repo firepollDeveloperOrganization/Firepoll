@@ -4,5 +4,6 @@ bundle.js
 node_modules
 client/dist/main.css
 .env
-firebaseAdminSecret.json
 firebase-debug.log
+functions
+test
