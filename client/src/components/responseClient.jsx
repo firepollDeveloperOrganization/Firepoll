@@ -75,8 +75,6 @@ class ResponseClient extends React.Component {
       question_id: question_id,
     }
 
-    console.log(this.state.results)
-
     if (this.state.alreadyVoted === false) {
       this.setState({
         alreadyVoted: true

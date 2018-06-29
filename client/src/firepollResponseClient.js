@@ -123,7 +123,11 @@ firepoll.get = {}
   // GET LIVE RESULTS
   firepoll.get.results = (poll_id, question_id) => {
     return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`).once('value').then((snap) => {
-      return snap.val();
+      let results = snap.val();
+      if (!Array.isArray(snap.val())) {
+        results = [results];
+      }
+      return results;
     });
   }
 
