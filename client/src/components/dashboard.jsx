@@ -152,15 +152,15 @@ class Dashboard extends React.Component {
               {/* <h1 className="subtitle is-4">You are signing in with {email}</h1> */}
             </div>
             <div id="dashboard-nav">
-              <button className="button is-danger is-rounded is-large is-inverted is-outlined" onClick={() => this.props.logout()}>Log Out  <i className="fa-fw fas fa-sign-out-alt"></i></button>
-              <Link to="/create"><button className="button is-danger is-rounded is-large is-inverted is-outlined">Create a poll!  <i className="fa-fw far fa-calendar-plus"></i></button></Link>
+              <button className="button is-danger is-rounded is-large is-inverted is-outlined" onClick={() => this.props.logout()}>Log Out 	&nbsp; <i className="fa-fw fas fa-sign-out-alt"></i></button>
+              <Link to="/create"><button className="button is-danger is-rounded is-large is-inverted is-outlined">Create a poll! 	&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button></Link>
             </div>
           </div>
           <div id="polls-filter">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls <i className="fa-fw fas fa-sync-alt"></i></button>
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed <i className="fa-fw fas fa-rocket"></i></button>
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live <i className="fa-fw fas fa-fire"></i></button>
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, true)}>Show Only Completed <i className="fa-fw fas fa-calendar-check"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
           </div>
           <div id="polls-container">
             {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} deploy={this.deploy} />)}
