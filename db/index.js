@@ -34,6 +34,17 @@ const savePoll = (poll, cb) => {
   }
 };
 
+const updatePoll = (id, update, cb) => {
+  Poll.findByIdAndUpdate(id, update, function(err, result) {
+    if (err) {
+      cb(err, null);
+    } else {
+      console.log('updated Poll ', result)
+      cb(null, result);
+    }
+  })
+}
+
 const retrieveOnePoll = (id, cb) => {
   Poll.findById(id, function(err, result) {
     if(err) cb(err, null);
@@ -57,6 +68,7 @@ const retrieveAllPolls = (cb) => {
 
 module.exports = {
   savePoll,
+  updatePoll,
   retrieveOnePoll,
   retrieveAllPollsOfUser,
   retrieveAllPolls
