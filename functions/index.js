@@ -42,6 +42,8 @@ exports.aggregateVotes = functions.database
 exports.mapReduceVotes = functions.https.onRequest((req, res) => {
   // Get info from req.body;
 
+  res.send(req);
+
   admin.database().ref(`/polls/{req.body.poll_id}/questions/{req.body.question_id}/votes`).once('value').then(snap => {
     aggregateDataForProcessing = {};
 
@@ -64,7 +66,7 @@ exports.mapReduceVotes = functions.https.onRequest((req, res) => {
       var aggregate = aggregateDataForProcessing[aggregateKey]
       admin.database().ref(`/polls/${aggregate.poll_id}/questions/${aggregate.question_id}/aggregates/${aggregate.answer_id}`).set({aggregate})
     }
-    
+
   });
 })
 
