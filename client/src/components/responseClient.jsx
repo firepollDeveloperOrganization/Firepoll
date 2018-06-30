@@ -1,4 +1,5 @@
 import React from 'react';
+import ip from 'ip';
 import firePollManagementClient from '../firepollManagementClient'
 import firePollResponseClient from '../firepollResponseClient'
 
@@ -70,7 +71,7 @@ class ResponseClient extends React.Component {
       poll_id: this.state.poll.id,
       answer_id: answer.id,
       answer_value: answer.value,
-      user_id: this.props.userId,
+      user_id: this.props.userId || ip.address(),
       question_id: question_id,
     }
 
