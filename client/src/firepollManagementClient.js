@@ -16,6 +16,7 @@ if (!firebase.apps.length) {
 /* Firebase Interface */
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 const firestore = firebase.firestore();
+const realTimeDB = firebase.database();
 firestore.settings(settings);
 
 const firepoll = {}
@@ -148,4 +149,6 @@ firepoll.get = {}
       });
   }
 
-  export default firepoll;
+  export default {firepoll, realtimeDB};
+  
+

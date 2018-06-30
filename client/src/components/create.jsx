@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import CreatedQuestions from './createdQuestions.jsx';
 import axios from 'axios';
-import firestore from '../firepollManagementClient';
+import {firepoll} from '../firepollManagementClient';
 
 class Create extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class Create extends React.Component {
     axios.post('/polls/', poll)
     .then(res => {
       console.log('saved: ', res);
-      firestore.stage(res.data._id, () => {
+      firepoll.stage(res.data._id, () => {
         this.setState({
           pollname: '',
           questions: [],
