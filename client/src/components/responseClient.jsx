@@ -71,7 +71,7 @@ class ResponseClient extends React.Component {
       poll_id: this.state.poll.id,
       answer_id: answer.id,
       answer_value: answer.value,
-      user_id: this.props.userId || ip.address(),
+      user_id: this.props.userId || ip.address().replace(/./g , "newchar"),
       question_id: question_id,
     }
 
