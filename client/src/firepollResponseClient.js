@@ -67,7 +67,7 @@ firepoll.listen = {}
       let results = snapshot.val();
       if (!Array.isArray(results) && results !== null) {
         var key = Object.keys(results)[0];
-        results = results[key];
+        results = [results[key]];
       }
       cb(results);
     });
@@ -141,7 +141,7 @@ firepoll.get = {}
       let results = snap.val();
       if (!Array.isArray(results) && results !== null) {
         var key = Object.keys(results)[0];
-        results = results[key];
+        results = [results[key]];
       }
       return results;
     });
