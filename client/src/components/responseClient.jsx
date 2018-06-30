@@ -62,7 +62,7 @@ class ResponseClient extends React.Component {
     });
   }
 
-  handleSubmit(e, question_id) {
+  handleSubmit(e, question) {
     e.preventDefault();
 
     const answer = JSON.parse(this.state.currChoice);
@@ -72,7 +72,9 @@ class ResponseClient extends React.Component {
       answer_id: answer.id,
       answer_value: answer.value,
       user_id: this.props.userId || ip.address().replace(/./g , "newchar"),
-      question_id: question_id,
+      question_id: question.id,
+      question_title: question.title,
+      question_type: question.type
     }
 
     if (this.state.alreadyVoted === false) {
@@ -117,7 +119,7 @@ class ResponseClient extends React.Component {
                     );
                   })}
                 </select>
-              {this.state.alreadyVoted ? <div></div> : <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>}
+              {this.state.alreadyVoted ? <div></div> : <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question)}}>Select Answer</button>}
             </form>
 
             </div>
