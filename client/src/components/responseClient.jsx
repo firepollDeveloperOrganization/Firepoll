@@ -1,6 +1,6 @@
 import React from 'react';
 import ip from 'ip';
-import firePollManagementClient from '../firepollManagementClient'
+import {firepoll} from '../firepollManagementClient'
 import firePollResponseClient from '../firepollResponseClient'
 
 class ResponseClient extends React.Component {
@@ -21,15 +21,15 @@ class ResponseClient extends React.Component {
       // GET POLL & SETUP LISTENER
       var pollUniqueKey = this.props.location.pathname.slice(10);
 
-      firePollManagementClient.get.poll(pollUniqueKey).then((data) => {
+      firepoll.get.poll(pollUniqueKey).then((data) => {
         this.setState({
           poll: data
         }, () => {
-          firePollManagementClient.listen.poll(this.state.poll, (data) => {
+          firepoll.listen.poll(this.state.poll, (data) => {
             this.setState({
               poll: data
             }, () => {
-              firePollManagementClient.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
+              firepoll.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
                 this.setState({
                   questions: data,
                   currChoice: JSON.stringify(data[0].answers[0])
@@ -41,12 +41,12 @@ class ResponseClient extends React.Component {
       })
 
       // GET ALL QUESTIONS & SETUP LISTENER
-      firePollManagementClient.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
+      firepoll.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
         this.setState({
           questions: data
         }, () => {
-          firePollManagementClient.listen.question(this.state.poll.id, this.state.questions, () => {
-            firePollManagementClient.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
+          firepoll.listen.question(this.state.poll.id, this.state.questions, () => {
+            firepoll.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
               this.setState({
                 questions: data
               });
