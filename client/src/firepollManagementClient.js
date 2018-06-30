@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+var firebase = require('firebase');
 
 var config = {
   apiKey: "AIzaSyCL6Wv_NdqmEG8f7ukbfvkkXpQgiSHhzK8",
@@ -16,6 +16,7 @@ if (!firebase.apps.length) {
 /* Firebase Interface */
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 const firestore = firebase.firestore();
+const realTimeDB = firebase.database();
 firestore.settings(settings);
 
 const firepoll = {}
@@ -148,4 +149,4 @@ firepoll.get = {}
       });
   }
 
-  export default firepoll;
+  module.exports = { firepoll, realTimeDB};

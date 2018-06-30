@@ -2,6 +2,7 @@ const express = require('express');
 const pollTestData = require('../pollTestData.js');
 const pollRouter = express.Router();
 const db = require('../../db/index.js');
+const realTimeDB = require('../../client/src/firepollManagementClient').realTimeDB;
 
 // User should be able to create, read, update and delete polls
 
@@ -34,6 +35,22 @@ pollRouter.put('/:id', (req, res) => {
   })
 });
 
+// CLOSES A LIVE POLL
+pollRouter.put('/close/:id', (req, res) => {
+  console.log('closing poll ... ', req.params.id);
+  setTimeout(() => {
+    realTimeDB.ref(`/polls/${req.params.id}`).once('value')
+    .then(result => {
+      res.send(result);
+    })
+    .catch(err => {
+      res.send(err);
+    })
+    // store that info in mongoDB
+    // remove poll from firestore
+    // update staged polls to complete true
+  }, 2000)
+})
 
 // RESPONDS WITH ALL POLLS IN THE DB
 pollRouter.get('/', (req, res) => {
