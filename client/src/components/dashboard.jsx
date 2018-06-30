@@ -139,7 +139,15 @@ class Dashboard extends React.Component {
     this.setState({filteredPolls: filtered}, () => console.log('filtered polls!'));
   }
 
+  deletePoll = () => {
+    console.log('deleting poll that was created but not deployed!');
+    // remove from mongo db
+    // remove from firebase array of staged ids
+  }
 
+  archivePoll = () => {
+    console.log('deleting/archiving poll that has been completed!');
+  }
 
   render() {
     let { user, email } = this.props;
@@ -163,7 +171,7 @@ class Dashboard extends React.Component {
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
           </div>
           <div id="polls-container">
-            {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} deploy={this.deploy} />)}
+            {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} deploy={this.deploy} deletePoll={this.deletePoll} archivePoll={this.archivePoll} />)}
           </div>
         </div>
       )
