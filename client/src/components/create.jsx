@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import CreatedQuestions from './createdQuestions.jsx';
 import axios from 'axios';
-import firestore from '../firepollManagementClient';
+import {firepoll} from '../firepollManagementClient';
 
 class Create extends React.Component {
   constructor(props) {
@@ -15,6 +15,16 @@ class Create extends React.Component {
       answers: []
     };
  }
+  resetPoll = () => {
+    console.log('resetting poll');
+    this.setState({
+      pollname: '',
+      questions: [],
+      currentQuestion: '',
+      currentAnswer: '',
+      answers: []
+    });
+  }
 
   createPoll = () => {
     console.log('creating Poll: ', this.state.pollname);
@@ -34,7 +44,7 @@ class Create extends React.Component {
     axios.post('/polls/', poll)
     .then(res => {
       console.log('saved: ', res);
-      firestore.stage(res.data._id, () => {
+      firepoll.stage(res.data._id, () => {
         this.setState({
           pollname: '',
           questions: [],
@@ -143,7 +153,8 @@ class Create extends React.Component {
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
           <CreatedQuestions questions={this.state.questions}/>
           <div id="createPollButtonWrapper">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll  <i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
           </div>
         </div>
       )
