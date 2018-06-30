@@ -60,7 +60,7 @@ class App extends React.Component {
     let userId = this.state.userId;
     return (
       <div>
-        <Route exact path="/" render={props => <Landing {...props} vote={this.vote} />} />
+        <Route exact path="/" render={props => <Landing {...props} vote={this.vote} user={user} />} />
         <Route exact path="/create" render={(props) => <Create {...props} user={user} userId={userId} logout={this.logout}/>} />
         <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} userId={userId} logout={this.logout} /*history={this.props.history}*/ />} />
         <Route exact path="/analytics" render={props => <Analytics {...props} user={user} logout={this.logout} />} />
