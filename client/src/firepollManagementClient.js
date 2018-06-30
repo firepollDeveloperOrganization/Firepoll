@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+var firebase = require('firebase');
 
 var config = {
   apiKey: "AIzaSyCL6Wv_NdqmEG8f7ukbfvkkXpQgiSHhzK8",
@@ -149,6 +149,4 @@ firepoll.get = {}
       });
   }
 
-  export default {firepoll, realtimeDB};
-  
-
+  module.exports = { firepoll, realTimeDB};
