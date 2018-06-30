@@ -1,4 +1,5 @@
 import React from 'react';
+import ip from 'ip';
 import firePollManagementClient from '../firepollManagementClient'
 import firePollResponseClient from '../firepollResponseClient'
 
@@ -68,9 +69,9 @@ class ResponseClient extends React.Component {
 
     let userAnswer = {
       poll_id: this.state.poll.id,
-      answer_id: answer.position,
+      answer_id: answer.id,
       answer_value: answer.value,
-      user_id: this.props.userId,
+      user_id: this.props.userId || ip.address().replace(/./g , "newchar"),
       question_id: question_id,
     }
 
@@ -93,6 +94,7 @@ class ResponseClient extends React.Component {
     });
 
     firePollResponseClient.vote.submit(userAnswer).then(() => {
+      console.log(userAnswer);
       console.log('Thanks for voting');
     })
   }
