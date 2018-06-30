@@ -64,9 +64,24 @@ firepoll.listen = {}
   firepoll.listen.results = (poll_id, question_id, cb) => {
     return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`)
     .on('value', (snapshot) => {
-      cb(snapshot.val());
+      let results = snapshot.val();
+      if (!Array.isArray(results) && results !== null) {
+        var key = Object.keys(results)[0];
+        results = results[key];
+      }
+      cb(results);
     });
   }
+
+  // firepoll.get.results = (poll_id, question_id) => {
+  //   return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`).once('value').then((snap) => {
+  //     let results = snap.val();
+  //     if (!Array.isArray(snap.val())) {
+  //       results = [results];
+  //     }
+  //     return results;
+  //   });
+  // }
 
 // GET DATA FROM FIRESTORE INTERFACE
 firepoll.get = {}
@@ -123,7 +138,12 @@ firepoll.get = {}
   // GET LIVE RESULTS
   firepoll.get.results = (poll_id, question_id) => {
     return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`).once('value').then((snap) => {
-      return snap.val();
+      let results = snap.val();
+      if (!Array.isArray(results) && results !== null) {
+        var key = Object.keys(results)[0];
+        results = results[key];
+      }
+      return results;
     });
   }
 

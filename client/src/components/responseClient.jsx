@@ -18,9 +18,7 @@ class ResponseClient extends React.Component {
   componentDidMount() {
 
       // GET POLL & SETUP LISTENER
-      var pollUniqueKey = this.props.location.pathname.slice(10)
-      console.log(pollUniqueKey);
-      //'YROTzLFtNPbhxlAGVbAx'
+      var pollUniqueKey = this.props.location.pathname.slice(10);
 
       firePollManagementClient.get.poll(pollUniqueKey).then((data) => {
         this.setState({
@@ -32,7 +30,8 @@ class ResponseClient extends React.Component {
             }, () => {
               firePollManagementClient.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
                 this.setState({
-                  questions: data
+                  questions: data,
+                  currChoice: JSON.stringify(data[0].answers[0])
                 });
               }).catch((err) => {console.log(err)});
             });
@@ -71,7 +70,7 @@ class ResponseClient extends React.Component {
       poll_id: this.state.poll.id,
       answer_id: answer.position,
       answer_value: answer.value,
-      user_id: 'ANOTHER DIFFERENT TEST USER ID',
+      user_id: this.props.userId,
       question_id: question_id,
     }
 
@@ -82,7 +81,6 @@ class ResponseClient extends React.Component {
     }
 
     firePollResponseClient.get.results(this.state.poll.id, question_id).then((data) => {
-      console.log(data);
       this.setState({
         results: data
       });
@@ -101,7 +99,7 @@ class ResponseClient extends React.Component {
 
   render() {
     return (
-    <div id="poll-dist">
+    <div id="poll-dist" className = "poll-dist-class">
     {this.state.poll ? <div>
         <h1 className="title is-4">{this.state.poll.title}</h1>
       { 

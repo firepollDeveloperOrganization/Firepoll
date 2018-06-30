@@ -28,6 +28,10 @@
     justify-content: space-around;
     align-content: center;
     float: right; }
+  #landing-nav .title {
+    color: #ffffff; }
+  #landing-nav .subtitle {
+    color: #ffffff; }
 
 #carousel-container {
   margin: 0 auto;
@@ -46,12 +50,14 @@
     display: flex;
     width: 100%;
     flex-direction: row;
+    align-items: center;
     padding: 2em;
     background-color: rgba(176, 33, 47, 0.7); }
     #dashboard .nav div {
       flex: 6; }
     #dashboard .nav h1 {
-      font-size: 3em; }
+      font-size: 3em;
+      color: white; }
 
 #dashboard-nav {
   float: right;
@@ -108,6 +114,8 @@
     justify-content: space-between; }
   #poll-dist .results {
     margin-top: 20px; }
+  #poll-dist .poll-dist-class {
+    min-width: 400px; }
 
 #poll-hr {
   color: #b0212f;
@@ -159,6 +167,8 @@
     box-shadow: 2px 1px 2px 2px rgba(16, 0, 7, 0.5);
     padding: 1em;
     margin: 1em; }
+  #create-view h1 {
+    font-family: 'Courgette', cursive; }
 
 .outer-banner {
   display: flex; }
