@@ -2,7 +2,6 @@ import React from 'react';
 import ip from 'ip';
 import firePollManagementClient from '../firepollManagementClient'
 import firePollResponseClient from '../firepollResponseClient'
-import { Link } from 'react-router-dom';
 
 class ResponseClient extends React.Component {
   constructor(props) {
@@ -101,8 +100,6 @@ class ResponseClient extends React.Component {
   }
 
   render() {
-    let {user} = this.props;
-    if (!user) return <Link to="/login"><button>Log In!</button></Link>;
     return (
     <div id="poll-dist" className = "poll-dist-class">
     {this.state.poll ? <div>
