@@ -19,7 +19,6 @@ class App extends React.Component {
       email: null,
       userId: null
     };
-    this.vote = this.vote.bind(this);
     this.logout = this.logout.bind(this);
   }
 
