@@ -7,9 +7,8 @@ import Dashboard from './dashboard.jsx';
 import Analytics from './analytics.jsx';
 import Live from './live.jsx';
 import Login from './login.jsx';
-import PollDist from './responseClient';
-import firebase from '../config.js';
 import ResponseClient from './responseClient';
+import firebase from '../config.js';
 // require('../auth.js');
 
 class App extends React.Component {
@@ -22,11 +21,6 @@ class App extends React.Component {
     };
     this.vote = this.vote.bind(this);
     this.logout = this.logout.bind(this);
-  }
-
-  vote() {
-    console.log('should be changing');
-    this.props.history.push('/polldist');
   }
 
   logout() {
@@ -66,7 +60,7 @@ class App extends React.Component {
         <Route exact path="/analytics" render={props => <Analytics {...props} user={user} logout={this.logout} />} />
         <Route exact path="/live/:pollId" render={props => <Live {...props} user={user} email={email}/>} />
         <Route exact path="/login" render={props => <Login {...props} />} />
-        <Route exact path="/response/:pollId" render={props => <PollDist {...props} userId={userId} /> } />
+        <Route exact path="/response/:pollId" render={props => <ResponseClient {...props} userId={userId} /> } />
         {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
         {/* <AuthRoute exact path="/auth" component={Auth} /> */}
         {/* <PollAudienceClientTest />  enter any nonexistent route to render your test components */}
