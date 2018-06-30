@@ -139,10 +139,18 @@ class Dashboard extends React.Component {
     this.setState({filteredPolls: filtered}, () => console.log('filtered polls!'));
   }
 
-  deletePoll = () => {
-    console.log('deleting poll that was created but not deployed!');
+  deletePoll = (id) => {
+    console.log('deleting poll that was created but not deployed! id:', id);
     // remove from mongo db
+    axios.delete(`/polls/${id}`)
+    .then(res => {
+      this.getPolls();
+    })
+    .catch(err => {
+      console.error(err);
+    })
     // remove from firebase array of staged ids
+
   }
 
   archivePoll = () => {

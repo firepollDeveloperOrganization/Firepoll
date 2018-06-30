@@ -8,7 +8,7 @@ const Poll = (props) => {
   let analyticsButton = (<Link to="/analytics"><button className="button is-danger is-rounded is-small is-inverted is-outlined">VIEW ANALYTICS <i className="fa-fw fas fa-calendar-check"></i></button></Link>);
   let status = poll.completed ? 'VIEW ANALYTICS' : poll.active ? 'VIEW LIVE' : 'DEPLOY';
   let statusButton = poll.completed ? analyticsButton : poll.active ? liveButton : deployButton;
-  let undeployedDelete = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => deletePoll()}>DELETE <i className="fa-fw fas fa-trash"></i></button>);
+  let undeployedDelete = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => deletePoll(poll._id)}>DELETE <i className="fa-fw fas fa-trash"></i></button>);
   let completedDelete = <button>ARCHIVE POLL</button>;
   let deleteButton = poll.completed ? completedDelete : poll.active ? '' : undeployedDelete;
   return (
