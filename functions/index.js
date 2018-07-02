@@ -6,24 +6,6 @@ if (!admin.apps.length) {
   admin.initializeApp(config);
 }
 
-exports.aggregateVotes = functions.database
-  .ref(`/polls/{poll_id}/questions/{question_id}/votes`)
-  .onWrite((change, context) => {
-      const dataToExtract = change.after.val();
-      const dataForAggregation = Object.keys(dataToExtract).map(key => dataToExtract[key])[0];
-      dataForAggregation.timeStamp = Date.now();
-      // realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')})
-      return admin.database().ref(`/polls/${context.params.poll_id}/questions/${context.params.question_id}/aggregates`).child(`${dataForAggregation.answer_id}`).transaction((aggregate) => {
-        if (!aggregate) {
-          dataForAggregation.vote_count = 1;
-          return dataForAggregation;
-        } else {
-          aggregate.vote_count = parseInt(aggregate.vote_count) + 1;
-          return aggregate;
-        }
-      })
-  });
-
 exports.mapReduceVotes = functions.https.onRequest((req, res) => {
   // map votes is now working! 
 
@@ -54,3 +36,22 @@ exports.mapReduceVotes = functions.https.onRequest((req, res) => {
 
   });
 });
+
+// Deprecated solution
+// exports.aggregateVotes = functions.database
+//   .ref(`/polls/{poll_id}/questions/{question_id}/votes`)
+//   .onWrite((change, context) => {
+//       const dataToExtract = change.after.val();
+//       const dataForAggregation = Object.keys(dataToExtract).map(key => dataToExtract[key])[0];
+//       dataForAggregation.timeStamp = Date.now();
+//       // realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')})
+//       return admin.database().ref(`/polls/${context.params.poll_id}/questions/${context.params.question_id}/aggregates`).child(`${dataForAggregation.answer_id}`).transaction((aggregate) => {
+//         if (!aggregate) {
+//           dataForAggregation.vote_count = 1;
+//           return dataForAggregation;
+//         } else {
+//           aggregate.vote_count = parseInt(aggregate.vote_count) + 1;
+//           return aggregate;
+//         }
+//       })
+//   });
