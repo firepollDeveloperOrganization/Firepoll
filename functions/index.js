@@ -1,19 +1,5 @@
-// const functions = require('firebase-functions');
-
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-// const adminConfig = JSON.parse(process.env.FIREBASE_CONFIG);
-// const config = JSON.parse(process.env.FIREBASE_CONFIG);
-// adminConfig.credential = admin.credential.cert(serviceAccount);
-
-// console.log('CLOSING TIME, ONE LAST CALL FOR ALCOHOL');
-// console.log(JSON.stringify(config));
-
-// admin.initializeApp(adminConfig);
 admin.initializeApp();
 
 if (!admin.apps.length) {
@@ -36,7 +22,6 @@ exports.aggregateVotes = functions.database
           return aggregate;
         }
       })
-
   });
 
 exports.mapReduceVotes = functions.https.onRequest((req, res) => {
@@ -64,5 +49,8 @@ exports.mapReduceVotes = functions.https.onRequest((req, res) => {
       var aggregate = aggregateDataForProcessing[aggregateKey]
       admin.database().ref(`/polls/${aggregate.poll_id}/questions/${aggregate.question_id}/aggregates/${aggregate.answer_id}`).set(aggregate).then(() => {res.status(200).send()});
     }
+
+    res.status(200).send("Completed");
+
   });
 });
