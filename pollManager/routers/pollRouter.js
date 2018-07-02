@@ -64,14 +64,18 @@ pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req
     realTimeDB.ref(`/polls/${req.params.id}`).once('value')
     .then(result => {
       // store that info in mongoDB
-      var newPollObj = addResultsToPoll(req.body, result.val().questions);   
+      var newPollObj = addResultsToPoll(req.body, result.val().questions);  
+      console.log("New Poll Obj: ", newPollObj);
       db.updatePoll(req.params.id, newPollObj, function(err, result) {
-        if(err) console.error('Inserting results to MongoDB: ', err);
+        if(err) {
+          console.error('Inserting results to MongoDB: ', err);
+          res.send(err);
+        } else {
+          res.send(newPollObj);
+        }
       })
       // remove poll from firestore
-      // update staged polls to complete true
-      
-      res.send(newPollObj);
+      // update staged polls to complete true   
     })
     .catch(err => {
       res.send(err);

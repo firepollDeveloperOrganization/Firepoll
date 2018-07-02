@@ -65,11 +65,12 @@ class Dashboard extends React.Component {
     
   }
 
-  getPolls = () => {
+  getPolls = (cb) => {
     axios.get(`/polls/user/${this.props.userId}`)
     .then(res => {
       console.log('users polls: ', res.data);
       this.setState({allPolls: res.data, filteredPolls: res.data})
+      if(cb) cb();
     })
     .catch(err => {
       console.error(err);
@@ -115,10 +116,10 @@ class Dashboard extends React.Component {
     let poll = this.state.filteredPolls[index];
     axios.put(`/polls/close/${poll._id}`, poll)
     .then(res => {
-      firepoll.close(poll._id);
+      firepoll.close(poll);
       console.log("closed poll ", poll.title);
-      this.getPolls();
-      this.filterPolls();
+      this.getPolls(this.filterPolls);
+      console.log('Saved: ', res);
     })
     .catch(err => {
       console.error('Closing Poll: ', err);
@@ -147,7 +148,7 @@ class Dashboard extends React.Component {
   }
 
   filterPolls = (active, completed) => {
-    if(active === undefined && complete === undefined) {
+    if(active === undefined && completed === undefined) {
       active = this.state.filterActive;
       completed = this.state.filterComplete;
     } else {
@@ -156,9 +157,8 @@ class Dashboard extends React.Component {
         filterComplete: completed
       })
     }
-    console.log(`filtering for: active ${active}, completed ${completed}`);
     let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.active === active);
-    this.setState({filteredPolls: filtered}, () => console.log('filtered polls!'));
+    this.setState({filteredPolls: filtered});
   }
 
 
