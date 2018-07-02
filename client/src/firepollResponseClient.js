@@ -27,6 +27,7 @@ firepoll.vote = {}
 
   //allow the user to vote
   firepoll.vote.submit = (vote) => {
+    realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}`).set({question: vote.question_title, question_type: vote.question_type}).then(() => {console.log('vote complete')});
     return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')});
   }
 

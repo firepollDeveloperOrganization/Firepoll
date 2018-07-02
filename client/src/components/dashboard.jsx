@@ -18,8 +18,6 @@ const destructurePoll = (poll) => {
   returnObj.poll = {
     id: poll._id,
     data: {
-    active: true,
-    completed: false,
     author: poll.author,
     num_questions: poll.questions.length,
     start_time: new Date(),
@@ -60,7 +58,10 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       allPolls: [],
-      filteredPolls: []
+      filteredPolls: [],
+      filterActive: false,
+      filterComplete: false,
+
     }
     
   }
@@ -110,8 +111,21 @@ class Dashboard extends React.Component {
     console.log('will receive props', this.props);
     //this.getPolls(this.props.userId);
   }
-
   
+  close = (index) => {
+    let poll = this.state.filteredPolls[index];
+    axios.put(`/polls/close/${poll._id}`, poll)
+    .then(res => {
+      firepoll.close(poll._id);
+      console.log("closed poll ", poll.title);
+      this.getPolls();
+      this.filterPolls();
+    })
+    .catch(err => {
+      console.error('Closing Poll: ', err);
+    })
+  }
+
   deploy = (index) => {
     // formats the poll
     var destructured = destructurePoll(this.state.filteredPolls[index]);
@@ -134,6 +148,15 @@ class Dashboard extends React.Component {
   }
 
   filterPolls = (active, completed) => {
+    if(active === undefined && complete === undefined) {
+      active = this.state.filterActive;
+      completed = this.state.filterComplete;
+    } else {
+      this.setState({
+        filterActive: active,
+        filterComplete: completed
+      })
+    }
     console.log(`filtering for: active ${active}, completed ${completed}`);
     let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.active === active);
     this.setState({filteredPolls: filtered}, () => console.log('filtered polls!'));
@@ -179,7 +202,11 @@ class Dashboard extends React.Component {
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
           </div>
           <div id="polls-container">
+<<<<<<< HEAD
             {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} deploy={this.deploy} deletePoll={this.deletePoll} archivePoll={this.archivePoll} />)}
+=======
+            {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} />)}
+>>>>>>> dev
           </div>
         </div>
       )

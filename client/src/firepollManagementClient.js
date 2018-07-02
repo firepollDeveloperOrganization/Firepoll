@@ -21,11 +21,11 @@ firestore.settings(settings);
 
 const firepoll = {}
 
-// STAGE POLL
-  // allow the user to stage a poll
+  // STAGE POLL
   firepoll.stage = (pollId, cb) => {
     firestore.collection('stagedPolls').doc(pollId).set({
       active: false,
+      completed: false
     })
     .then(() => {
       console.log("Poll successfully staged");
@@ -48,7 +48,7 @@ const firepoll = {}
       })
       batch.commit().then(() => {
         // update stagedPolls collection for poll to active
-        firestore.collection("polls").doc(poll.id).update({active: true})
+        firestore.collection("stagedPolls").doc(poll.id).update({active: true})
         .then(() => {
           console.log("Poll is deployed!");
         })
@@ -65,6 +65,20 @@ const firepoll = {}
     })
   };
 
+  // CLOSE POLL
+  firepoll.close = (pollId) => {
+    firestore.collection("polls").doc(pollId).delete()
+    .catch(err => {
+      console.error('removing poll from firestore: ', err)
+    })
+    firestore.collection('stagedPolls').doc(pollId).set({
+      active: false,
+      completed: true
+    })
+    .catch(err => {
+      console.error('updating complete status in stagedPolls: ', err)
+    })
+  }
 
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
