@@ -64,7 +64,8 @@ pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req
     realTimeDB.ref(`/polls/${req.params.id}`).once('value')
     .then(result => {
       // store that info in mongoDB
-      var newPollObj = addResultsToPoll(req.body, result.val().questions);   
+      var newPollObj = addResultsToPoll(req.body, result.val().questions);
+      cronJobs[newPollObj].stop();
       db.updatePoll(req.params.id, newPollObj, function(err, result) {
         if(err) console.error('Inserting results to MongoDB: ', err);
       })
