@@ -1,13 +1,15 @@
 const express = require('express');
-const pollTestData = require('../pollTestData.js');
 const pollRouter = express.Router();
 const db = require('../../db/index.js');
 const realTimeDB = require('../../client/src/firepollManagementClient').realTimeDB;
 const firepoll = require('../../client/src/firepollManagementClient').firepoll;
-const addResultsToPoll = require('../helpers/addResultsToPoll')
+const addResultsToPoll = require('../helpers/addResultsToPoll');
+const axios = require('axios');
+const CronJob = require('cron');
+
+Cronjobs = {};
 
 // User should be able to create, read, update and delete polls
-
 // ADDS A POLL TO DB
 pollRouter.post('/', (req, res) => {
   console.log('saving a poll ...');
@@ -24,14 +26,24 @@ pollRouter.post('/', (req, res) => {
 
 // UPDATES A POLL
 pollRouter.put('/:id', (req, res) => {
-  console.log('updating poll again my dude ...', req.params.id);
-  console.log('update: ', req.body)
-
   db.updatePoll(req.params.id, req.body, function(err, result) {
     if (err) {
       console.error(err);
       res.status(400).send(err);
     } else {
+      if (result.active === true) {
+      // if the poll is now active, create a cron job to aggregate votes
+        if (!cronJob[result.id]) {
+          // if the cron job doesn't exist, create it
+          cronJob[result._id] = new CronJob('* * * * * *', () => {
+            console.log(result._id);
+            // axios.post('https://us-central1-live-poll-ravenclaw.cloudfunctions.net/mapReduceVotes', { poll_id: result._id })
+          }, null, true, 'America/Los_Angeles');
+        } else {
+          // if the cron job does exist, start it
+          cronJob[result._id].start()
+        }
+      }
       res.status(200).send(`updated: ${result.title}`);
     }
   })

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
-import dummypolls from './dummydata';
 import axios from 'axios';
 import {firepoll} from '../firepollManagementClient';
 // import dummyData from '../../../pollManager/PollTestData.js';
