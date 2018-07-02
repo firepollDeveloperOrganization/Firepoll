@@ -12,7 +12,8 @@ class ResponseClient extends React.Component {
       answers: false,
       currChoice: 1,
       alreadyVoted: false,
-      results: false
+      results: false,
+      user_id: 1
     };
   };
 
@@ -67,11 +68,13 @@ class ResponseClient extends React.Component {
 
     const answer = JSON.parse(this.state.currChoice);
 
+    this.setState({user_id: this.state.user_id+1});
+//|| ip.address().replace(/\./g , "")
     let userAnswer = {
       poll_id: this.state.poll.id,
       answer_id: answer.id,
       answer_value: answer.value,
-      user_id: ip.address().replace(/\./g , ""),
+      user_id: this.state.user_id,
       question_id: question.id,
       question_title: question.question_title,
       question_type: question.type
@@ -79,7 +82,7 @@ class ResponseClient extends React.Component {
 
     if (this.state.alreadyVoted === false) {
       this.setState({
-        alreadyVoted: true
+        alreadyVoted: false
       });
     }
 
