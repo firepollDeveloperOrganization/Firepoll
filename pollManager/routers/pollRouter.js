@@ -2,8 +2,10 @@ const express = require('express');
 const pollRouter = express.Router();
 const db = require('../../db/index.js');
 const realTimeDB = require('../../client/src/firepollManagementClient').realTimeDB;
-const CronJob = require('cron').CronJob;
+const firepoll = require('../../client/src/firepollManagementClient').firepoll;
+const addResultsToPoll = require('../helpers/addResultsToPoll');
 const axios = require('axios');
+const CronJob = require('cron');
 
 Cronjobs = {};
 
@@ -48,19 +50,26 @@ pollRouter.put('/:id', (req, res) => {
 });
 
 // CLOSES A LIVE POLL
-pollRouter.put('/close/:id', (req, res) => {
+pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req.body
   console.log('closing poll ... ', req.params.id);
   setTimeout(() => {
     realTimeDB.ref(`/polls/${req.params.id}`).once('value')
     .then(result => {
-      res.send(result);
+      // store that info in mongoDB
+      var newPollObj = addResultsToPoll(req.body, result.val().questions);   
+      db.updatePoll(req.params.id, newPollObj, function(err, result) {
+        if(err) console.error('Inserting results to MongoDB: ', err);
+      })
+      // remove poll from firestore
+      // update staged polls to complete true
+      
+      res.send(newPollObj);
     })
     .catch(err => {
       res.send(err);
     })
-    // store that info in mongoDB
-    // remove poll from firestore
-    // update staged polls to complete true
+    
+    
   }, 2000)
 })
 
