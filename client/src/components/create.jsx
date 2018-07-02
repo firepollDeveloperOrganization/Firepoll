@@ -16,8 +16,15 @@ class Create extends React.Component {
     };
  }
   updateAnswer = (e, ansIdx, qIdx) => {
-    console.log(e.target.innerHTML, ansIdx, qIdx);
+    // console.log(e.target.innerHTML, ansIdx, qIdx);
     this.state.questions[qIdx].answers[ansIdx].choice = e.target.innerHTML;
+    this.forceUpdate();
+  }
+
+  updateQuestion = (e, qIdx) => {
+    // console.log(e.target.innerHTML, qIdx);
+    // // console.log(this.state.questions[qIdx].question);
+    this.state.questions[qIdx].question = e.target.innerHTML;
     this.forceUpdate();
   }
   resetPoll = () => {
@@ -167,7 +174,7 @@ class Create extends React.Component {
             </div>
           </div>
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
-          <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion} updateAnswer={this.updateAnswer}/>
+          <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion} updateAnswer={this.updateAnswer} updateQuestion={this.updateQuestion}/>
           <div id="createPollButtonWrapper">
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
