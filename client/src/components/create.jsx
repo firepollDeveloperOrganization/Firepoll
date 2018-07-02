@@ -154,7 +154,7 @@ class Create extends React.Component {
             }
             <form onSubmit={this.addAnswer} className="field">
               <div className="control">
-                <input className="input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here to automatically add answer" />
+                <input className="input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here and press enter to add" />
               </div>
             </form>
             <div className="addQuestionWrapper">

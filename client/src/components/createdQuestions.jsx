@@ -15,10 +15,11 @@ class CreatedQuestions extends React.Component {
       selectedQuestion: i
     })
   }
-  // deleteQuestion = () => {
-
-
-  // }
+  handleDelete = () => {
+    let idx = this.state.selectedQuestion;
+    this.state.selectedQuestion = 0;
+    this.props.deleteQuestion(idx);
+  }
 
   render() {
     if (this.props.questions.length === 0) {
@@ -27,10 +28,14 @@ class CreatedQuestions extends React.Component {
       return (
         <div id="createdQuestionsWrapper">
           <div id="createdQuestionsButtons">
-            {this.props.questions.map((question, index) => {
-              return (<button name={index} key={index} onClick={this.selectQuestion}>{`Question ${index + 1}`}</button>)
-            })}
-            <button onClick={() => this.props.deleteQuestion(this.state.selectedQuestion)}>Delete selected question</button>
+            {/* {this.props.questions.map((question, index) => {
+              return (<button name={index} key={index} onClick={this.selectQuestion} className="button is-danger is-rounded is-small is-inverted is-outlined">{`Question ${index + 1}`}</button>)
+            })} */}
+            <select>
+              {this.props.questions.map((question, i) => <option name={i} key={i} onChange={e => this.selectQuestion(e)} >{`Question ${i + 1}`}</option>)}
+            </select>
+
+            <button onClick={this.handleDelete}>Delete selected question</button>
           </div>
           <div id="selectedQuestion">
             <p id="selectedQuestionQuestion">
