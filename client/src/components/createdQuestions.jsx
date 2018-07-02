@@ -10,10 +10,11 @@ class CreatedQuestions extends React.Component {
   }
   
   selectQuestion(e) {
-    let i = parseInt(e.target.name);
+    let i = parseInt(e.target.value);
     this.setState({
       selectedQuestion: i
     })
+
   }
   handleDelete = () => {
     let idx = this.state.selectedQuestion;
@@ -31,11 +32,13 @@ class CreatedQuestions extends React.Component {
             {/* {this.props.questions.map((question, index) => {
               return (<button name={index} key={index} onClick={this.selectQuestion} className="button is-danger is-rounded is-small is-inverted is-outlined">{`Question ${index + 1}`}</button>)
             })} */}
-            <select>
-              {this.props.questions.map((question, i) => <option name={i} key={i} onChange={e => this.selectQuestion(e)} >{`Question ${i + 1}`}</option>)}
-            </select>
+            <div className="select is-rounded is-danger is-small">
+              <select onChange={e => this.selectQuestion(e)}>
+                {this.props.questions.map((question, i) => <option name={i} key={i} value={i}>{`Question ${i + 1}`}</option>)}
+              </select>
+            </div>
 
-            <button onClick={this.handleDelete}>Delete selected question</button>
+            <button className="button is-danger is-rounded is-inverted is-outlined is-small" onClick={this.handleDelete}>Delete selected question</button>
           </div>
           <div id="selectedQuestion">
             <p id="selectedQuestionQuestion">
