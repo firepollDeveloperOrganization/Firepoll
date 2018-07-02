@@ -179,6 +179,9 @@
   float: right;
   margin: 10px; }
 
+#createPollButtonWrapper button {
+  margin-right: 20px; }
+
 @keyframes spinAround {
   from {
     transform: rotate(0deg); }

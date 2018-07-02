@@ -66,19 +66,30 @@ const firepoll = {}
   };
 
   // CLOSE POLL
-  firepoll.close = (pollId) => {
-    firestore.collection("polls").doc(pollId).delete()
+  firepoll.close = (poll) => {
+    let batch = firestore.batch();
+    poll.questions.forEach(question => {
+      let docRef = firestore.collection("polls").doc(poll._id).collection("questions").doc(question._id);
+      batch.delete(docRef);
+    })
+    batch.commit().then(() => {
+
+      firestore.collection("polls").doc(poll._id).delete()
+      .catch(err => {
+        console.error('removing poll from firestore: ', err)
+      })
+      firestore.collection('stagedPolls').doc(pollId).set({
+        active: false,
+        completed: true
+      })
+      .catch(err => {
+        console.error('updating complete status in stagedPolls: ', err)
+      })
     .catch(err => {
-      console.error('removing poll from firestore: ', err)
-    })
-    firestore.collection('stagedPolls').doc(pollId).set({
-      active: false,
-      completed: true
-    })
-    .catch(err => {
-      console.error('updating complete status in stagedPolls: ', err)
-    })
-  }
+      console.error('removing subcollections from firestore: ', err)
+    })})
+  }  
+
 
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
