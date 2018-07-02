@@ -24,7 +24,7 @@ class CreatedQuestions extends React.Component {
         <div id="createdQuestionsWrapper">
           <div id="createdQuestionsButtons">
             {this.props.questions.map((question, index) => {
-              return (<button name={index} onClick={this.selectQuestion}>{`Question ${index}`}</button>)
+              return (<button name={index} onClick={this.selectQuestion}>{`Question ${index + 1}`}</button>)
             })}
           </div>
           <div id="selectedQuestion">
