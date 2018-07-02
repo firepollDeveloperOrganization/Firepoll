@@ -12,9 +12,13 @@ class Create extends React.Component {
       questions: [],
       currentQuestion: '',
       currentAnswer: '',
-      answers: []
+      answers: [],
+      editing: false
     };
  }
+  componentDidMount() {
+    //TODO: update state with the poll info fetched from mongo
+  }
   updateAnswer = (e, ansIdx, qIdx) => {
     // console.log(e.target.innerHTML, ansIdx, qIdx);
     this.state.questions[qIdx].answers[ansIdx].choice = e.target.innerHTML;
@@ -39,7 +43,8 @@ class Create extends React.Component {
   }
 
   createPoll = () => {
-    console.log('creating Poll: ', this.state.pollname);
+    // console.log('creating Poll: ', this.state.pollname);
+    console.log(this.props.location.pathname.slice(6));
     let poll = {
       author: this.props.userId,
       title: this.state.pollname,
@@ -51,25 +56,32 @@ class Create extends React.Component {
       start_time: null,
       questions: this.state.questions
     }
-    
-    //  adding poll to MongoDB
-    axios.post('/polls/', poll)
-    .then(res => {
-      console.log('saved: ', res);
-      firepoll.stage(res.data._id, () => {
-        this.setState({
-          pollname: '',
-          questions: [],
-          currentQuestion: '',
-          currentAnswer: '',
-          answers: []
-        })
-        //then redirect to dashboard
-      });
-    })
-    .catch(err => {
-      console.error(err);
-    })
+
+    if (this.props.location.pathname) {
+      console.log('submitting edited poll');
+      axios.put('/polls/', poll)
+        .then(() => console.log('updated poll'))
+        .catch(err => console.error(err));
+    } else {
+      //  adding poll to MongoDB
+      axios.post('/polls/', poll)
+      .then(res => {
+        console.log('saved: ', res);
+        firepoll.stage(res.data._id, () => {
+          this.setState({
+            pollname: '',
+            questions: [],
+            currentQuestion: '',
+            currentAnswer: '',
+            answers: []
+          })
+          //then redirect to dashboard
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      })
+    }
   }
 
   addQuestion = () => {
