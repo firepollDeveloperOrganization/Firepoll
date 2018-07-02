@@ -15,6 +15,16 @@ class Create extends React.Component {
       answers: []
     };
  }
+  resetPoll = () => {
+    console.log('resetting poll');
+    this.setState({
+      pollname: '',
+      questions: [],
+      currentQuestion: '',
+      currentAnswer: '',
+      answers: []
+    });
+  }
 
   createPoll = () => {
     console.log('creating Poll: ', this.state.pollname);
@@ -143,7 +153,8 @@ class Create extends React.Component {
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
           <CreatedQuestions questions={this.state.questions}/>
           <div id="createPollButtonWrapper">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll  <i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
           </div>
         </div>
       )
