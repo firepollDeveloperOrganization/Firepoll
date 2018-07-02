@@ -71,9 +71,9 @@ class ResponseClient extends React.Component {
       poll_id: this.state.poll.id,
       answer_id: answer.id,
       answer_value: answer.value,
-      user_id: this.props.userId || ip.address().replace(/./g , "newchar"),
+      user_id: ip.address().replace(/\./g , ""),
       question_id: question.id,
-      question_title: question.title,
+      question_title: question.question_title,
       question_type: question.type
     }
 
@@ -83,20 +83,19 @@ class ResponseClient extends React.Component {
       });
     }
 
-    firePollResponseClient.get.results(this.state.poll.id, question_id).then((data) => {
+    firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
       this.setState({
         results: data
       });
     });
 
-    firePollResponseClient.listen.results(this.state.poll.id, question_id, (data) => {
+    firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
       this.setState({
         results: data
       });
     });
 
     firePollResponseClient.vote.submit(userAnswer).then(() => {
-      console.log(userAnswer);
       console.log('Thanks for voting');
     })
   }
