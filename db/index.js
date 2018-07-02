@@ -40,7 +40,6 @@ const updatePoll = (id, update, cb) => {
     if (err) {
       cb(err, null);
     } else {
-      console.log('updated Poll ', result)
       cb(null, result);
     }
   })
