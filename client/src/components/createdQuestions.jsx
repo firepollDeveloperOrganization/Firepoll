@@ -15,6 +15,10 @@ class CreatedQuestions extends React.Component {
       selectedQuestion: i
     })
   }
+  // deleteQuestion = () => {
+
+
+  // }
 
   render() {
     if (this.props.questions.length === 0) {
@@ -24,8 +28,9 @@ class CreatedQuestions extends React.Component {
         <div id="createdQuestionsWrapper">
           <div id="createdQuestionsButtons">
             {this.props.questions.map((question, index) => {
-              return (<button name={index} onClick={this.selectQuestion}>{`Question ${index + 1}`}</button>)
+              return (<button name={index} key={index} onClick={this.selectQuestion}>{`Question ${index + 1}`}</button>)
             })}
+            <button onClick={() => this.props.deleteQuestion(this.state.selectedQuestion)}>Delete selected question</button>
           </div>
           <div id="selectedQuestion">
             <p id="selectedQuestionQuestion">

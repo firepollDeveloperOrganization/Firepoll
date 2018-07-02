@@ -105,6 +105,17 @@ class Create extends React.Component {
     })
   }
 
+  deleteQuestion = (i) => {
+    // console.log('deleting question', i);
+    // console.log(this.state.questions[i]);
+    let questions = this.state.questions;
+    // console.log('preslice qs', questions);
+    questions.splice(i, 1);
+    // console.log('post slice qs', questions);
+    this.setState({questions});
+
+  }
+
   render() {
     if (this.props.user === 'anonymous') return <Redirect to='/login' />
       return (
@@ -151,7 +162,7 @@ class Create extends React.Component {
             </div>
           </div>
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
-          <CreatedQuestions questions={this.state.questions}/>
+          <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion}/>
           <div id="createPollButtonWrapper">
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
