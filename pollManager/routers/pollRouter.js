@@ -57,6 +57,13 @@ pollRouter.put('/:id', (req, res) => {
   })
 });
 
+// DELETES A POLL
+pollRouter.delete('/:id', (req, res) => {
+  db.deletePoll(req.params.id)
+    .then(data => res.send(data))
+    .catch(err => res.send(err)); //change error-handling later
+});
+
 // CLOSES A LIVE POLL
 pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req.body
   console.log('closing poll ... ', req.params.id);
