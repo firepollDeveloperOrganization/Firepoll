@@ -15,6 +15,11 @@ class Create extends React.Component {
       answers: []
     };
  }
+  updateAnswer = (e, ansIdx, qIdx) => {
+    console.log(e.target.innerHTML, ansIdx, qIdx);
+    this.state.questions[qIdx].answers[ansIdx].choice = e.target.innerHTML;
+    this.forceUpdate();
+  }
   resetPoll = () => {
     console.log('resetting poll');
     this.setState({
@@ -149,7 +154,7 @@ class Create extends React.Component {
             {/*CURRENT ANSWERS*/}
             {this.state.answers.length > 0 &&
               this.state.answers.map((answer, i) => {
-                return (<li className="answer" key={i}><span>{answer.choice}</span><button id={i.toString()} onClick={this.deleteAnswer}>delete</button></li>)
+                return (<li className="answer" key={i}><button id={i.toString()} onClick={this.deleteAnswer} className="button is-danger is-rounded is-small is-inverted is-outlined">X</button><span>&nbsp;{answer.choice}</span></li>)
               })
             }
             <form onSubmit={this.addAnswer} className="field">
@@ -162,7 +167,7 @@ class Create extends React.Component {
             </div>
           </div>
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
-          <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion}/>
+          <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion} updateAnswer={this.updateAnswer}/>
           <div id="createPollButtonWrapper">
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
