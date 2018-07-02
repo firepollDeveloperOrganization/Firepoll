@@ -149,7 +149,7 @@ class Create extends React.Component {
             {/*CURRENT ANSWERS*/}
             {this.state.answers.length > 0 &&
               this.state.answers.map((answer, i) => {
-                return (<li className="answer"><span>{answer.choice}</span><button id={i.toString()} onClick={this.deleteAnswer}>delete</button></li>)
+                return (<li className="answer" key={i}><span>{answer.choice}</span><button id={i.toString()} onClick={this.deleteAnswer}>delete</button></li>)
               })
             }
             <form onSubmit={this.addAnswer} className="field">
