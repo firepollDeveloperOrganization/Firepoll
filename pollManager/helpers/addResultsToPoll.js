@@ -1,28 +1,29 @@
 
 var addResultsToPoll = (poll, results) => {
   let totalVotes = 0;
-  poll.questions.forEach(question => {
+  poll.questions = poll.questions.map(question => {
     // let questionId = question.id
-    question.answers.forEach(answer => {
-      console.log('RESULTS: ', results);
-      console.log('QUESTION_ID: ', question._id);
-      console.log('AGGREGATES: ', results[question._id].aggregates);
-      console.log('ANSWER_ID: ', answer._id);
-      console.log('VOTE_COUNT: ', results[question._id].aggregates[answer._id].vote_count);
-      
+    question.answers = question.answers.map(answer => {
+      console.log('addResultsToPoll running... ');      
       try {
+      console.log('try is running ...');
       let votes = results[question._id].aggregates[answer._id].vote_count;
       totalVotes += votes;
       answer.votes = votes;
+      console.log('votes: ', votes);
       }
       catch (err) {
+        console.log('catch is running...')
         console.error(err);
       }
+      return answer;
     })
-    poll.total_answers = totalVotes;
-    poll.active = false;
-    poll.completed = true;
+    return question;
   })
+  poll.total_answers = totalVotes;
+  poll.active = false;
+  poll.completed = true;
+  console.log('Poll before returning from helper: ', poll)
   return poll;
 };
 
