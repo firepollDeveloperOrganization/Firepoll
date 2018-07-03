@@ -3,6 +3,7 @@ import { Redirect, Link } from 'react-router-dom';
 import CreatedQuestions from './createdQuestions.jsx';
 import axios from 'axios';
 import {firepoll} from '../firepollManagementClient';
+import { EIO } from 'constants';
 
 class Create extends React.Component {
   constructor(props) {
@@ -15,8 +16,19 @@ class Create extends React.Component {
       answers: []
     };
  }
+  componentDidMount() {
+    let editPollId = this.props.match.params.pollId;
+    if (editPollId) {
+      axios.get(`/polls/${editPollId}`)
+      .then(res => {
+        let {title, questions} = res.data;
+        this.setState({pollname: title, questions});  //this breaks the page format
+      })
+      .catch(err => console.log(err));
+    }
+  }
+
   updateAnswer = (e, ansIdx, qIdx) => {
-    // console.log(e.target.innerHTML, ansIdx, qIdx);
     this.state.questions[qIdx].answers[ansIdx].choice = e.target.innerHTML;
     this.forceUpdate();
   }
@@ -39,7 +51,7 @@ class Create extends React.Component {
   }
 
   createPoll = () => {
-    console.log('creating Poll: ', this.state.pollname);
+    let editPollId = this.props.match.params.pollId;
     let poll = {
       author: this.props.userId,
       title: this.state.pollname,
@@ -51,25 +63,31 @@ class Create extends React.Component {
       start_time: null,
       questions: this.state.questions
     }
-    
-    //  adding poll to MongoDB
-    axios.post('/polls/', poll)
-    .then(res => {
-      console.log('saved: ', res);
-      firepoll.stage(res.data._id, () => {
-        this.setState({
-          pollname: '',
-          questions: [],
-          currentQuestion: '',
-          currentAnswer: '',
-          answers: []
-        })
-        //then redirect to dashboard
-      });
-    })
-    .catch(err => {
-      console.error(err);
-    })
+
+    if (editPollId) {
+      axios.put(`/polls/edit/${editPollId}`, poll)
+        .then(res => this.props.returnToDash())
+        .catch(err => console.error(err));
+    } else {
+      //  adding poll to MongoDB
+      axios.post('/polls/', poll)
+      .then(res => {
+        console.log('saved: ', res);
+        firepoll.stage(res.data._id, () => {
+          this.setState({
+            pollname: '',
+            questions: [],
+            currentQuestion: '',
+            currentAnswer: '',
+            answers: []
+          })
+          //then redirect to dashboard
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      })
+    }
   }
 
   addQuestion = () => {
@@ -129,13 +147,15 @@ class Create extends React.Component {
   }
 
   render() {
+    let pathurl = this.props.location.pathname;
     if (this.props.user === 'anonymous') return <Redirect to='/login' />
+    console.log(this.props.location);
       return (
         <div id="create-view">
           <div className="outer-banner">
             {/*HEADER*/}
             <div className="nav">
-              <h1 className="title is-1">Create Your Fire Poll!</h1>
+              <h1 className="title is-1">{pathurl === '/create' ? 'Create' : 'Edit'} Your Fire Poll!</h1>
               <h2 className="subtitle is-3">🔥 Logged in as {this.props.user}</h2>
             </div>
           {/*NAVBAR*/}
@@ -176,7 +196,7 @@ class Create extends React.Component {
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
           <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion} updateAnswer={this.updateAnswer} updateQuestion={this.updateQuestion}/>
           <div id="createPollButtonWrapper">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>{pathurl === '/create' ? 'Create' : 'Finish Editing'} Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
           </div>
         </div>
