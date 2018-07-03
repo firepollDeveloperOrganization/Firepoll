@@ -17,10 +17,10 @@ class Create extends React.Component {
     };
  }
   componentDidMount() {
-    if (this.props.location.pathname) {
-      axios.get(`/polls/${this.props.location.pathname.slice(6)}`)
+    let editPollId = this.props.match.params.pollId;
+    if (editPollId) {
+      axios.get(`/polls/${editPollId}`)
       .then(res => {
-        console.log('result of create fetch', res.data);
         let {title, questions} = res.data;
         this.setState({pollname: title, questions});  //this breaks the page format
       })
@@ -51,8 +51,7 @@ class Create extends React.Component {
   }
 
   createPoll = () => {
-    // console.log('creating Poll: ', this.state.pollname);
-    console.log(this.props.location.pathname.slice(6));
+    let editPollId = this.props.match.params.pollId;
     let poll = {
       author: this.props.userId,
       title: this.state.pollname,
@@ -65,10 +64,9 @@ class Create extends React.Component {
       questions: this.state.questions
     }
 
-    if (this.props.location.pathname) {
-      console.log('submitting edited poll');
-      axios.put('/polls/', poll)
-        .then(() => console.log('updated poll'))
+    if (editPollId) {
+      axios.put(`/polls/edit/${editPollId}`, poll)
+        .then(res => this.props.returnToDash())
         .catch(err => console.error(err));
     } else {
       //  adding poll to MongoDB
