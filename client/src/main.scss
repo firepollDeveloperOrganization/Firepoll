@@ -20,11 +20,11 @@
 // overwrite bulma defaults
 $family-sans-serif: 'Exo', "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $primary: #ff2600;
-$primary: findColorInvert($primary-lighter);
+$primary-invert: findColorInvert($primary);
 $primary-lighter: #e83800;
 $primary-lighter-invert: findColorInvert($primary-lighter);
 $primary-lightest: #ff5400;
-$primary-lightest-invert: findColorInvert($primary-orange);
+$primary-lightest-invert: findColorInvert($primary-lightest);
 
 // IMPORT REST OF BULMA
 @import '../../node_modules/bulma/bulma';
