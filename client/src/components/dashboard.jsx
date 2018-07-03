@@ -57,20 +57,15 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       allPolls: [],
-      filteredPolls: [],
-      filterActive: false,
-      filterComplete: false,
-
+      filteredPolls: []
     }
-    
   }
 
-  getPolls = (cb) => {
+  getPolls = () => {
     axios.get(`/polls/user/${this.props.userId}`)
     .then(res => {
       console.log('users polls: ', res.data);
       this.setState({allPolls: res.data, filteredPolls: res.data})
-      if(cb) cb();
     })
     .catch(err => {
       console.error(err);
@@ -118,8 +113,8 @@ class Dashboard extends React.Component {
     .then(res => {
       firepoll.close(poll);
       console.log("closed poll ", poll.title);
-      this.getPolls(this.filterPolls);
-      console.log('Saved: ', res);
+      this.getPolls();
+      console.log('Saved: ', res.data);
     })
     .catch(err => {
       console.error('Closing Poll: ', err);
@@ -148,15 +143,6 @@ class Dashboard extends React.Component {
   }
 
   filterPolls = (active, completed) => {
-    if(active === undefined && completed === undefined) {
-      active = this.state.filterActive;
-      completed = this.state.filterComplete;
-    } else {
-      this.setState({
-        filterActive: active,
-        filterComplete: completed
-      })
-    }
     let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.active === active);
     this.setState({filteredPolls: filtered});
   }
@@ -202,7 +188,7 @@ class Dashboard extends React.Component {
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
           </div>
           <div id="polls-container">
             {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} editPoll={this.editPoll}/>)}
