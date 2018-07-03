@@ -63,6 +63,10 @@ class ResponseClient extends React.Component {
     });
   }
 
+  testCloudFunction() {
+    firePollResponseClient.testCloudFunction();
+  }
+
   handleSubmit(e, question) {
     e.preventDefault();
 
@@ -109,6 +113,9 @@ class ResponseClient extends React.Component {
   render() {
     return (
     <div id="poll-dist" className = "poll-dist-class">
+    <button onClick = {() => {
+      this.testCloudFunction()
+      }}>TEST</button>
     {this.state.poll ? <div>
         <h1 className="title is-4">{this.state.poll.title}</h1>
       { 
