@@ -40,6 +40,7 @@ const updatePoll = (id, update, cb) => {
     if (err) {
       cb(err, null);
     } else {
+      console.log('updated Poll ', result)
       cb(null, result);
     }
   })
@@ -66,15 +67,9 @@ const retrieveAllPolls = (cb) => {
   });
 }
 
-const deletePoll = id => Poll.findOneAndRemove({_id: id});
-
-const editPoll = (id, poll) => Poll.findOneAndUpdate({_id: id}, poll, {new: true});
-
 module.exports = {
   savePoll,
   updatePoll,
-  deletePoll,
-  editPoll,
   retrieveOnePoll,
   retrieveAllPollsOfUser,
   retrieveAllPolls

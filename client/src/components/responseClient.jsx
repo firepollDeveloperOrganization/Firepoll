@@ -1,6 +1,6 @@
 import React from 'react';
 import ip from 'ip';
-import {firepoll} from '../firepollManagementClient'
+import firePollManagementClient from '../firepollManagementClient'
 import firePollResponseClient from '../firepollResponseClient'
 
 class ResponseClient extends React.Component {
@@ -12,8 +12,7 @@ class ResponseClient extends React.Component {
       answers: false,
       currChoice: 1,
       alreadyVoted: false,
-      results: false,
-      user_id: 1
+      results: false
     };
   };
 
@@ -22,15 +21,15 @@ class ResponseClient extends React.Component {
       // GET POLL & SETUP LISTENER
       var pollUniqueKey = this.props.location.pathname.slice(10);
 
-      firepoll.get.poll(pollUniqueKey).then((data) => {
+      firePollManagementClient.get.poll(pollUniqueKey).then((data) => {
         this.setState({
           poll: data
         }, () => {
-          firepoll.listen.poll(this.state.poll, (data) => {
+          firePollManagementClient.listen.poll(this.state.poll, (data) => {
             this.setState({
               poll: data
             }, () => {
-              firepoll.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
+              firePollManagementClient.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
                 this.setState({
                   questions: data,
                   currChoice: JSON.stringify(data[0].answers[0])
@@ -42,12 +41,12 @@ class ResponseClient extends React.Component {
       })
 
       // GET ALL QUESTIONS & SETUP LISTENER
-      firepoll.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
+      firePollManagementClient.get.allQuestionsFromPoll(pollUniqueKey).then((data) => {
         this.setState({
           questions: data
         }, () => {
-          firepoll.listen.question(this.state.poll.id, this.state.questions, () => {
-            firepoll.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
+          firePollManagementClient.listen.question(this.state.poll.id, this.state.questions, () => {
+            firePollManagementClient.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
               this.setState({
                 questions: data
               });
@@ -63,42 +62,39 @@ class ResponseClient extends React.Component {
     });
   }
 
-  handleSubmit(e, question) {
+  handleSubmit(e, question_id) {
     e.preventDefault();
 
     const answer = JSON.parse(this.state.currChoice);
 
-    this.setState({user_id: this.state.user_id+1});
-//|| ip.address().replace(/\./g , "")
     let userAnswer = {
       poll_id: this.state.poll.id,
       answer_id: answer.id,
       answer_value: answer.value,
-      user_id: this.state.user_id,
-      question_id: question.id,
-      question_title: question.question_title,
-      question_type: question.type
+      user_id: this.props.userId || ip.address().replace(/./g , "newchar"),
+      question_id: question_id,
     }
 
     if (this.state.alreadyVoted === false) {
       this.setState({
-        alreadyVoted: false
+        alreadyVoted: true
       });
     }
 
-    firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
+    firePollResponseClient.get.results(this.state.poll.id, question_id).then((data) => {
       this.setState({
         results: data
       });
     });
 
-    firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
+    firePollResponseClient.listen.results(this.state.poll.id, question_id, (data) => {
       this.setState({
         results: data
       });
     });
 
     firePollResponseClient.vote.submit(userAnswer).then(() => {
+      console.log(userAnswer);
       console.log('Thanks for voting');
     })
   }
@@ -121,7 +117,7 @@ class ResponseClient extends React.Component {
                     );
                   })}
                 </select>
-              {this.state.alreadyVoted ? <div></div> : <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question)}}>Select Answer</button>}
+              {this.state.alreadyVoted ? <div></div> : <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question.id)}}>Select Answer</button>}
             </form>
 
             </div>

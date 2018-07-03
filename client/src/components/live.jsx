@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import dummypolls from './dummydata';
-import {firepoll} from '../firepollManagementClient';
+import firePollManagementClient from '../firepollManagementClient';
 
 class Live extends React.Component {
   constructor(props) {
@@ -20,15 +20,15 @@ class Live extends React.Component {
   fetchPoll() {
     let pollId = this.state.pollId;
     console.log('fetching live poll info from firebase for', this.state.pollId);
-    firepoll.get.poll(pollId).then((data) => {
+    firePollManagementClient.get.poll(pollId).then((data) => {
       this.setState({
         poll: data
       }, () => {
-        firepoll.listen.poll(this.state.poll, (data) => {
+        firePollManagementClient.listen.poll(this.state.poll, (data) => {
           this.setState({
             poll: data
           }, () => {
-            firepoll.get.allQuestionsFromPoll(pollId).then((data) => {
+            firePollManagementClient.get.allQuestionsFromPoll(pollId).then((data) => {
               this.setState({
                 questions: data
               });

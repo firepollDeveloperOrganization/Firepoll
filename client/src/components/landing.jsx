@@ -7,7 +7,6 @@ class Landing extends React.Component {
     super(props);
   }
   render() {
-    let landingLink = this.props.user ? "/dashboard" : "/login";
       return (
         <div id="landing-container">
           <div id="landing-nav">
@@ -21,7 +20,7 @@ class Landing extends React.Component {
           {/* </div>
           </section> */}
             <div id="auth-nav" >
-              <div><Link to={landingLink}><span className="button is-primary is-large">Signup/Login</span></Link></div>
+              <div><Link to="/login"><span className="button is-primary is-large">Signup/Login</span></Link></div>
             </div>
           </div>
           <div id="carousel-container">
