@@ -126,24 +126,23 @@ class ResponseClient extends React.Component {
                 </select>
               {this.state.alreadyVoted ? <div></div> : <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question)}}>Select Answer</button>}
             </form>
-
+            {
+              this.state.results ? this.state.results[question.id].map((result) => {
+                let total = this.state.results[question.id].reduce((acc, ele) => acc + ele.vote_count, 0);
+                const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
+                return (
+                <div className = "title is-5 flex results">
+                    <span>{result.answer_value}</span>
+                    <span>{isLit}</span>
+                    <span>{result.vote_count}</span>
+                </div>
+              )}
+        ) : <div></div>
+      }
             </div>
             );
         })
         : <div></div>
-      }
-      {
-        this.state.results ? this.state.results.map((result) => {
-          let total = this.state.results.reduce((acc, ele) => acc + ele.vote_count, 0);
-          const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
-          return (
-          <div className = "title is-5 flex results">
-              <span>{result.answer_value}</span>
-              <span>{isLit}</span>
-              <span>{result.vote_count}</span>
-          </div>
-          )}
-        ) : <div></div>
       }
     </div> : ''}
     </div>
