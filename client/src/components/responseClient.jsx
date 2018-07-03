@@ -69,7 +69,6 @@ class ResponseClient extends React.Component {
     const answer = JSON.parse(this.state.currChoice);
 
     this.setState({user_id: this.state.user_id+1});
-//|| ip.address().replace(/\./g , "")
     let userAnswer = {
       poll_id: this.state.poll.id,
       answer_id: answer.id,
@@ -87,14 +86,18 @@ class ResponseClient extends React.Component {
     }
 
     firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
+      let newResults = Object.assign({}, this.state.results);
+      newResults[question.id] = data;
       this.setState({
-        results: data
+        results: newResults
       });
     });
 
     firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
+      let newResults = Object.assign({}, this.state.results);
+      newResults[question.id] = data;
       this.setState({
-        results: data
+        results: newResults
       });
     });
 
