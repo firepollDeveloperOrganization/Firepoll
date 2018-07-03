@@ -65,11 +65,11 @@ firepoll.listen = {}
     return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`)
     .on('value', (snapshot) => {
       let results = snapshot.val();
-      if (!Array.isArray(results) && results !== null) {
-        var key = Object.keys(results)[0];
-        results = [results[key]];
+      let data = [];
+      for (let result in results) {
+        data.push(results[result]);
       }
-      cb(results);
+      cb(data);
     });
   }
 
@@ -139,11 +139,11 @@ firepoll.get = {}
   firepoll.get.results = (poll_id, question_id) => {
     return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`).once('value').then((snap) => {
       let results = snap.val();
-      if (!Array.isArray(results) && results !== null) {
-        var key = Object.keys(results)[0];
-        results = [results[key]];
+      let data = [];
+      for (let result in results) {
+        data.push(results[result]);
       }
-      return results;
+      return data;
     });
   }
 
