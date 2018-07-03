@@ -1,9 +1,8 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
-import dummypolls from './dummydata';
 import axios from 'axios';
-import firepoll from '../firepollManagementClient';
+import {firepoll} from '../firepollManagementClient';
 // import dummyData from '../../../pollManager/PollTestData.js';
 
 const sortByDateDescending = arr => {
@@ -18,8 +17,6 @@ const destructurePoll = (poll) => {
   returnObj.poll = {
     id: poll._id,
     data: {
-    active: true,
-    completed: false,
     author: poll.author,
     num_questions: poll.questions.length,
     start_time: new Date(),
@@ -62,7 +59,6 @@ class Dashboard extends React.Component {
       allPolls: [],
       filteredPolls: []
     }
-    
   }
 
   getPolls = () => {
@@ -110,8 +106,21 @@ class Dashboard extends React.Component {
     console.log('will receive props', this.props);
     //this.getPolls(this.props.userId);
   }
-
   
+  close = (index) => {
+    let poll = this.state.filteredPolls[index];
+    axios.put(`/polls/close/${poll._id}`, poll)
+    .then(res => {
+      firepoll.close(poll);
+      console.log("closed poll ", poll.title);
+      this.getPolls();
+      console.log('Saved: ', res.data);
+    })
+    .catch(err => {
+      console.error('Closing Poll: ', err);
+    })
+  }
+
   deploy = (index) => {
     // formats the poll
     var destructured = destructurePoll(this.state.filteredPolls[index]);
@@ -134,12 +143,31 @@ class Dashboard extends React.Component {
   }
 
   filterPolls = (active, completed) => {
-    console.log(`filtering for: active ${active}, completed ${completed}`);
     let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.active === active);
-    this.setState({filteredPolls: filtered}, () => console.log('filtered polls!'));
+    this.setState({filteredPolls: filtered});
   }
 
+  deletePoll = id => {
+    console.log('deleting poll that was created but not deployed! id:', id);
+    // remove from mongo db
+    axios.delete(`/polls/${id}`)
+    .then(res => {
+      this.getPolls();
+    })
+    .catch(err => {
+      console.error(err);
+    })
+    // TODO: remove from firebase array of staged ids
 
+  }
+
+  editPoll = id => {
+    console.log('editing poll', id);
+  }
+
+  archivePoll = () => {
+    console.log('deleting/archiving poll that has been completed!');
+  }
 
   render() {
     let { user, email } = this.props;
@@ -160,10 +188,10 @@ class Dashboard extends React.Component {
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
           </div>
           <div id="polls-container">
-            {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} deploy={this.deploy} />)}
+            {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} editPoll={this.editPoll}/>)}
           </div>
         </div>
       )

@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import CreatedQuestions from './createdQuestions.jsx';
 import axios from 'axios';
-import firestore from '../firepollManagementClient';
+import {firepoll} from '../firepollManagementClient';
 
 class Create extends React.Component {
   constructor(props) {
@@ -15,6 +15,28 @@ class Create extends React.Component {
       answers: []
     };
  }
+  updateAnswer = (e, ansIdx, qIdx) => {
+    // console.log(e.target.innerHTML, ansIdx, qIdx);
+    this.state.questions[qIdx].answers[ansIdx].choice = e.target.innerHTML;
+    this.forceUpdate();
+  }
+
+  updateQuestion = (e, qIdx) => {
+    // console.log(e.target.innerHTML, qIdx);
+    // // console.log(this.state.questions[qIdx].question);
+    this.state.questions[qIdx].question = e.target.innerHTML;
+    this.forceUpdate();
+  }
+  resetPoll = () => {
+    console.log('resetting poll');
+    this.setState({
+      pollname: '',
+      questions: [],
+      currentQuestion: '',
+      currentAnswer: '',
+      answers: []
+    });
+  }
 
   createPoll = () => {
     console.log('creating Poll: ', this.state.pollname);
@@ -34,7 +56,7 @@ class Create extends React.Component {
     axios.post('/polls/', poll)
     .then(res => {
       console.log('saved: ', res);
-      firestore.stage(res.data._id, () => {
+      firepoll.stage(res.data._id, () => {
         this.setState({
           pollname: '',
           questions: [],
@@ -95,6 +117,17 @@ class Create extends React.Component {
     })
   }
 
+  deleteQuestion = (i) => {
+    // console.log('deleting question', i);
+    // console.log(this.state.questions[i]);
+    let questions = this.state.questions;
+    // console.log('preslice qs', questions);
+    questions.splice(i, 1);
+    // console.log('post slice qs', questions);
+    this.setState({questions});
+
+  }
+
   render() {
     if (this.props.user === 'anonymous') return <Redirect to='/login' />
       return (
@@ -128,12 +161,12 @@ class Create extends React.Component {
             {/*CURRENT ANSWERS*/}
             {this.state.answers.length > 0 &&
               this.state.answers.map((answer, i) => {
-                return (<li className="answer"><span>{answer.choice}</span><button id={i.toString()} onClick={this.deleteAnswer}>delete</button></li>)
+                return (<li className="answer" key={i}><button id={i.toString()} onClick={this.deleteAnswer} className="button is-danger is-rounded is-small is-inverted is-outlined">X</button><span>&nbsp;{answer.choice}</span></li>)
               })
             }
             <form onSubmit={this.addAnswer} className="field">
               <div className="control">
-                <input className="input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here to automatically add answer" />
+                <input className="input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here and press enter to add" />
               </div>
             </form>
             <div className="addQuestionWrapper">
@@ -141,9 +174,10 @@ class Create extends React.Component {
             </div>
           </div>
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
-          <CreatedQuestions questions={this.state.questions}/>
+          <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion} updateAnswer={this.updateAnswer} updateQuestion={this.updateQuestion}/>
           <div id="createPollButtonWrapper">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll  <i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
           </div>
         </div>
       )
