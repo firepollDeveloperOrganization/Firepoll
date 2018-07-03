@@ -149,13 +149,15 @@ class Create extends React.Component {
   }
 
   render() {
+    let pathurl = this.props.location.pathname;
     if (this.props.user === 'anonymous') return <Redirect to='/login' />
+    console.log(this.props.location);
       return (
         <div id="create-view">
           <div className="outer-banner">
             {/*HEADER*/}
             <div className="nav">
-              <h1 className="title is-1">Create Your Fire Poll!</h1>
+              <h1 className="title is-1">{pathurl === '/create' ? 'Create' : 'Edit'} Your Fire Poll!</h1>
               <h2 className="subtitle is-3">🔥 Logged in as {this.props.user}</h2>
             </div>
           {/*NAVBAR*/}
@@ -196,7 +198,7 @@ class Create extends React.Component {
           {/*SIDE ELEMENT CREATED QUESTIONS*/}
           <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion} updateAnswer={this.updateAnswer} updateQuestion={this.updateQuestion}/>
           <div id="createPollButtonWrapper">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>Create Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>{pathurl === '/create' ? 'Create' : 'Finish Editing'} Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
           </div>
         </div>
