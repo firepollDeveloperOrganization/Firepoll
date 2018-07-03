@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import AnalyticsSub from './analyticsSub';
 import axios from 'axios';
+import Navbar from './navbar';
 
 
 class Analytics extends React.Component {
@@ -9,8 +10,7 @@ class Analytics extends React.Component {
     super(props); 
     this.state = {
       poll: {},
-      questions: [],
-      selected: 0
+      questions: []
     }
   }
   
@@ -25,11 +25,9 @@ class Analytics extends React.Component {
   }
   render() {
     return (
-      <div className="analyticsParent">
-        {this.state.questions.map((question, i)  => {
-          return (<button onClick={() => this.setState({selected: i})}>{`Question ${i+1}`}</button>)
-        })}
-        <AnalyticsSub question={this.state.questions[this.state.selected]}/>
+      <div>
+        <Navbar logout={this.props.logout}/>
+        <AnalyticsSub questions={this.state.questions}/>
       </div>
     )
   }
