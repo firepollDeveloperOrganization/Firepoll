@@ -56,7 +56,7 @@ class App extends React.Component {
         <Route exact path="/" render={props => <Landing {...props} vote={this.vote} user={user} />} />
         <Route exact path="/create" render={(props) => <Create {...props} user={user} userId={userId} logout={this.logout}/>} />
         <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} userId={userId} logout={this.logout} /*history={this.props.history}*/ />} />
-        <Route exact path="/analytics" render={props => <Analytics {...props} user={user} logout={this.logout} />} />
+        <Route exact path="/analytics/:id" render={({match}) => <Analytics match={match} user={user} logout={this.logout} />} />
         <Route exact path="/live/:pollId" render={props => <Live {...props} user={user} email={email}/>} />
         <Route exact path="/login" render={props => <Login {...props} />} />
         <Route exact path="/response/:pollId" render={props => <ResponseClient {...props} userId={userId} /> } />

@@ -78,7 +78,7 @@ const firepoll = {}
       .catch(err => {
         console.error('removing poll from firestore: ', err)
       })
-      firestore.collection('stagedPolls').doc(pollId).set({
+      firestore.collection('stagedPolls').doc(poll._id).set({
         active: false,
         completed: true
       })
