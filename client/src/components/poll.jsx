@@ -19,13 +19,16 @@ const Poll = (props) => {
   let deleteButton = poll.completed ? completedDelete : poll.active ? '' : undeployedDelete;
   return (
     <div className="poll-item">
-      <h1 className="title is-3">{poll.title}</h1>
       <div className="dashboard-options">
         {statusButton}
         {poll.active && closeButton}
         {status === 'DEPLOY' && undeployedDelete}
         {status === 'DEPLOY' && UndeployedEdit}
       </div>
+      &#8203;
+      <hr />
+
+      <h1 className="title is-3">{poll.title}</h1>
       <div className="questions-box">
         {poll.questions.map(question => <p key={question._id}>{question.question}</p>)}
       </div>
