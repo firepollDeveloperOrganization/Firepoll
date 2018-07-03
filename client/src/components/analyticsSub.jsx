@@ -1,22 +1,31 @@
 import React from 'react';
 
-const AnalyticsSub = ({question}) => {
-  if(!question){
+const AnalyticsSub = ({questions}) => {
+  if(!questions){
     return null;
   }
   return (
-    <div className="analytics">
-      <div className="analytics-question-title">
-        {question.title}
-      </div>
-      {question.answers.map(answer => {
+    <div className="section">
+      <div className="columns">
+      {questions.map(question => {
+        let answers = question.answers.map(answer => (
+          <li><span>{answer.choice} </span> <span> {answer.vote}</span></li>
+        ))
         return (
-          <div className="analytics-answer">
-            <p className="analytics-answer-title">{answer.choice} <span> {answer.votes}</span></p>
+        <div className="column">
+          <div className="box">
+            <div className="content">
+              <div style={{fontWeight: "700"}}>{question.question}</div>
+                <ul>
+                  {answers}
+                </ul>
+              </div>
           </div>
+        </div>
         )
-      })}
+      })}   
     </div>
+  </div>
   )
 }
 

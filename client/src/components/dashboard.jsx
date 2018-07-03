@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
 import axios from 'axios';
-import {firepoll} from '../firepollManagementClient';
+import {firepoll, realTimeDB} from '../firepollManagementClient';
 // import dummyData from '../../../pollManager/PollTestData.js';
 
 const sortByDateDescending = arr => {
@@ -112,6 +112,10 @@ class Dashboard extends React.Component {
     axios.put(`/polls/close/${poll._id}`, poll)
     .then(res => {
       firepoll.close(poll);
+      realTimeDB.ref(`/polls/${poll._id}`).remove()
+      .catch(err => {
+        console.error('deleting poll from realTimeDB', err)
+      })
       console.log("closed poll ", poll.title);
       this.getPolls();
       console.log('Saved: ', res.data);
