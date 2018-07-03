@@ -107,6 +107,7 @@ pollRouter.get('/', (req, res) => {
 
 // RESPONDS WITH SPECIFIC POLL
 pollRouter.get('/:id', (req, res) => {
+  console.log(req.params.id);
   db.retrieveOnePoll(req.params.id, function(err, result) {
     if (err) {
       console.error(err);

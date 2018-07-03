@@ -3,6 +3,7 @@ import { Redirect, Link } from 'react-router-dom';
 import CreatedQuestions from './createdQuestions.jsx';
 import axios from 'axios';
 import {firepoll} from '../firepollManagementClient';
+import { EIO } from 'constants';
 
 class Create extends React.Component {
   constructor(props) {
@@ -12,15 +13,22 @@ class Create extends React.Component {
       questions: [],
       currentQuestion: '',
       currentAnswer: '',
-      answers: [],
-      editing: false
+      answers: []
     };
  }
   componentDidMount() {
-    //TODO: update state with the poll info fetched from mongo
+    if (this.props.location.pathname) {
+      axios.get(`/polls/${this.props.location.pathname.slice(6)}`)
+      .then(res => {
+        console.log('result of create fetch', res.data);
+        let {title, questions} = res.data;
+        this.setState({pollname: title, questions});  //this breaks the page format
+      })
+      .catch(err => console.log(err));
+    }
   }
+
   updateAnswer = (e, ansIdx, qIdx) => {
-    // console.log(e.target.innerHTML, ansIdx, qIdx);
     this.state.questions[qIdx].answers[ansIdx].choice = e.target.innerHTML;
     this.forceUpdate();
   }
