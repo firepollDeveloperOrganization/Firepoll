@@ -90,7 +90,6 @@ class ResponseClient extends React.Component {
     });
 
     firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
-      console.log('these are the initial results', data);
       let newResults = Object.assign({}, this.state.results);
       newResults[question.id] = data;
       this.setState({
@@ -100,7 +99,6 @@ class ResponseClient extends React.Component {
 
     firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
       let newResults = Object.assign({}, this.state.results);
-      console.log('these are the  results', data);
       newResults[question.id] = data;
       this.setState({
         results: newResults
@@ -143,17 +141,22 @@ class ResponseClient extends React.Component {
           <div>
             <h1 className = "title is-4">{this.state.poll.title} Results</h1>
               {this.state.results ? Object.keys(this.state.results).map((id) => {
-                return this.state.results[id].map((result) => {
-                  let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
-                  const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
-                  return (
-                    <div className = "title is-5 flex results">
+                let questionForResults = this.state.questions.filter(question => id === question.id)
+                return (
+                  <div>
+                    <h2 className = "title is-5">{questionForResults[0].question_title}</h2>
+                    {this.state.results[id].map((result) => {
+                    let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
+                    const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
+                    return (
+                      <div className = "title is-5 flex results">
                         <span>{result.answer_value}</span>
                         <span>{isLit}</span>
                         <span>{result.vote_count}</span>
-                    </div>
-                  )}
-                  )
+                      </div>)
+                    })}
+                  </div>
+                )
               }):''} 
             </div>
           :''
