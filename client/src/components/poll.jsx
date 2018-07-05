@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'copy-to-clipboard';
 
 const Poll = (props) => {
   let {poll, deletePoll, editPoll} = props;
@@ -20,10 +21,15 @@ const Poll = (props) => {
   return (
     <div className="poll-item">
       <div className="dashboard-options">
-        {statusButton}
-        {poll.active && closeButton}
-        {status === 'DEPLOY' && undeployedDelete}
-        {status === 'DEPLOY' && UndeployedEdit}
+        <div className="response-url">
+          <button className="button is-danger is-rounded is-inverted is-outlined" onClick={() => copy(`https://firepoll.herokuapp.com/response/${poll._id}`)}>Click To Copy Link to Vote</button>
+        </div>
+        <div className="dashboard-options-group">
+          {statusButton}
+          {poll.active && closeButton}
+          {status === 'DEPLOY' && undeployedDelete}
+          {status === 'DEPLOY' && UndeployedEdit}
+        </div>
       </div>
       &#8203;
       <hr />
@@ -32,7 +38,7 @@ const Poll = (props) => {
       <div className="questions-box">
         {poll.questions.map(question => <p key={question._id}>{question.question}</p>)}
       </div>
-      <div><span className="response-url">Response url: {`https://firepoll.herokuapp.com/response/${poll._id}`}</span></div>
+
     </div>
   )
 } 

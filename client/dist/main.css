@@ -92,7 +92,7 @@
     float: right; }
 
 .response-url {
-  word-wrap: break-word; }
+  display: block; }
 
 #poll-dist {
   background: url("./tic-tac-toe.png") #6b0f1a;
