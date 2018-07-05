@@ -79,6 +79,8 @@ pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req
   setTimeout(() => {
     realTimeDB.ref(`/polls/${req.params.id}`).once('value')
     .then(result => {
+        console.log('result: ', result);
+        console.log('result.val() ', result.val())
         // votes need to be analyzed and aggregated to a new pollObj
         var newPollObj = addResultsToPoll(req.body, result.val());  
         // updating poll with votes

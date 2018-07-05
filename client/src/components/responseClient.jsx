@@ -15,6 +15,7 @@ class ResponseClient extends React.Component {
       results: false,
       user_id: 1,
       exists: true,
+      loading: true,
       active: false,
       completed: false
     };
@@ -27,6 +28,7 @@ class ResponseClient extends React.Component {
       firePollResponseClient.get.pollStatus(pollId).then((data) => {
         if (data !== undefined) {
           this.setState({
+            loading: false,
             active: data.active,
             completed: data.completed
           })        
@@ -165,18 +167,22 @@ class ResponseClient extends React.Component {
 
   render() {
     if(this.state.active === true) {
-      this.renderLivePoll();
+      return this.renderLivePoll();
     } else {
-      let isScheduledText = "This poll is not yet live. Please wait for the host to start the poll and refresh this page.";
-      let doesNotExistText = "We can't find the poll you are looking for. Try checking the link for typos.";
-      let isCompleteText = "This poll is complete. Thank you for participating.";
-      let status = this.state.exists === false ? doesNotExistText : this.state.completed === true ? isCompleteText : isScheduledText;
+      if (this.state.loading === true) {
+        var status = "LOADING ...";
+      } else {
+        let isScheduledText = "This poll is not yet live. Please wait for the host to start the poll and refresh this page.";
+        let doesNotExistText = "We can't find the poll you are looking for. Try checking the link for typos.";
+        let isCompleteText = "This poll is complete. Thank you for participating.";
+        var status = this.state.exists === false ? doesNotExistText : this.state.completed === true ? isCompleteText : isScheduledText;
+      }
       return (
-        <div className="responseClient" style={{margin: "40px 0 0 0"}}>
-          <div className="box" style={{maxWidth: "600px", minHeight: "600px", margin: "0 auto", textAlign: "center"}} id="app">
-            <p>{status}</p>
-          </div>
+      <div className="responseClient" style={{margin: "40px 0 0 0"}}>
+        <div className="box" style={{maxWidth: "600px", minHeight: "600px", margin: "0 auto", textAlign: "center"}} id="app">
+          <p>{status}</p>
         </div>
+      </div>
       ) 
     }
   }
