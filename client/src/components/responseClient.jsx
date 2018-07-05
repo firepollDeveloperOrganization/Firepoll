@@ -165,7 +165,7 @@ class ResponseClient extends React.Component {
 
   render() {
     if(this.state.active === true) {
-      this.renderLivePoll();
+      return this.renderLivePoll();
     } else {
       let isScheduledText = "This poll is not yet live. Please wait for the host to start the poll and refresh this page.";
       let doesNotExistText = "We can't find the poll you are looking for. Try checking the link for typos.";
