@@ -115,7 +115,17 @@ firepoll.get = {}
         docData.id = snapshot.id;
         return docData;
       });
-  }
+  };
+
+  // Get poll status
+  firepoll.get.pollStatus = (poll_id) => {
+    if (!poll_id) {
+      return null;
+    }
+    return firestore.collection('stagedPolls').doc(poll_id).get().then((snapshot) => {
+      return snapshot.data();
+    });
+  };
 
   // Get all questions from specific poll
   firepoll.get.allQuestionsFromPoll = (poll_id) => {

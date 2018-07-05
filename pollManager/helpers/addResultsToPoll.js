@@ -4,6 +4,7 @@ var addResultsToPoll = (poll, results) => {
   // Results.val() will be null, if no votes have been recorded
   if(results) {
     results = results.val();
+    results = results.questions;
     poll.questions = poll.questions.map(question => {
       question.answers = question.answers.map(answer => {
         console.log('addResultsToPoll running... ');      
