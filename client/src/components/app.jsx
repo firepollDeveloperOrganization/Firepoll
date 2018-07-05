@@ -62,9 +62,9 @@ class App extends React.Component {
         <Route exact path="/edit/:pollId" render={(props) => <Create {...props} user={user} userId={userId} logout={this.logout} returnToDash={this.returnToDash}/>} />
         <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} userId={userId} logout={this.logout} /*history={this.props.history}*/ />} />
         <Route exact path="/analytics/:id" render={({match}) => <Analytics match={match} user={user} logout={this.logout} />} />
-        <Route exact path="/live/:pollId" render={props => <Live {...props} user={user} email={email}/>} />
+        <Route exact path="/live/:id" render={props => <Live {...props} user={user} email={email}/>} />
         <Route exact path="/login" render={props => <Login {...props} />} />
-        <Route exact path="/response/:pollId" render={props => <ResponseClient {...props} userId={userId} /> } />
+        <Route exact path="/response/:id" render={props => <ResponseClient {...props} userId={userId} /> } />
         {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
         {/* <AuthRoute exact path="/auth" component={Auth} /> */}
         {/* <PollAudienceClientTest />  enter any nonexistent route to render your test components */}
