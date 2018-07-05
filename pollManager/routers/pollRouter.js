@@ -64,7 +64,16 @@ pollRouter.delete('/:id', (req, res) => {
     .catch(err => res.send(err)); //change error-handling later
 });
 
+// UPDATES A POLL FROM DASHBOARD
+pollRouter.put('/edit/:id', (req, res) => {
+  db.editPoll(req.params.id, req.body)
+    .then(data => res.send(data))
+    .catch(err => res.send(err));
+});
+
+
 // CLOSES A LIVE POLL
+
 pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req.body
   console.log('closing poll ... ', req.params.id);
   setTimeout(() => {
@@ -108,6 +117,7 @@ pollRouter.get('/', (req, res) => {
 
 // RESPONDS WITH SPECIFIC POLL
 pollRouter.get('/:id', (req, res) => {
+  console.log(req.params.id);
   db.retrieveOnePoll(req.params.id, function(err, result) {
     if (err) {
       console.error(err);

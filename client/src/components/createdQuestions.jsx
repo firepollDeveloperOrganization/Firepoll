@@ -44,12 +44,12 @@ class CreatedQuestions extends React.Component {
 
           </div>
           <div id="selectedQuestion">
-            <h1 id="selectedQuestionQuestion" contentEditable="true" onBlur={(e) => this.props.updateQuestion(e, this.state.selectedQuestion)}>
+            <h1 id="selectedQuestionQuestion" suppressContentEditableWarning contentEditable="true" onBlur={(e) => this.props.updateQuestion(e, this.state.selectedQuestion)}>
               {this.props.questions[this.state.selectedQuestion].question}
             </h1>
             <ul id="selectedQuestionAnswers">
               {this.props.questions[this.state.selectedQuestion].answers.map((answer, index) => {
-                return (<li className="selectedQuestionAnswer" key={index} contentEditable="true" onBlur={(e) => this.props.updateAnswer(e, index, this.state.selectedQuestion)}>{answer.choice}</li>)
+                return (<li className="selectedQuestionAnswer" suppressContentEditableWarning key={index} contentEditable="true" onBlur={(e) => this.props.updateAnswer(e, index, this.state.selectedQuestion)}>{answer.choice}</li>)
               })}
             </ul>
               <button className="button is-danger is-rounded is-inverted is-outlined is-small" onClick={this.handleDelete}>Delete selected question</button>
