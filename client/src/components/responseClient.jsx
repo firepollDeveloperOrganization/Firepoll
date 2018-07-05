@@ -161,8 +161,8 @@ class ResponseClient extends React.Component {
               {this.state.results ? Object.keys(this.state.results).map((id) => {
                 let questionForResults = this.state.questions.filter(question => id === question.id)
                 return (
-                  <div>
-                    <h2 className = "title is-5">{questionForResults[0].question_title}</h2>
+                  <div className = "results-container">
+                    <h2 className = "result-title title is-5">{questionForResults[0].question_title}</h2>
                     {this.state.results[id].map((result) => {
                     let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
                     const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
@@ -185,7 +185,6 @@ class ResponseClient extends React.Component {
 
   render() {
     if(true) {
-      console.log('should be rendering');
       return this.renderLivePoll();
     } else {
       if (this.state.loading === true) {
