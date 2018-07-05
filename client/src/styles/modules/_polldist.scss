@@ -23,12 +23,24 @@
     justify-content: space-between;
   }
 
+  .results-container {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+
   .results {
+    margin-top: 10px;
+  }
+
+  .results-title {
+    text-decoration: underline;
     margin-top: 20px;
+    padding-top: 10px;
   }
 
   .poll-dist-class {
-    min-width: 400px;
+    min-width: 500px;
+    min-height: 600px;
   }
 
 }

@@ -23,11 +23,18 @@ const firepoll = {}
 
 // VOTING FUNCTIONALITY (CLIENT ONLY)
 
+firepoll.testCloudFunction = () => {
+  console.log('start test');
+  realTimeDB.ref(`/polls/5b3ba143c4fdb49df1540bc0/questions/5b3ba143c4fdb49df1540bc1/votes`).orderByChild('answer_id').startAt(0).limitToFirst(5).once('value').then(snap => {
+    console.log('This is the data ', snap.val());
+  });
+}
+
 firepoll.vote = {}
 
   //allow the user to vote
   firepoll.vote.submit = (vote) => {
-    return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')});
+    return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes`).push(vote).then(() => {console.log('vote complete')});
   }
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
