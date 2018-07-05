@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import axios from 'axios'
 
 var config = {
   apiKey: "AIzaSyCL6Wv_NdqmEG8f7ukbfvkkXpQgiSHhzK8",
@@ -27,25 +28,6 @@ firepoll.testCloudFunction = () => {
   console.log('start test');
   realTimeDB.ref(`/polls/5b3ba143c4fdb49df1540bc0/questions/5b3ba143c4fdb49df1540bc1/votes`).orderByChild('answer_id').startAt(0).limitToFirst(5).once('value').then(snap => {
     console.log('This is the data ', snap.val());
-
-    // var aggregateDataForProcessing = {};
-    // snap.forEach((childSnap) => {
-    //   const voteData = childSnap.val();
-    //   if (aggregateDataForProcessing[voteData.answer_id]) {
-    //     aggregateDataForProcessing[voteData.answer_id].vote_count += 1
-    //   } else {
-    //     aggregateDataForProcessing[voteData.answer_id] = {
-    //       answer_id: voteData.answer_id,
-    //       answer_value: voteData.answer_value,
-    //       poll_id: voteData.poll_id,
-    //       question_id: voteData.question_id,
-    //       vote_count : 1
-    //     }
-    //   }
-    // });
-  });
-  realTimeDB.ref(`/polls/5b3ba143c4fdb49df1540bc0/questions/5b3ba143c4fdb49df1540bc1/votes`).orderByChild('answer_id').startAt(5).limitToFirst(6).once('value').then(snap => {
-    console.log('This is the data ', snap.val());
   });
 }
 
@@ -53,7 +35,7 @@ firepoll.vote = {}
 
   //allow the user to vote
   firepoll.vote.submit = (vote) => {
-    return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes/${vote.user_id}`).set(vote).then(() => {console.log('vote complete')});
+    return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes`).push(vote).then(() => {console.log('vote complete')});
   }
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
