@@ -42,7 +42,12 @@ const firepoll = {}
     firestore.collection("polls").doc(poll.id).set(poll.data)
     .then(() => {
       let batch = firestore.batch();
-      questions.forEach(question => {
+      questions.forEach((question, i) => {
+        if (i === 0) {
+          question.data.active = true;
+        } else {
+          question.data.active = false;
+        }
         let docRef = firestore.collection("polls").doc(poll.id).collection("questions").doc(question.id);
         batch.set(docRef, question.data);
       })
