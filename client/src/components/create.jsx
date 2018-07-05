@@ -149,7 +149,6 @@ class Create extends React.Component {
   render() {
     let pathurl = this.props.location.pathname;
     if (this.props.user === 'anonymous') return <Redirect to='/login' />
-    console.log(this.props.location);
       return (
         <div id="create-view">
           <div className="outer-banner">
