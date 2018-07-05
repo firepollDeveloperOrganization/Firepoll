@@ -1,5 +1,4 @@
 import firebase from 'firebase';
-import axios from 'axios'
 
 var config = {
   apiKey: "AIzaSyCL6Wv_NdqmEG8f7ukbfvkkXpQgiSHhzK8",
