@@ -9,7 +9,7 @@ const AnalyticsSub = ({questions}) => {
       <div className="columns">
       {questions.map(question => {
         let answers = question.answers.map(answer => (
-          <li><span>{answer.choice} </span> <span> {answer.vote}</span></li>
+          <li><span>{answer.choice} </span> <span> {answer.votes}</span></li>
         ))
         return (
         <div className="column">
