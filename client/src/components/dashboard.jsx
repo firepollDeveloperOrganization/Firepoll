@@ -57,7 +57,8 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
       allPolls: [],
-      filteredPolls: []
+      filteredPolls: [],
+      userFilterInput: ''
     }
   }
 
@@ -173,6 +174,13 @@ class Dashboard extends React.Component {
     console.log('deleting/archiving poll that has been completed!');
   }
 
+  handleInput(e) {
+    console.log(e.target.value);
+    this.setState({
+      userFilterInput: e.target.value
+    })
+  }
+
   render() {
     let { user, email } = this.props;
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
@@ -194,8 +202,13 @@ class Dashboard extends React.Component {
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
           </div>
+          <input type="text" onChange = {e => this.handleInput(e)}></input>
           <div id="polls-container">
-            {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} editPoll={this.editPoll}/>)}
+            {this.state.filteredPolls.map((poll, i) => {
+              if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
+                return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} editPoll={this.editPoll}/>);
+              }
+            })}
           </div>
         </div>
       )
