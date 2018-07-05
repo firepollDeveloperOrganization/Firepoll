@@ -38,18 +38,3 @@ stageRouter.get('/', (req, res) => {
 });
 
 module.exports = stageRouter;
-
-// POLLS_DATA
-// [
-//   {
-//       "id": "4XlH8tJlhbTJCt8cMYCC",
-//       "data": {
-//           "poll_title": "Nick's Poll",
-//           "total_voting_time": 1000,
-//           "active": false,
-//           "num_questions": "3",
-//           "start_time": "2018-06-26T16:00:00.000Z"
-//       }
-//   },
-// ]
-// QUESTIONS_DATA
