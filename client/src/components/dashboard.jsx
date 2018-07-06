@@ -3,7 +3,6 @@ import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
 import axios from 'axios';
 import {firepoll, realTimeDB} from '../firepollManagementClient';
-// import dummyData from '../../../pollManager/PollTestData.js';
 
 const sortByDateDescending = arr => {
   return arr.sort((a, b) => {
@@ -158,21 +157,20 @@ class Dashboard extends React.Component {
     axios.delete(`/polls/${id}`)
     .then(res => {
       this.getPolls();
+      firepoll.unstage(pollId)
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
     })
     .catch(err => {
       console.error(err);
     })
-    // TODO: remove from firebase array of staged ids
-
   }
 
-  editPoll = id => {
-    console.log('editing poll', id);
-  }
-
-  archivePoll = () => {
-    console.log('deleting/archiving poll that has been completed!');
-  }
+  // unstagePoll = id => {
+  //   firepoll.unstage(pollId)
+  //   .then(data => console.log(data))
+  //   .catch(err => console.log(err));
+  // }
 
   handleInput(e) {
     console.log(e.target.value);
