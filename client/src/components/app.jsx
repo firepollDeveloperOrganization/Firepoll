@@ -1,15 +1,17 @@
+import Async from 'react-code-splitting';
 import React from 'react';
 import { withRouter } from 'react-router';
 import { Route } from 'react-router-dom';
 import Landing from './landing.jsx';
-import Create from './create.jsx';
-import Dashboard from './dashboard.jsx';
 import Analytics from './analytics.jsx';
-import Live from './live.jsx';
 import Login from './login.jsx';
 import ResponseClient from './responseClient';
 import firebase from '../config.js';
 // require('../auth.js');
+
+const Dashboard = (props) => <Async load = {import('./dashboard.jsx')} componentProps = {props} />
+const Live = (props) => <Async load = {import('./live.jsx')} componentProps = {props} />
+const Create = (props) => <Async load = {import('./create.jsx')} componentProps = {props} />
 
 class App extends React.Component {
   constructor(props) {

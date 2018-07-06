@@ -1,5 +1,4 @@
 import React from 'react';
-import ip from 'ip';
 import firePollResponseClient from '../firepollResponseClient'
 import MultipleChoiceQuestion from './multipleChoiceQuestion';
 
@@ -25,6 +24,14 @@ class ResponseClient extends React.Component {
   componentDidMount() {
       var pollId = this.props.match.params.id;
       console.log("pollID: ", pollId);
+
+      let currQuestion = localStorage.getItem(this.state.poll_id);
+      if (currQuestion) {
+        this.setState({
+          currQuestion: parseInt(localStorage.getItem(this.state.poll_id))
+        })
+      }
+
       // CHECK POLL STATUS
       firePollResponseClient.get.pollStatus(pollId).then((data) => {
         if (data !== undefined) {
@@ -63,6 +70,12 @@ class ResponseClient extends React.Component {
                 firePollResponseClient.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
                   this.setState({
                     questions: data
+                  }, () => {
+                    if (currQuestion > this.state.questions.length - 1) {
+                      this.setState({
+                        pollComplete: true
+                      });
+                    }
                   });
                 });
               });
@@ -103,7 +116,7 @@ class ResponseClient extends React.Component {
     this.setState({
       currQuestion: this.state.currQuestion + 1,
       pollComplete: this.state.currQuestion + 1 > this.state.questions.length - 1
-    });
+    }, () => {localStorage.setItem(this.state.poll_id, this.state.currQuestion)});
 
     firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
       let newResults = Object.assign({}, this.state.results);
@@ -136,7 +149,7 @@ class ResponseClient extends React.Component {
           <h1 className="title is-4">{this.state.poll.title}</h1>
         { 
           this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
-              return (
+            return (
                 <MultipleChoiceQuestion question = {question} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
               );
           })

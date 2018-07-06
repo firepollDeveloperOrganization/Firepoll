@@ -81,6 +81,7 @@
     "nuka-carousel": "^4.2.2",
     "path": "^0.12.7",
     "react": "^15.4.2",
+    "react-code-splitting": "^1.2.1",
     "react-dom": "^15.4.2",
     "react-slick": "^0.23.1",
     "socket.io": "^2.1.1",
