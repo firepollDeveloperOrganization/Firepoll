@@ -1,5 +1,5 @@
 /* AUTHENTICATION INTERFACE (HELPERS) FILE */
-import firebase from './config.js';
+import {firebase} from './firepollManagementClient';
 import * as firebaseui from 'firebaseui';
 
 // // Sign Up
@@ -21,10 +21,6 @@ var uiConfig = {
   signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-  //   firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-  //   firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-  //   firebase.auth.GithubAuthProvider.PROVIDER_ID,
-  //   firebase.auth.PhoneAuthProvider.PROVIDER_ID
   ],
   // tosUrl: '<your-tos-url>'
 };

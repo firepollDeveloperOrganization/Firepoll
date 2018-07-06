@@ -1,10 +1,13 @@
 package-lock.json
-bundle.js
+0.bundle.js
+1.bundle.js
+2.bundle.js
+managementClient.bundle.js
+responseClient.bundle.js
 .DS_Store
 node_modules
 client/dist/main.css
 .env
 firebase-debug.log
-client/dist/bundle.js
 functions
 test

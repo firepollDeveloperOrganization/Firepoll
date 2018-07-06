@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import dummypolls from './dummydata';
 import {firepoll} from '../firepollManagementClient';
 
 class Live extends React.Component {

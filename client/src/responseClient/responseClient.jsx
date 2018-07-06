@@ -22,8 +22,7 @@ class ResponseClient extends React.Component {
   };
 
   componentDidMount() {
-      var pollId = this.props.match.params.id;
-      console.log("pollID: ", pollId);
+      var pollId = window.location.pathname.slice(10);
 
       let currQuestion = localStorage.getItem(this.state.poll_id);
       if (currQuestion) {
@@ -80,6 +79,27 @@ class ResponseClient extends React.Component {
                 });
               });
             });
+
+            // GET RESULTS IF USER HAS ALREADY COMPLETED CURRENT QUESTION
+            if (this.state.currQuestion > this.state.questions.length-1) {
+              for (let question of this.state.questions) {
+                firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
+                  let newResults = Object.assign({}, this.state.results);
+                  newResults[question.id] = data;
+                  this.setState({
+                    results: newResults
+                  });
+                });
+                firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
+                  let newResults = Object.assign({}, this.state.results);
+                  newResults[question.id] = data;
+                  this.setState({
+                    results: newResults
+                  });
+                });
+              }
+            }
+
           });
         } else {
           this.setState({exists: false})
@@ -150,7 +170,7 @@ class ResponseClient extends React.Component {
         { 
           this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
             return (
-                <MultipleChoiceQuestion question = {question} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
+                <MultipleChoiceQuestion question = {question} handleUserChoice = {() => {this.handleUserChoice}} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
               );
           })
           : <div></div>

@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import app from 'firebase/app';
+import {firestore, database} from 'firebase';
 
 var config = {
   apiKey: "AIzaSyCL6Wv_NdqmEG8f7ukbfvkkXpQgiSHhzK8",
@@ -9,15 +10,15 @@ var config = {
   messagingSenderId: "363057085922"
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(config);
+if (!app.apps.length) {
+  app.initializeApp(config);
 }
 
 /* Firebase Interface */
 const settings = {/* your settings... */ timestampsInSnapshots: true};
-const firestore = firebase.firestore();
-const realTimeDB = firebase.database();
-firestore.settings(settings);
+const firestoreDB = firestore();
+const realTimeDB = database();
+firestoreDB.settings(settings);
 
 const firepoll = {}
 
@@ -37,7 +38,7 @@ firepoll.vote = {}
     return realTimeDB.ref(`/polls/${vote.poll_id}/questions/${vote.question_id}/votes`).push(vote).then(() => {console.log('vote complete')});
   }
 
-// LISTEN TO DATA FROM FIRESTORE INTERFACE
+// LISTEN TO DATA FROM firestoreDB INTERFACE
 firepoll.listen = {}
   //listen for changes to poll
   firepoll.listen.poll = (polls, cb) => {
@@ -45,7 +46,7 @@ firepoll.listen = {}
       polls = [polls]
     }
     for (let aPoll of polls) {
-      firestore.collection('polls').doc(aPoll.id).onSnapshot((snapshot) => {
+      firestoreDB.collection('polls').doc(aPoll.id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
         snapShotData.id = snapshot.id;
         cb(snapShotData);
@@ -59,7 +60,7 @@ firepoll.listen = {}
       questions = [questions]
     }
     for (let aQuestion of questions) {
-      firestore.collection(`polls/${poll_id}/questions`).doc(aQuestion.id).onSnapshot((snapshot) => {
+      firestoreDB.collection(`polls/${poll_id}/questions`).doc(aQuestion.id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
         snapShotData.id = snapshot.id;
         cb(snapShotData);
@@ -80,11 +81,11 @@ firepoll.listen = {}
     });
   }
 
-// GET DATA FROM FIRESTORE INTERFACE
+// GET DATA FROM firestoreDB INTERFACE
 firepoll.get = {}
   // Get all polls
   firepoll.get.allPolls = () => {
-    return firestore.collection('polls').get().then( (snapshot) => {
+    return firestoreDB.collection('polls').get().then( (snapshot) => {
       const data = [];
       snapshot.forEach((doc) => {
           var docData = doc.data();
@@ -100,7 +101,7 @@ firepoll.get = {}
     if (!poll_id) {
       return null;
     }
-    return firestore.collection('polls').doc(poll_id).get().then( (snapshot) => {
+    return firestoreDB.collection('polls').doc(poll_id).get().then( (snapshot) => {
         var docData = snapshot.data();
         docData.id = snapshot.id;
         return docData;
@@ -112,14 +113,14 @@ firepoll.get = {}
     if (!poll_id) {
       return null;
     }
-    return firestore.collection('stagedPolls').doc(poll_id).get().then((snapshot) => {
+    return firestoreDB.collection('stagedPolls').doc(poll_id).get().then((snapshot) => {
       return snapshot.data();
     });
   };
 
   // Get all questions from specific poll
   firepoll.get.allQuestionsFromPoll = (poll_id) => {
-    return firestore.collection(`polls/${poll_id}/questions`).get().then( (snapshot) => {
+    return firestoreDB.collection(`polls/${poll_id}/questions`).get().then( (snapshot) => {
       const data = [];
       snapshot.forEach((doc) => {
           var docData = doc.data();
@@ -135,7 +136,7 @@ firepoll.get = {}
     if (!question_id) {
       return null;
     }
-    return firestore.collection(`polls/${poll_id}/questions`).doc(question_id).get().then( (snapshot) => {
+    return firestoreDB.collection(`polls/${poll_id}/questions`).doc(question_id).get().then( (snapshot) => {
         var docData = snapshot.data();
         docData.id = snapshot.id;
         return docData;
