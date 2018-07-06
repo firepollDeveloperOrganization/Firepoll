@@ -1,15 +1,15 @@
+import Async from 'react-code-splitting';
 import React from 'react';
 import { withRouter } from 'react-router';
 import { Route } from 'react-router-dom';
 import Landing from './landing.jsx';
-import Create from './create.jsx';
-import Dashboard from './dashboard.jsx';
-import Analytics from './analytics.jsx';
-import Live from './live.jsx';
 import Login from './login.jsx';
-import ResponseClient from './responseClient';
-import firebase from '../config.js';
-// require('../auth.js');
+import {firebase} from '../firepollManagementClient.js';
+
+const Dashboard = (props) => <Async load = {import('./dashboard.jsx')} componentProps = {props} />
+const Live = (props) => <Async load = {import('./live.jsx')} componentProps = {props} />
+const Create = (props) => <Async load = {import('./create.jsx')} componentProps = {props} />
+const Analytics = (props) => <Async load = {import('./analytics.jsx')} componentProps = {props} />
 
 class App extends React.Component {
   constructor(props) {
@@ -64,7 +64,6 @@ class App extends React.Component {
         <Route exact path="/analytics/:id" render={({match}) => <Analytics match={match} user={user} logout={this.logout} />} />
         <Route exact path="/live/:id" render={props => <Live {...props} user={user} email={email}/>} />
         <Route exact path="/login" render={props => <Login {...props} />} />
-        <Route exact path="/response/:id" render={props => <ResponseClient {...props} userId={userId} /> } />
         {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
         {/* <AuthRoute exact path="/auth" component={Auth} /> */}
         {/* <PollAudienceClientTest />  enter any nonexistent route to render your test components */}

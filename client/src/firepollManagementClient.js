@@ -181,4 +181,4 @@ firepoll.get = {}
       });
   }
 
-  module.exports = { firepoll, realTimeDB};
+  module.exports = { firebase, firepoll, realTimeDB };

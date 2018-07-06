@@ -1,7 +1,6 @@
 import React from 'react';
-import ip from 'ip';
-import {firepoll} from '../firepollManagementClient'
 import firePollResponseClient from '../firepollResponseClient'
+import MultipleChoiceQuestion from './multipleChoiceQuestion';
 
 class ResponseClient extends React.Component {
   constructor(props) {
@@ -23,8 +22,15 @@ class ResponseClient extends React.Component {
   };
 
   componentDidMount() {
-      var pollId = this.props.match.params.id;
-      console.log("pollID: ", pollId);
+      var pollId = window.location.pathname.slice(10);
+
+      let currQuestion = localStorage.getItem(this.state.poll_id);
+      if (currQuestion) {
+        this.setState({
+          currQuestion: parseInt(localStorage.getItem(this.state.poll_id))
+        })
+      }
+
       // CHECK POLL STATUS
       firePollResponseClient.get.pollStatus(pollId).then((data) => {
         if (data !== undefined) {
@@ -35,15 +41,15 @@ class ResponseClient extends React.Component {
           })        
         
           // GET POLL & SETUP LISTENER
-          firepoll.get.poll(pollId).then((data) => {
+          firePollResponseClient.get.poll(pollId).then((data) => {
             this.setState({
               poll: data
             }, () => {
-              firepoll.listen.poll(this.state.poll, (data) => {
+              firePollResponseClient.listen.poll(this.state.poll, (data) => {
                 this.setState({
                   poll: data
                 }, () => {
-                  firepoll.get.allQuestionsFromPoll(pollId).then((data) => {
+                  firePollResponseClient.get.allQuestionsFromPoll(pollId).then((data) => {
                     this.setState({
                       questions: data,
                       currChoice: JSON.stringify(data[0].answers[0])
@@ -55,18 +61,45 @@ class ResponseClient extends React.Component {
           })
 
           // GET ALL QUESTIONS & SETUP LISTENER
-          firepoll.get.allQuestionsFromPoll(pollId).then((data) => {
+          firePollResponseClient.get.allQuestionsFromPoll(pollId).then((data) => {
             this.setState({
               questions: data
             }, () => {
-              firepoll.listen.question(this.state.poll.id, this.state.questions, () => {
-                firepoll.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
+              firePollResponseClient.listen.question(this.state.poll.id, this.state.questions, () => {
+                firePollResponseClient.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
                   this.setState({
                     questions: data
+                  }, () => {
+                    if (currQuestion > this.state.questions.length - 1) {
+                      this.setState({
+                        pollComplete: true
+                      });
+                    }
                   });
                 });
               });
             });
+
+            // GET RESULTS IF USER HAS ALREADY COMPLETED CURRENT QUESTION
+            if (this.state.currQuestion > this.state.questions.length-1) {
+              for (let question of this.state.questions) {
+                firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
+                  let newResults = Object.assign({}, this.state.results);
+                  newResults[question.id] = data;
+                  this.setState({
+                    results: newResults
+                  });
+                });
+                firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
+                  let newResults = Object.assign({}, this.state.results);
+                  newResults[question.id] = data;
+                  this.setState({
+                    results: newResults
+                  });
+                });
+              }
+            }
+
           });
         } else {
           this.setState({exists: false})
@@ -103,7 +136,7 @@ class ResponseClient extends React.Component {
     this.setState({
       currQuestion: this.state.currQuestion + 1,
       pollComplete: this.state.currQuestion + 1 > this.state.questions.length - 1
-    });
+    }, () => {localStorage.setItem(this.state.poll_id, this.state.currQuestion)});
 
     firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
       let newResults = Object.assign({}, this.state.results);
@@ -136,19 +169,9 @@ class ResponseClient extends React.Component {
           <h1 className="title is-4">{this.state.poll.title}</h1>
         { 
           this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
-              return (<div>
-                  <div className="title is-3">{question.question_title}</div>
-                    <form className="field control flex" key={question.id}>
-                      <select className="is-multiple is-danger is-medium" size = {question.answers.length} onChange = {(val) => {this.handleUserChoice(val)}}>
-                        {question.answers.map((answer, i) => {
-                          return (
-                            <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
-                          );
-                        })}
-                      </select>
-                      <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question)}}>Select Answer</button>
-                  </form>
-                </div>);
+            return (
+                <MultipleChoiceQuestion question = {question} handleUserChoice = {() => {this.handleUserChoice}} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
+              );
           })
           : <div></div>
         }

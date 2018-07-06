@@ -5,6 +5,7 @@ const resultHistRouter = require('./routers/resultsRouter');
 const stageRouter = require('./routers/stageRouter');
 const cors = require('cors');
 const path = require('path');
+const expressStaticGzip = require("express-static-gzip");
 require('dotenv').config();
 
 const app = express();
@@ -27,8 +28,14 @@ app.use('/results', resultHistRouter);
 
 app.use('/stage', stageRouter);
 
+app.get('/response/:pollId', (req, res) => {
+  res.sendFile(path.join(__dirname, '/../client/dist/responseClientIndex.html'), (err) => {
+    if (err) res.status(500).send(err);
+  });
+})
+
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/../client/dist/index.html'), (err) => {
+  res.sendFile(path.join(__dirname, '/../client/dist/managementClientIndex.html'), (err) => {
     if (err) res.status(500).send(err);
   });
 })
