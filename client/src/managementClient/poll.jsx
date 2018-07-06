@@ -14,7 +14,7 @@ const Poll = (props) => {
   let statusButton = poll.completed ? analyticsButton : poll.active ? liveButton : deployButton;
   let deletePollButton = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => deletePoll(poll._id)}>DELETE&nbsp;<i className="fa-fw fas fa-trash"></i></button>);
   let UndeployedEdit = (<Link to={`/edit/${poll._id}`}>
-  <button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => editPoll(poll._id)}>EDIT&nbsp;<i className="fa-fw fas fa-edit"></i></button>
+  <button className="button is-danger is-rounded is-small is-inverted is-outlined">EDIT&nbsp;<i className="fa-fw fas fa-edit"></i></button>
   </Link>);
   // let completedDelete = <button onClick={() => deletePoll(poll._id)}>DELETE POLL</button>;
   // let deleteButton = poll.completed ? completedDelete : poll.active ? '' : undeployedDelete;

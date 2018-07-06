@@ -20,3 +20,16 @@ client/dist/main.css
 firebase-debug.log
 functions
 test
+client/dist/0.bundle.js
+client/dist/0.bundle.js.gz
+client/dist/1.bundle.js
+client/dist/1.bundle.js.gz
+client/dist/2.bundle.js
+client/dist/2.bundle.js.gz
+client/dist/3.bundle.js
+client/dist/3.bundle.js.gz
+client/dist/4.bundle.js
+client/dist/4.bundle.js.gz
+client/dist/responseClient.bundle.js.gz
+client/src/managementClient/dashboard.jsx
+client/src/managementClient/poll.jsx

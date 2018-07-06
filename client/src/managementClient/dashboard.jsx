@@ -204,7 +204,7 @@ class Dashboard extends React.Component {
           <div id="polls-container">
             {this.state.filteredPolls.map((poll, i) => {
               if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
-                return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} editPoll={this.editPoll}/>);
+                return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll}/>);
               }
             })}
           </div>
