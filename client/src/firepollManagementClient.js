@@ -36,6 +36,8 @@ const firepoll = {}
     })
   }
 
+  firepoll.unstage = pollId => firestore.collection('stagedPolls').doc(pollId).delete();
+
   // RUN POLL 
   firepoll.run = ({poll, questions}) => {
     // Send poll data into the right collections/subcollections

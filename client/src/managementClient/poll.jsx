@@ -12,12 +12,12 @@ const Poll = (props) => {
   // let statusButton = !poll.active ? deployButton : poll.completed ? analyticsButton : liveButton;
   let status = poll.completed ? 'VIEW ANALYTICS' : poll.active ? 'VIEW LIVE' : 'DEPLOY';
   let statusButton = poll.completed ? analyticsButton : poll.active ? liveButton : deployButton;
-  let undeployedDelete = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => deletePoll(poll._id)}>DELETE&nbsp;<i className="fa-fw fas fa-trash"></i></button>);
+  let deletePollButton = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => deletePoll(poll._id)}>DELETE&nbsp;<i className="fa-fw fas fa-trash"></i></button>);
   let UndeployedEdit = (<Link to={`/edit/${poll._id}`}>
   <button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => editPoll(poll._id)}>EDIT&nbsp;<i className="fa-fw fas fa-edit"></i></button>
   </Link>);
-  let completedDelete = <button>ARCHIVE POLL</button>;
-  let deleteButton = poll.completed ? completedDelete : poll.active ? '' : undeployedDelete;
+  // let completedDelete = <button onClick={() => deletePoll(poll._id)}>DELETE POLL</button>;
+  // let deleteButton = poll.completed ? completedDelete : poll.active ? '' : undeployedDelete;
   return (
     <div className="poll-item">
       <div className="dashboard-options">
@@ -27,8 +27,9 @@ const Poll = (props) => {
         <div className="dashboard-options-group">
           {statusButton}
           {poll.active && closeButton}
-          {status === 'DEPLOY' && undeployedDelete}
+          {status === 'DEPLOY' && deletePollButton}
           {status === 'DEPLOY' && UndeployedEdit}
+          {status === 'VIEW ANALYTICS' && deletePollButton}
         </div>
       </div>
       &#8203;
