@@ -45,6 +45,7 @@ module.exports = {
   output: {
     filename: '[name].bundle.js',
     path: DIST_DIR,
+    publicPath: '/'
   },
   context: __dirname,
   resolve: {

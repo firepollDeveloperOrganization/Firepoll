@@ -11,7 +11,7 @@ const sortByDateDescending = arr => {
   })
 }
 
-const destructurePoll = (poll) => {
+const destructurePoll = (poll) => { 
   var returnObj = {};
   returnObj.poll = {
     id: poll._id,
