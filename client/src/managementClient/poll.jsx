@@ -24,7 +24,9 @@ const Poll = (props) => {
         <div className="response-url">
           <button className="button is-danger is-rounded is-inverted is-outlined" onClick={() => copy(`https://firepoll.herokuapp.com/response/${poll._id}`)}>Copy Link to Vote&nbsp;<i className="far fa-clipboard"></i></button>
           <button className="button is-danger is-rounded is-inverted is-outlined">
-            <a href={`mailto:?subject=Vote in this Fire Poll!&body=Here is a link to your fire poll! https://firepoll.herokuapp.com/response/${poll._id} Thanks for voting!`} >Email Link&nbsp;<i className="far fa-envelope"></i></a>
+            <a href={`mailto:?subject=Vote in this Fire Poll!&body=Here is a link to your fire poll!%0D%0A
+            https://firepoll.herokuapp.com/response/${poll._id}%0D%0A
+            Thanks for voting!`} >Email Link&nbsp;<i className="far fa-envelope"></i></a>
           </button>
         </div>
         <div className="dashboard-options-group">
