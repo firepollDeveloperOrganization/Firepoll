@@ -7,7 +7,7 @@ const addResultsToPoll = require('../helpers/addResultsToPoll');
 const axios = require('axios');
 const {CronJob} = require('cron');
 
-cronJobs = {};
+var cronJobs = {};
 
 // User should be able to create, read, update and delete polls
 // ADDS A POLL TO DB
@@ -33,7 +33,7 @@ pollRouter.put('/:id', (req, res) => {
     } else {
       if (req.body.active === true) {
       // if the poll is now active, create a cron job to aggregate votes
-        if (!cronJobs[result.id]) {
+        if (!cronJobs[result._id]) {
           // if the cron job doesn't exist, create it
           cronJobs[result._id] = new CronJob('*/5 * * * * *', () => {
             console.log('doing a thing');
@@ -80,9 +80,9 @@ pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req
     realTimeDB.ref(`/polls/${req.params.id}`).once('value')
     .then(result => {
       // votes need to be analyzed and aggregated to a new pollObj
-      var newPollObj = addResultsToPoll(req.body, result.val().questions);
+      var newPollObj = addResultsToPoll(req.body, result.val());
       // stopping aggregation function
-      cronJobs[newPollObj].stop();
+      cronJobs[newPollObj._id].stop();
       // updating poll with votes
       db.updatePoll(req.params.id, newPollObj, function(err, result) {
         if(err) {
