@@ -164,7 +164,7 @@ firepoll.get = {}
       snapshot.forEach((doc) => {
           var docData = doc.data();
           docData._id = doc.id;
-          data.push(docData);
+          data.unshift(docData);
       });
         return data;
       });

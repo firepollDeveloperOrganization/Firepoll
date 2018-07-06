@@ -75,7 +75,7 @@ pollRouter.put('/edit/:id', (req, res) => {
 // CLOSES A LIVE POLL
 
 pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req.body
-  console.log('closing poll ... ', req.params.id);
+  console.log('closing poll ... ', req.body);
   setTimeout(() => {
     realTimeDB.ref(`/polls/${req.params.id}`).once('value')
     .then(result => {
