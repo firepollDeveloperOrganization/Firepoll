@@ -1,5 +1,6 @@
-import app from 'firebase/app';
-import {firestore, database} from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/database';
 
 var config = {
   apiKey: "AIzaSyCL6Wv_NdqmEG8f7ukbfvkkXpQgiSHhzK8",
@@ -10,14 +11,14 @@ var config = {
   messagingSenderId: "363057085922"
 };
 
-if (!app.apps.length) {
-  app.initializeApp(config);
+if (!firebase.apps.length) {
+  firebase.initializeApp(config);
 }
 
 /* Firebase Interface */
 const settings = {/* your settings... */ timestampsInSnapshots: true};
-const firestoreDB = firestore();
-const realTimeDB = database();
+const firestoreDB = firebase.firestore();
+const realTimeDB = firebase.database();
 firestoreDB.settings(settings);
 
 const firepoll = {}
