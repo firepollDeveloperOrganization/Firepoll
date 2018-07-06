@@ -1,14 +1,51 @@
 const path = require('path');
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
-  entry: ["babel-polyfill", `${SRC_DIR}/index.jsx`],
+  entry: {
+    managementClient: ["babel-polyfill", `${SRC_DIR}/managementClientIndex.jsx`],
+    responseClient: ["babel-polyfill", `${SRC_DIR}/responseClientIndex.jsx`]
+  },
+  optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          sourceMap: true
+        })
+      ]
+    , splitChunks: {
+      chunks: 'async',
+      minSize: 30000,
+      minChunks: 1,
+      automaticNameDelimiter: '-',
+      name: true,
+      cacheGroups: {
+        managementClient: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        responseClient: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        }
+      }
+    }
+  },
+  plugins: [
+    new BundleAnalyzerPlugin()
+  ],
   mode: 'production',
   output: {
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     path: DIST_DIR,
+    publicPath: '/'
   },
   context: __dirname,
   resolve: {

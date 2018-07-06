@@ -1,4 +1,7 @@
-var firebase = require('firebase');
+var firebase = require("firebase/app");
+require("firebase/database");
+require("firebase/firestore");
+require("firebase/auth");
 
 var config = {
   apiKey: "AIzaSyCL6Wv_NdqmEG8f7ukbfvkkXpQgiSHhzK8",
@@ -35,6 +38,8 @@ const firepoll = {}
       console.error("Staging poll to firestore: ", err);
     })
   }
+
+  firepoll.unstage = pollId => firestore.collection('stagedPolls').doc(pollId).delete();
 
   // RUN POLL 
   firepoll.run = ({poll, questions}) => {
@@ -182,4 +187,4 @@ firepoll.get = {}
       });
   }
 
-  module.exports = { firepoll, realTimeDB};
+  module.exports = { firebase, firepoll, realTimeDB };
