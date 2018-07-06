@@ -61,6 +61,7 @@
     "bulma": "^0.7.1",
     "chai": "^4.1.2",
     "commitizen": "^2.10.1",
+    "compression": "^1.7.2",
     "connect-history-api-fallback": "^1.5.0",
     "copy-to-clipboard": "^3.0.8",
     "cors": "^2.8.4",

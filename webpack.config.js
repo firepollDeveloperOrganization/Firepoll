@@ -1,7 +1,6 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CompressionPlugin = require('compression-webpack-plugin');
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
 
@@ -40,8 +39,7 @@ module.exports = {
     }
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
-    new CompressionPlugin()
+    new BundleAnalyzerPlugin()
   ],
   mode: 'production',
   output: {
