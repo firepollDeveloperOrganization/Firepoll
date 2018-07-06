@@ -7,11 +7,12 @@ class ResponseClient extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      pollComplete: 0,
+      currQuestion: 0,
       poll: false,
       questions: false,
       answers: false,
       currChoice: 1,
-      alreadyVoted: false,
       results: false,
       user_id: 1,
       exists: true,
@@ -73,19 +74,22 @@ class ResponseClient extends React.Component {
       })
   };
 
-  handleUserChoice = (response) => {
+  handleUserChoice(response) {
     this.setState({
       currChoice: response.target.value
     });
   }
 
-  handleSubmit = (e, question) => {
+  testCloudFunction() {
+    firePollResponseClient.testCloudFunction();
+  }
+
+  handleSubmit(e, question) {
     e.preventDefault();
 
     const answer = JSON.parse(this.state.currChoice);
 
     this.setState({user_id: this.state.user_id+1});
-//|| ip.address().replace(/\./g , "")
     let userAnswer = {
       poll_id: this.state.poll.id,
       answer_id: answer.id,
@@ -96,21 +100,24 @@ class ResponseClient extends React.Component {
       question_type: question.type
     }
 
-    if (this.state.alreadyVoted === false) {
-      this.setState({
-        alreadyVoted: false
-      });
-    }
+    this.setState({
+      currQuestion: this.state.currQuestion + 1,
+      pollComplete: this.state.currQuestion + 1 > this.state.questions.length - 1
+    });
 
     firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
+      let newResults = Object.assign({}, this.state.results);
+      newResults[question.id] = data;
       this.setState({
-        results: data
+        results: newResults
       });
     });
 
     firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
+      let newResults = Object.assign({}, this.state.results);
+      newResults[question.id] = data;
       this.setState({
-        results: data
+        results: newResults
       });
     });
 
@@ -122,51 +129,62 @@ class ResponseClient extends React.Component {
   // GETS RENDERED IF POLL IS LIVE
   renderLivePoll = () => {
     return (
-      <div id="poll-dist" className = "poll-dist-class">
-      {this.state.poll ? <div>
+      
+    <div id="poll-dist" className = "poll-dist-class">
+      {/* <button onClick = {() => {this.testCloudFunction()}}>TEST</button> */}
+      {this.state.pollComplete ? '' : this.state.poll ? <div>
           <h1 className="title is-4">{this.state.poll.title}</h1>
         { 
-          this.state.questions ? this.state.questions.map((question) => {
-            return (
-              <div>
-                <div className="title is-3">{question.question_title}</div>
-                <form className="field control flex" key={question.id}>
-                  <select className="select is-danger is-rounded is-medium" onChange = {(val) => {this.handleUserChoice(val)}}>
-                    {question.answers.map((answer, i) => {
-                      return (
-                        <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
-                      );
-                    })}
-                  </select>
-                {this.state.alreadyVoted ? <div></div> : <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question)}}>Select Answer</button>}
-              </form>
-  
-              </div>
-              );
+          this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
+              return (<div>
+                  <div className="title is-3">{question.question_title}</div>
+                    <form className="field control flex" key={question.id}>
+                      <select className="is-multiple is-danger is-medium" size = {question.answers.length} onChange = {(val) => {this.handleUserChoice(val)}}>
+                        {question.answers.map((answer, i) => {
+                          return (
+                            <option key={i} value = {JSON.stringify(answer)}>{answer.value}</option>
+                          );
+                        })}
+                      </select>
+                      <button className="button is-danger is-rounded is-medium" onClick = {(e) => {this.handleSubmit(e, question)}}>Select Answer</button>
+                  </form>
+                </div>);
           })
           : <div></div>
         }
-        {
-          this.state.results ? this.state.results.map((result) => {
-            let total = this.state.results.reduce((acc, ele) => acc + ele.vote_count, 0);
-            const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
-            return (
-            <div className = "title is-5 flex results">
-                <span>{result.answer_value}</span>
-                <span>{isLit}</span>
-                <span>{result.vote_count}</span>
-            </div>
-            )}
-          ) : <div></div>
-        }
       </div> : ''}
-      </div>
-      );
+
+        { 
+          this.state.pollComplete ? 
+          <div>
+            <h1 className = "title is-4">{this.state.poll.title} Results</h1>
+              {this.state.results ? Object.keys(this.state.results).map((id) => {
+                let questionForResults = this.state.questions.filter(question => id === question.id)
+                return (
+                  <div className = "results-container">
+                    <h2 className = "result-title title is-5">{questionForResults[0].question_title}</h2>
+                    {this.state.results[id].map((result) => {
+                    let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
+                    const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
+                    return (
+                      <div className = "title is-5 flex results">
+                        <span>{result.answer_value}</span>
+                        <span>{isLit}</span>
+                        <span>{result.vote_count}</span>
+                      </div>)
+                    })}
+                  </div>
+                )
+              }):''} 
+            </div>
+          :''
+        }
+    </div>
+    );
   }
 
-
   render() {
-    if(this.state.active === true) {
+    if(true) {
       return this.renderLivePoll();
     } else {
       if (this.state.loading === true) {
