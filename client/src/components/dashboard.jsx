@@ -3,7 +3,6 @@ import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
 import axios from 'axios';
 import {firepoll, realTimeDB} from '../firepollManagementClient';
-// import dummyData from '../../../pollManager/PollTestData.js';
 
 const sortByDateDescending = arr => {
   return arr.sort((a, b) => {
@@ -157,21 +156,20 @@ class Dashboard extends React.Component {
     axios.delete(`/polls/${id}`)
     .then(res => {
       this.getPolls();
+      firepoll.unstage(pollId)
+        .then(data => console.log(data))
+        .catch(err => console.log(err));
     })
     .catch(err => {
       console.error(err);
     })
-    // TODO: remove from firebase array of staged ids
-
   }
 
-  editPoll = id => {
-    console.log('editing poll', id);
-  }
-
-  archivePoll = () => {
-    console.log('deleting/archiving poll that has been completed!');
-  }
+  // unstagePoll = id => {
+  //   firepoll.unstage(pollId)
+  //   .then(data => console.log(data))
+  //   .catch(err => console.log(err));
+  // }
 
   render() {
     let { user, email } = this.props;
@@ -195,7 +193,7 @@ class Dashboard extends React.Component {
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
           </div>
           <div id="polls-container">
-            {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} editPoll={this.editPoll}/>)}
+            {this.state.filteredPolls.map((poll, i) => <Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} editPoll={this.editPoll} deleteCompletePoll={this.deleteCompletePoll} />)}
           </div>
         </div>
       )
