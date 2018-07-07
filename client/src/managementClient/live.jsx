@@ -98,9 +98,8 @@ class Live extends React.Component {
     console.log('current questions in live view:', this.state.questions);
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
     if (!this.state.poll || !this.state.questions) return <div>LOADING POLL...</div>;
-    // return <div>HI</div>
       return (
-        <div style={{textAlign: "center"}}>
+        <div className="liveViewWrapper" style={{textAlign: "center"}}>
           <h1>🔥🔥🔥 FIRE POLL #{this.state.pollId} FOR {email} 🔥🔥🔥</h1>
             {this.state.questions.map((q, i, arr) => {
               let background = q.active ? "#A4FF8D" : "#fff";
