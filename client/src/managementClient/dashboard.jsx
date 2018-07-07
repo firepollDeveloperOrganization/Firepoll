@@ -1,8 +1,23 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
 import axios from 'axios';
-import {firepoll, realTimeDB} from '../firepollManagementClient';
+import { firepoll, realTimeDB } from '../firepollManagementClient';
+
+Modal.setAppElement('#app');
+
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 const sortByDateDescending = arr => {
   return arr.sort((a, b) => {
@@ -57,8 +72,32 @@ class Dashboard extends React.Component {
     this.state = {
       allPolls: [],
       filteredPolls: [],
-      userFilterInput: ''
+      userFilterInput: '',
+      modalIsOpen: false,
+      phoneNumbers: '',
+      currentLink: null
     }
+  }
+
+  openModal = () => {
+    this.setState({modalIsOpen: true});
+  }
+  afterOpenModal = () => {
+    // references are now sync'd and can be accessed.
+    // this.subtitle.style.color = '#f00';
+  }
+  closeModal = () => {
+    this.setState({modalIsOpen: false});
+  }
+
+  sendTexts = () => {
+    console.log('texting out links!', this.state.phoneNumbers)
+
+    this.setState({phoneNumbers: ''});
+  }
+
+  setCurrentLink = currentLink => {
+    this.setState({currentLink});
   }
 
   getPolls = () => {
@@ -204,10 +243,25 @@ class Dashboard extends React.Component {
           <div id="polls-container">
             {this.state.filteredPolls.map((poll, i) => {
               if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
-                return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll}/>);
+                return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal}/>);
               }
             })}
           </div>
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+ 
+          <button onClick={this.closeModal}>close</button>
+          <h2 ref={subtitle => this.subtitle = subtitle}>Please input any numbers you'd like to text!</h2>
+          <form id="text-polls-form" onSubmit={e => e.preventDefault()}>
+            <textarea value={this.state.phoneNumbers} form="text-polls-form" cols="50" rows="5" placeholder="You may use comma-separated values (as in CSV sheet imports), starting with the area code." onChange={e => this.setState({phoneNumbers: e.target.value})} />
+            <button type="submit" onClick={this.sendTexts}>Send Texts</button>
+          </form>
+        </Modal>
         </div>
       )
   }
