@@ -47,10 +47,13 @@ firepoll.listen = {}
       polls = [polls]
     }
     for (let aPoll of polls) {
-      firestoreDB.collection('polls').doc(aPoll.id).onSnapshot((snapshot) => {
+      console.log('aPoll: ', aPoll);
+      firestoreDB.collection('polls').doc(aPoll._id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
-        snapShotData.id = snapshot.id;
-        cb(snapShotData);
+        if(snapShotData) {
+          snapShotData._id = snapshot.id;
+          cb(snapShotData);
+        }
       });
     }
   }
@@ -61,9 +64,9 @@ firepoll.listen = {}
       questions = [questions]
     }
     for (let aQuestion of questions) {
-      firestoreDB.collection(`polls/${poll_id}/questions`).doc(aQuestion.id).onSnapshot((snapshot) => {
+      firestoreDB.collection(`polls/${poll_id}/questions`).doc(aQuestion._id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
-        snapShotData.id = snapshot.id;
+        snapShotData._id = snapshot.id;
         cb(snapShotData);
       });
     }
@@ -90,7 +93,7 @@ firepoll.get = {}
       const data = [];
       snapshot.forEach((doc) => {
           var docData = doc.data();
-          docData.id = doc.id;
+          docData._id = doc.id;
           data.push(docData);
       });
         return data;
@@ -103,10 +106,12 @@ firepoll.get = {}
       return null;
     }
     return firestoreDB.collection('polls').doc(poll_id).get().then( (snapshot) => {
+      if(snapshot.data()) {
         var docData = snapshot.data();
-        docData.id = snapshot.id;
+        docData._id = snapshot.id;
         return docData;
-      });
+      }
+    });
   };
 
   // Get poll status
@@ -125,8 +130,8 @@ firepoll.get = {}
       const data = [];
       snapshot.forEach((doc) => {
           var docData = doc.data();
-          docData.id = doc.id;
-          data.push(docData);
+          docData._id = doc.id;
+          data.unshift(docData);
       });
         return data;
       });
@@ -139,7 +144,7 @@ firepoll.get = {}
     }
     return firestoreDB.collection(`polls/${poll_id}/questions`).doc(question_id).get().then( (snapshot) => {
         var docData = snapshot.data();
-        docData.id = snapshot.id;
+        docData._id = snapshot.id;
         return docData;
       });
   }

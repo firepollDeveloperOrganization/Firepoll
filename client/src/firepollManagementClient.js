@@ -44,7 +44,7 @@ const firepoll = {}
   // RUN POLL 
   firepoll.run = ({poll, questions}) => {
     // Send poll data into the right collections/subcollections
-    firestore.collection("polls").doc(poll.id).set(poll.data)
+    firestore.collection("polls").doc(poll._id).set(poll.data)
     .then(() => {
       let batch = firestore.batch();
       questions.forEach((question, i) => {
@@ -53,12 +53,12 @@ const firepoll = {}
         } else {
           question.data.active = false;
         }
-        let docRef = firestore.collection("polls").doc(poll.id).collection("questions").doc(question.id);
+        let docRef = firestore.collection("polls").doc(poll._id).collection("questions").doc(question.id);
         batch.set(docRef, question.data);
       })
       batch.commit().then(() => {
         // update stagedPolls collection for poll to active
-        firestore.collection("stagedPolls").doc(poll.id).update({active: true})
+        firestore.collection("stagedPolls").doc(poll._id).update({active: true})
         .then(() => {
           console.log("Poll is deployed!");
         })
@@ -110,10 +110,12 @@ firepoll.listen = {}
       polls = [polls]
     }
     for (let aPoll of polls) {
-      firestore.collection('polls').doc(aPoll.id).onSnapshot((snapshot) => {
-        const snapShotData = snapshot.data();
-        snapShotData.id = snapshot.id;
-        cb(snapShotData);
+      firestore.collection('polls').doc(aPoll._id).onSnapshot((snapshot) => {
+        if(snapshot.data()) {
+          const snapShotData = snapshot.data();
+          snapShotData._id = snapshot.id;
+          cb(snapShotData);
+        }
       });
     }
   }
@@ -124,9 +126,10 @@ firepoll.listen = {}
       questions = [questions]
     }
     for (let aQuestion of questions) {
-      firestore.collection(`polls/${poll_id}/questions`).doc(aQuestion.id).onSnapshot((snapshot) => {
+      console.log('aQuestion: ', aQuestion);
+      firestore.collection(`polls/${poll_id}/questions`).doc(aQuestion._id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
-        snapShotData.id = snapshot.id;
+        snapShotData._id = snapshot.id;
         cb(snapShotData);
       });
     }
@@ -140,7 +143,7 @@ firepoll.get = {}
       const data = [];
       snapshot.forEach((doc) => {
           var docData = doc.data();
-          docData.id = doc.id;
+          docData._id = doc.id;
           data.push(docData);
       });
         return data;
@@ -154,7 +157,7 @@ firepoll.get = {}
     }
     return firestore.collection('polls').doc(poll_id).get().then( (snapshot) => {
         var docData = snapshot.data();
-        docData.id = snapshot.id;
+        docData._id = snapshot.id;
         return docData;
       });
   }
@@ -165,8 +168,8 @@ firepoll.get = {}
       const data = [];
       snapshot.forEach((doc) => {
           var docData = doc.data();
-          docData.id = doc.id;
-          data.push(docData);
+          docData._id = doc.id;
+          data.unshift(docData);
       });
         return data;
       });
@@ -179,7 +182,7 @@ firepoll.get = {}
     }
     return firestore.collection(`polls/${poll_id}/questions`).doc(question_id).get().then( (snapshot) => {
         var docData = snapshot.data();
-        docData.id = snapshot.id;
+        docData._id = snapshot.id;
         return docData;
       });
   }

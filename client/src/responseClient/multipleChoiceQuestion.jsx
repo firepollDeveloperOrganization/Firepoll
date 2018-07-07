@@ -4,7 +4,7 @@ const MultipleChoiceQuestion = (props) => {
   return (
     <div>
       <div className="title is-3">{props.question.question_title}</div>
-        <form className="field control flex" key={props.question.id}>
+        <form className="field control flex" key={props.question._id}>
           <select className="is-multiple is-danger is-medium" size = {props.question.answers.length} onChange = {(val) => {props.handleUserChoice(val)}}>
             {props.question.answers.map((answer, i) => {
               return (
