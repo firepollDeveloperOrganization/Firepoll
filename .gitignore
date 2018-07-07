@@ -36,3 +36,4 @@ client/dist/managementClient.bundle.js.gz
 client/dist/responseClient.bundle.js.gz
 client/src/managementClient/dashboard.jsx
 client/src/managementClient/poll.jsx
+pollManager/notificationsConfig.js
