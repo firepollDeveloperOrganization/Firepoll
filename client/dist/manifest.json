@@ -1,0 +1,20 @@
+{
+  "short_name": "Maps",
+  "name": "Google Maps",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/response/?pollid",
+  "background_color": "#f5f5f5",
+  "display": "standalone",
+  "theme_color": "#f5f5f5"
+}

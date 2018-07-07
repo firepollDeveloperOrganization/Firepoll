@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'copy-to-clipboard';
+import axios from 'axios';
+
+const textLink = () => {
+  console.log('texting link!');
+  // axios.post()
+}
 
 const Poll = (props) => {
   let {poll, deletePoll, editPoll} = props;
@@ -28,6 +34,7 @@ const Poll = (props) => {
             https://firepoll.herokuapp.com/response/${poll._id}%0D%0A
             Thanks for voting!`} >Email Link&nbsp;<i className="far fa-envelope"></i></a>
           </button>
+          <button onClick={textLink} className="button is-danger is-rounded is-inverted is-outlined">Text Link</button>
         </div>
         <div className="dashboard-options-group">
           {statusButton}
