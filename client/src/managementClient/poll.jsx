@@ -5,7 +5,10 @@ import axios from 'axios';
 
 const textLink = () => {
   console.log('texting link!');
-  // axios.post()
+  let password = 'rose123';
+  axios.post('/notifications')
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
 }
 
 const Poll = (props) => {
