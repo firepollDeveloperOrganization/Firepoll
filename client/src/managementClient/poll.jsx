@@ -4,11 +4,13 @@ import copy from 'copy-to-clipboard';
 import axios from 'axios';
 
 const textLink = (link, phoneNumber) => {
-  console.log('texting link!');
+  console.log('texting link to', phoneNumber);
   // let password = 'rose123';  // implement paywalling later on based on userId
-  axios.post('/notifications', {link, phoneNumber})
+  if (phoneNumber.length === 10) {
+    axios.post('/notifications', {link, phoneNumber})
     .then(data => console.log(data))
     .catch(err => console.log(err));
+  }
 }
 
 const Poll = (props) => {
@@ -38,7 +40,7 @@ const Poll = (props) => {
             ${linkUrl}%0D%0A
             Thanks for voting!`} >Email Link&nbsp;<i className="far fa-envelope"></i></a>
           </button>
-          <button onClick={() => textLink(linkUrl, '9173318874')} className="button is-danger is-rounded is-inverted is-outlined">Text Link</button>
+          <button onClick={() => {textLink(linkUrl, prompt('Enter a number to text your link to!'))}} className="button is-danger is-rounded is-inverted is-outlined">Text Link</button>
         </div>
         <div className="dashboard-options-group">
           {statusButton}
