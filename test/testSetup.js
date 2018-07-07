@@ -32,5 +32,6 @@ Object.keys(document.defaultView).forEach((property) => {
     exposedProperties.push(property)
     global[property] = document.defaultView[property]
   }
-})
+});
+
 documentRef = document

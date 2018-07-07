@@ -130,7 +130,10 @@ class Live extends React.Component {
                       )}
                   </div>
                   {i === arr.length - 1 ? 
-                    <button className="button is-danger" onClick={this.close}>Close Poll</button>
+                    <div> 
+                      <button className="button is-danger" onClick={this.close}>Close Poll</button>
+                      <button onClick = {() => {this.goBack()}}>Back to dashboard</button>
+                    </div>
                     :
                     <button className="button" style={{display: visibilty}} onClick={() => this.nextQuestion(i)}>Next Question</button>
                   }

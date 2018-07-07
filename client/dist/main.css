@@ -96,7 +96,6 @@
   display: block; }
 
 #poll-dist {
-  background: url("./tic-tac-toe.png") #6b0f1a;
   height: 100vh;
   width: 100vw;
   display: flex;
