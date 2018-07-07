@@ -6,11 +6,7 @@ import axios from 'axios';
 const textLink = (link, phoneNumber) => {
   console.log('texting link to', phoneNumber);
   // let password = 'rose123';  // implement paywalling later on based on userId
-  if (phoneNumber.length >= 10) {
-    axios.post('/notifications', {link, phoneNumber})
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-  }
+
 }
 
 const Poll = (props) => {

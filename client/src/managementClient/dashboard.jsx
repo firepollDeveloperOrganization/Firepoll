@@ -92,6 +92,7 @@ class Dashboard extends React.Component {
 
   sendTexts = () => {
     console.log('texting out links!', this.state.phoneNumbers, this.state.currentLink);
+    let phoneNumber = this.state.phoneNumbers, link = this.state.currentLink;
     if (phoneNumber.length >= 10) {
       axios.post('/notifications', {link, phoneNumber})
       .then(data => {
