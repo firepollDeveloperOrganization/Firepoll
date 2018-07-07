@@ -47,10 +47,13 @@ firepoll.listen = {}
       polls = [polls]
     }
     for (let aPoll of polls) {
-      firestore.collection('polls').doc(aPoll._id).onSnapshot((snapshot) => {
+      console.log('aPoll: ', aPoll);
+      firestoreDB.collection('polls').doc(aPoll._id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
-        snapShotData._id = snapshot.id;
-        cb(snapShotData);
+        if(snapShotData) {
+          snapShotData._id = snapshot.id;
+          cb(snapShotData);
+        }
       });
     }
   }
@@ -61,7 +64,7 @@ firepoll.listen = {}
       questions = [questions]
     }
     for (let aQuestion of questions) {
-      firestoreDB.collection(`polls/${poll_id}/questions`).doc(aQuestion.id).onSnapshot((snapshot) => {
+      firestoreDB.collection(`polls/${poll_id}/questions`).doc(aQuestion._id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
         snapShotData._id = snapshot.id;
         cb(snapShotData);
@@ -103,10 +106,12 @@ firepoll.get = {}
       return null;
     }
     return firestoreDB.collection('polls').doc(poll_id).get().then( (snapshot) => {
+      if(snapshot.data()) {
         var docData = snapshot.data();
         docData._id = snapshot.id;
         return docData;
-      });
+      }
+    });
   };
 
   // Get poll status

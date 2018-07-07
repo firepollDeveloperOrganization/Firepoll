@@ -65,8 +65,8 @@ class ResponseClient extends React.Component {
             this.setState({
               questions: data
             }, () => {
-              firepoll.listen.question(this.state.poll._id, this.state.questions, () => {
-                firepoll.get.allQuestionsFromPoll(this.state.poll._id).then((data) => {
+              firePollResponseClient.listen.question(this.state.poll._id, this.state.questions, () => {
+                firePollResponseClient.get.allQuestionsFromPoll(this.state.poll._id).then((data) => {
                   this.setState({
                     questions: data
                   }, () => {
@@ -83,16 +83,16 @@ class ResponseClient extends React.Component {
             // GET RESULTS IF USER HAS ALREADY COMPLETED CURRENT QUESTION
             if (this.state.currQuestion > this.state.questions.length-1) {
               for (let question of this.state.questions) {
-                firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
+                firePollResponseClient.get.results(this.state.poll._id, question._id).then((data) => {
                   let newResults = Object.assign({}, this.state.results);
-                  newResults[question.id] = data;
+                  newResults[question._id] = data;
                   this.setState({
                     results: newResults
                   });
                 });
-                firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
+                firePollResponseClient.listen.results(this.state.poll._id, question._id, (data) => {
                   let newResults = Object.assign({}, this.state.results);
-                  newResults[question.id] = data;
+                  newResults[question._id] = data;
                   this.setState({
                     results: newResults
                   });
