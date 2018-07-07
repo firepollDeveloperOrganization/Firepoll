@@ -14,11 +14,11 @@ const sortByDateDescending = arr => {
 const destructurePoll = (poll) => { 
   var returnObj = {};
   returnObj.poll = {
-    id: poll._id,
+    _id: poll._id,
     data: {
     author: poll.author,
     num_questions: poll.questions.length,
-    start_time: new Date(),
+    start_time: "some Date",
     title: poll.title,
     winning_response: null
     }
@@ -132,7 +132,7 @@ class Dashboard extends React.Component {
     // should send poll to firestore
     firepoll.run(destructured);
     // send db request to update poll to `active` = true,
-    axios.put(`/polls/${destructured.poll.id}`, {active: true})
+    axios.put(`/polls/${destructured.poll._id}`, {active: true})
     .then(() => {
       console.log('updated ', destructured.poll.data.title);
     })

@@ -65,8 +65,8 @@ class ResponseClient extends React.Component {
             this.setState({
               questions: data
             }, () => {
-              firePollResponseClient.listen.question(this.state.poll.id, this.state.questions, () => {
-                firePollResponseClient.get.allQuestionsFromPoll(this.state.poll.id).then((data) => {
+              firePollResponseClient.listen.question(this.state.poll._id, this.state.questions, () => {
+                firePollResponseClient.get.allQuestionsFromPoll(this.state.poll._id).then((data) => {
                   this.setState({
                     questions: data
                   }, () => {
@@ -83,16 +83,16 @@ class ResponseClient extends React.Component {
             // GET RESULTS IF USER HAS ALREADY COMPLETED CURRENT QUESTION
             if (this.state.currQuestion > this.state.questions.length-1) {
               for (let question of this.state.questions) {
-                firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
+                firePollResponseClient.get.results(this.state.poll._id, question._id).then((data) => {
                   let newResults = Object.assign({}, this.state.results);
-                  newResults[question.id] = data;
+                  newResults[question._id] = data;
                   this.setState({
                     results: newResults
                   });
                 });
-                firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
+                firePollResponseClient.listen.results(this.state.poll._id, question._id, (data) => {
                   let newResults = Object.assign({}, this.state.results);
-                  newResults[question.id] = data;
+                  newResults[question._id] = data;
                   this.setState({
                     results: newResults
                   });
@@ -124,11 +124,11 @@ class ResponseClient extends React.Component {
 
     this.setState({user_id: this.state.user_id+1});
     let userAnswer = {
-      poll_id: this.state.poll.id,
+      poll_id: this.state.poll._id,
       answer_id: answer.id,
       answer_value: answer.value,
       user_id: this.state.user_id,
-      question_id: question.id,
+      question_id: question._id,
       question_title: question.question_title,
       question_type: question.type
     }
@@ -138,17 +138,17 @@ class ResponseClient extends React.Component {
       pollComplete: this.state.currQuestion + 1 > this.state.questions.length - 1
     }, () => {localStorage.setItem(this.state.poll_id, this.state.currQuestion)});
 
-    firePollResponseClient.get.results(this.state.poll.id, question.id).then((data) => {
+    firePollResponseClient.get.results(this.state.poll._id, question._id).then((data) => {
       let newResults = Object.assign({}, this.state.results);
-      newResults[question.id] = data;
+      newResults[question._id] = data;
       this.setState({
         results: newResults
       });
     });
 
-    firePollResponseClient.listen.results(this.state.poll.id, question.id, (data) => {
+    firePollResponseClient.listen.results(this.state.poll._id, question._id, (data) => {
       let newResults = Object.assign({}, this.state.results);
-      newResults[question.id] = data;
+      newResults[question._id] = data;
       this.setState({
         results: newResults
       });
@@ -182,7 +182,9 @@ class ResponseClient extends React.Component {
           <div>
             <h1 className = "title is-4">{this.state.poll.title} Results</h1>
               {this.state.results ? Object.keys(this.state.results).map((id) => {
-                let questionForResults = this.state.questions.filter(question => id === question.id)
+                console.log('Object keys:', Object.keys(this.state.results));
+                console.log("this.state.questions: ", this.state.questions);
+                let questionForResults = this.state.questions.filter(question => id === question._id)
                 return (
                   <div className = "results-container">
                     <h2 className = "result-title title is-5">{questionForResults[0].question_title}</h2>
