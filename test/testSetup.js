@@ -34,4 +34,4 @@ Object.keys(document.defaultView).forEach((property) => {
   }
 });
 
-documentRef = document
+documentRef = document8
