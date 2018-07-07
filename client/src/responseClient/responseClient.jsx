@@ -169,9 +169,15 @@ class ResponseClient extends React.Component {
           <h1 className="title is-4">{this.state.poll.title}</h1>
         { 
           this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
-            return (
+            if (question.active) {
+              return (
                 <MultipleChoiceQuestion question = {question} handleUserChoice = {() => {this.handleUserChoice}} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
               );
+            } else {
+              return (
+                <div>Waiting for next question...</div>
+              );
+            }
           })
           : <div></div>
         }
