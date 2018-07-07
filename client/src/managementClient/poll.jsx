@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import copy from 'copy-to-clipboard';
 import axios from 'axios';
 
-const textLink = () => {
+const textLink = (link, phoneNumber) => {
   console.log('texting link!');
-  let password = 'rose123';
-  axios.post('/notifications')
+  // let password = 'rose123';  // implement paywalling later on based on userId
+  axios.post('/notifications', {link, phoneNumber})
     .then(data => console.log(data))
     .catch(err => console.log(err));
 }
@@ -27,17 +27,18 @@ const Poll = (props) => {
   </Link>);
   // let completedDelete = <button onClick={() => deletePoll(poll._id)}>DELETE POLL</button>;
   // let deleteButton = poll.completed ? completedDelete : poll.active ? '' : undeployedDelete;
+  let linkUrl = `https://firepoll.herokuapp.com/response/${poll._id}`;
   return (
     <div className="poll-item">
       <div className="dashboard-options">
         <div className="response-url">
-          <button className="button is-danger is-rounded is-inverted is-outlined" onClick={() => copy(`https://firepoll.herokuapp.com/response/${poll._id}`)}>Copy Link to Vote&nbsp;<i className="far fa-clipboard"></i></button>
+          <button className="button is-danger is-rounded is-inverted is-outlined" onClick={() => copy(linkUrl)}>Copy Link to Vote&nbsp;<i className="far fa-clipboard"></i></button>
           <button className="button is-danger is-rounded is-inverted is-outlined">
             <a href={`mailto:?subject=Vote in this Fire Poll!&body=Here is a link to your fire poll!%0D%0A
-            https://firepoll.herokuapp.com/response/${poll._id}%0D%0A
+            ${linkUrl}%0D%0A
             Thanks for voting!`} >Email Link&nbsp;<i className="far fa-envelope"></i></a>
           </button>
-          <button onClick={textLink} className="button is-danger is-rounded is-inverted is-outlined">Text Link</button>
+          <button onClick={() => textLink(linkUrl, '9173318874')} className="button is-danger is-rounded is-inverted is-outlined">Text Link</button>
         </div>
         <div className="dashboard-options-group">
           {statusButton}
