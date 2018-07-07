@@ -31,6 +31,10 @@ class ResponseClient extends React.Component {
         })
       }
 
+      // SIGN IN
+
+      firePollResponseClient.user.signin(this.state.user_id, pollId);
+
       // CHECK POLL STATUS
       firePollResponseClient.get.pollStatus(pollId).then((data) => {
         if (data !== undefined) {

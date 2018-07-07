@@ -23,14 +23,16 @@ firestoreDB.settings(settings);
 
 const firepoll = {}
 
-// VOTING FUNCTIONALITY (CLIENT ONLY)
+// USER PRESENCE FUNCTION (CLIENT ONLY)
 
-firepoll.testCloudFunction = () => {
-  console.log('start test');
-  realTimeDB.ref(`/polls/5b3ba143c4fdb49df1540bc0/questions/5b3ba143c4fdb49df1540bc1/votes`).orderByChild('answer_id').startAt(0).limitToFirst(5).once('value').then(snap => {
-    console.log('This is the data ', snap.val());
-  });
-}
+firepoll.user = {}
+
+  firepoll.user.signin = (userId, pollId) => {
+    realTimeDB.ref(`/users/${pollId}/${userId}`).onDisconnect().remove();
+    return realTimeDB.ref(`/users/${pollId}/${userId}`).set(true);
+  }
+
+// VOTING FUNCTIONALITY (CLIENT ONLY)
 
 firepoll.vote = {}
 

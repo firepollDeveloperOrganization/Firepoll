@@ -24,6 +24,16 @@ firestore.settings(settings);
 
 const firepoll = {}
 
+  firepoll.user = {};
+
+  firepoll.user.get = (pollId, cb) => {
+    return new Promise((resolve, reject) => {
+      realTimeDB.ref(`/users/${pollId}/`).on('value', (data) => {
+        resolve(data.val())
+      }); 
+    });
+  }
+
   // STAGE POLL
   firepoll.stage = (pollId, cb) => {
     firestore.collection('stagedPolls').doc(pollId).set({
