@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 const {expect} = require('chai');
 const schema = require('../db/schema');
-const {testData} = require('../pollManager/pollTestData');
 const axios = require('axios');
 
 

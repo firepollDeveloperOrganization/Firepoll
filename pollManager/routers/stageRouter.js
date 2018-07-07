@@ -1,7 +1,6 @@
 const express = require('express');
 const stageRouter = express.Router();
 const admin = require('../firebaseServerConfig/firebaseConfig.js');
-const testData = require('../pollTestData.js');
 require('dotenv').config();
 
 // Users should be able to create, and read results;
