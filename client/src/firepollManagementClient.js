@@ -100,7 +100,14 @@ const firepoll = {}
     })})
   }  
 
-
+  // UPDATE A QUESTION IN LIVE POLL (e.g. for toggling active status)
+  firepoll.updateQuestion = (pollId, questionId, update) => {
+    firestore.collection('polls').doc(pollId).collection('questions').doc(questionId).update(update)
+    .then(() => {
+      console.log('updated question ', questionId);
+    })
+    .catch(err => {console.error('error updating question in firepoll', err)})
+  };
 
 // LISTEN TO DATA FROM FIRESTORE INTERFACE
 firepoll.listen = {}
@@ -119,6 +126,8 @@ firepoll.listen = {}
       });
     }
   }
+
+
 
   //listen for changes to question
   firepoll.listen.question = (poll_id, questions, cb) => {

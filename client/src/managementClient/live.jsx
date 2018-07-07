@@ -65,6 +65,8 @@ class Live extends React.Component {
     let questions = this.state.questions;
     questions[i].active = false;
     questions[i+1].active = true;
+    firepoll.updateQuestion(this.state.poll._id, questions[i]._id, {active: false})
+    firepoll.updateQuestion(this.state.poll._id, questions[i+1]._id, {active: true})
     this.setState({
       questions
     })
