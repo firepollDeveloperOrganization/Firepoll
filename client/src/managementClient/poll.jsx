@@ -14,7 +14,7 @@ const textLink = (link, phoneNumber) => {
 }
 
 const Poll = (props) => {
-  let {poll, deletePoll, editPoll, openModal} = props;
+  let {poll, deletePoll, editPoll, openModal, setCurrentLink} = props;
   let deployButton = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => props.deploy(props.index)}>DEPLOY <i className="fa-fw fas fa-rocket"></i></button>);
   let liveButton = (<Link to={`/live/${poll._id}`}><button className="button is-danger is-rounded is-small is-inverted is-outlined">VIEW LIVE <i className="fa-fw fas fa-fire"></i></button></Link>);
   let analyticsButton = (<Link to={`/analytics/${poll._id}`}><button className="button is-danger is-rounded is-small is-inverted is-outlined">VIEW ANALYTICS <i className="fa-fw fas fa-calendar-check"></i></button></Link>);
@@ -40,7 +40,7 @@ const Poll = (props) => {
             ${linkUrl}%0D%0A
             Thanks for voting!`} >Email Link&nbsp;<i className="far fa-envelope"></i></a>
           </button>
-          <button onClick={openModal} className="button is-danger is-rounded is-inverted is-outlined">Text Link</button>
+          <button onClick={() => {openModal(); setCurrentLink(linkUrl);}} className="button is-danger is-rounded is-inverted is-outlined">Text Link</button>
         </div>
         <div className="dashboard-options-group">
           {statusButton}

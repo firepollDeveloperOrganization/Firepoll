@@ -91,9 +91,15 @@ class Dashboard extends React.Component {
   }
 
   sendTexts = () => {
-    console.log('texting out links!', this.state.phoneNumbers)
-
-    this.setState({phoneNumbers: ''});
+    console.log('texting out links!', this.state.phoneNumbers, this.state.currentLink);
+    if (phoneNumber.length >= 10) {
+      axios.post('/notifications', {link, phoneNumber})
+      .then(data => {
+        console.log(data);
+        this.setState({phoneNumbers: ''});
+      })
+      .catch(err => console.log(err));
+    }
   }
 
   setCurrentLink = currentLink => {
@@ -243,18 +249,11 @@ class Dashboard extends React.Component {
           <div id="polls-container">
             {this.state.filteredPolls.map((poll, i) => {
               if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
-                return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal}/>);
+                return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
               }
             })}
           </div>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
- 
+        <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
           <button onClick={this.closeModal}>close</button>
           <h2 ref={subtitle => this.subtitle = subtitle}>Please input any numbers you'd like to text!</h2>
           <form id="text-polls-form" onSubmit={e => e.preventDefault()}>

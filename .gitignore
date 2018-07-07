@@ -30,6 +30,8 @@ client/dist/3.bundle.js
 client/dist/3.bundle.js.gz
 client/dist/4.bundle.js
 client/dist/4.bundle.js.gz
+client/dist/5.bundle.js
+client/dist/6.bundle.js
 client/dist/managementClient.bundle.js
 client/dist/responseClient.bundle.js
 client/dist/managementClient.bundle.js.gz
