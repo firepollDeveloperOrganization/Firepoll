@@ -41,4 +41,10 @@ Object.keys(document.defaultView).forEach((property) => {
     exposedProperties.push(property)
     global[property] = document.defaultView[property]
   }
+<<<<<<< HEAD
 });
+=======
+});
+
+documentRef = document;
+>>>>>>> dev
