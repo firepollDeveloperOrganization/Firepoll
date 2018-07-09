@@ -4,7 +4,6 @@
 var axios = require('axios');
 var mongoClient = require('mongodb').MongoClient;
 var expect = require('chai').expect;
-var {testData} = require('../pollManager/pollTestData');
 
 describe('Live Polling Service Database', function() {
   var dbName = 'live-polling-service';
