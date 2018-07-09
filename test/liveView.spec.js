@@ -34,10 +34,10 @@ describe('Live View Component', function() {
 
 
   it('should start with an empty poll, no questions and closed set to false.', function() {
-      expect(wrapper.state('poll')).to.eql({});
-      expect(wrapper.state('questions')).to.eql([]);
-      expect(wrapper.state('closed')).to.equal(false);      
-    });
+    expect(wrapper.state('poll')).to.eql({});
+    expect(wrapper.state('questions')).to.eql([]);
+    expect(wrapper.state('closed')).to.equal(false);      
+  });
 
   it('should render all questions', () => {
     wrapper.setState({
