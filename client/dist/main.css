@@ -6,15 +6,16 @@
   font-family: 'Courgette', cursive; }
 
 #landing-container {
-  background: url("./tic-tac-toe.png") #6b0f1a;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   height: 100vh;
   width: 100vw; }
 
 #landing-nav {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   background-color: rgba(176, 33, 47, 0.7);
   padding: 2em; }
   #landing-nav #landing-banner {
@@ -28,6 +29,8 @@
     justify-content: space-around;
     align-content: center;
     float: right; }
+  #landing-nav .title.is-1 {
+    margin-bottom: 5vh; }
   #landing-nav .title {
     color: #ffffff; }
   #landing-nav .subtitle {
