@@ -1,6 +1,7 @@
 #landing-container {
-  background: url("./tic-tac-toe.png") $redder;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
@@ -8,7 +9,7 @@
 
 #landing-nav {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   background-color: rgba($red, .7);
   padding: 2em;
   #landing-banner {
@@ -23,6 +24,9 @@
     justify-content: space-around;
     align-content: center;
     float: right;
+  }
+  .title.is-1 {
+    margin-bottom: 5vh;
   }
   .title {
     color: #ffffff;
