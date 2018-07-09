@@ -228,6 +228,11 @@ class Dashboard extends React.Component {
   render() {
     let { user, email } = this.props;
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
+    let pollDisplay = !this.state.filteredPolls.length ? <h1>No Polls! Make a new one by clicking the "CREATE" button above!</h1> : this.state.filteredPolls.map((poll, i) => {
+      if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
+        return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
+      }
+    })
       return (
         <div id="dashboard">
           <div className="nav">
@@ -248,11 +253,7 @@ class Dashboard extends React.Component {
           </div>
           <input type="text" onChange = {e => this.handleInput(e)}></input>
           <div id="polls-container">
-            {this.state.filteredPolls.map((poll, i) => {
-              if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
-                return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
-              }
-            })}
+            {pollDisplay}
           </div>
         <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
           <button onClick={this.closeModal}>close</button>
