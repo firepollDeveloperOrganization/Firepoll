@@ -105,10 +105,6 @@ class Live extends React.Component {
     })
   }
 
-  goBack() {
-    this.props.history.push('/dashboard')
-  }
-
   render() {
     let {user, email} = this.props;
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
