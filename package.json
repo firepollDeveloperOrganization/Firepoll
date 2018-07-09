@@ -10,7 +10,7 @@
     "sass-dev": "node-sass -w ./client/src/main.scss -o ./client/dist/",
     "build-css": "node-sass --include-path scss ./client/src/main.scss ./client/dist/main.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
-    "test": "mocha --require test/testSetup",
+    "test": "mocha --require test/testSetup test/*.spec.js",
     "heroku-postbuild": "webpack -d"
   },
   "repository": {
@@ -50,6 +50,7 @@
     "node-sass": "^4.9.0",
     "nodemon": "^1.17.5",
     "react-addons-test-utils": "15.6.2",
+    "react-mock-router": "^1.0.15",
     "react-router-dom": "^4.3.1",
     "react-test-renderer": "^15.6.2",
     "sass-loader": "^7.0.3",
@@ -90,6 +91,7 @@
     "react": "^15.4.2",
     "react-code-splitting": "^1.2.1",
     "react-dom": "^15.4.2",
+    "react-router-test-context": "^0.1.0",
     "react-slick": "^0.23.1",
     "react-svg-piechart": "^2.1.1",
     "socket.io": "^2.1.1",

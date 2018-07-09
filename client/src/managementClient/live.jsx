@@ -97,7 +97,7 @@ class Live extends React.Component {
     console.log('current poll in live view:', this.state.poll);
     console.log('current questions in live view:', this.state.questions);
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
-    if (!this.state.poll || !this.state.questions) return <div>LOADING POLL...</div>;
+    if (!this.state.poll || !this.state.questions) return <div className="loadingPollAlert">LOADING POLL...</div>;
       return (
         <div className="liveViewWrapper" style={{textAlign: "center"}}>
           <h1>🔥🔥🔥 FIRE POLL #{this.state.pollId} FOR {email} 🔥🔥🔥</h1>
@@ -115,15 +115,15 @@ class Live extends React.Component {
                       )}
                   </div>
                   {i === arr.length - 1 ? 
-                    <button className="button is-danger" onClick={this.close}>Close Poll</button>
+                    <button className="button is-danger" id="closePollButton" onClick={this.close}>Close Poll</button>
                     :
-                    <button className="button" style={{display: visibilty}} onClick={() => this.nextQuestion(i)}>Next Question</button>
+                    <button className="button" id="nextQuestionButton" style={{display: visibilty}} onClick={() => this.nextQuestion(i)}>Next Question</button>
                   }
                 </div>
               )
             })}
               {this.state.closed && 
-                <p style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
+                <p className="pollIsClosedAlert" style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
               }
         </div>
       )
