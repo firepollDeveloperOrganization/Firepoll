@@ -20,8 +20,6 @@ node_modules
 client/dist/main.css
 .env
 firebase-debug.log
-functions
-test
 client/dist/0.bundle.js
 client/dist/0.bundle.js.gz
 client/dist/1.bundle.js
@@ -38,6 +36,4 @@ client/dist/managementClient.bundle.js
 client/dist/responseClient.bundle.js
 client/dist/managementClient.bundle.js.gz
 client/dist/responseClient.bundle.js.gz
-client/src/managementClient/dashboard.jsx
-client/src/managementClient/poll.jsx
 pollManager/notificationsConfig.js
