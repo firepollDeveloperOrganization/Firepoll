@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const pollRouter = require('./routers/pollRouter');
 const resultHistRouter = require('./routers/resultsRouter');
 const stageRouter = require('./routers/stageRouter');
+const notificationsRouter = require('./routers/notificationsRouter');
 const cors = require('cors');
 const path = require('path');
 var compression = require('compression');
@@ -11,7 +12,6 @@ require('dotenv').config();
 const app = express();
 
 app.use(bodyParser.json());
-
 
 
 app.use((req, res, next) => {
@@ -54,6 +54,8 @@ app.use('/polls', cors(), pollRouter);
 app.use('/results', resultHistRouter);
 
 app.use('/stage', stageRouter);
+
+app.use('/notifications', notificationsRouter);
 
 app.get('/response/:pollId', (req, res) => {
   res.sendFile(path.join(__dirname, '/../client/dist/responseClientIndex.html'), (err) => {

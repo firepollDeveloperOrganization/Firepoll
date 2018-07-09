@@ -82,7 +82,9 @@ pollRouter.put('/close/:id', (req, res) => { // assume you get the poll from req
       // votes need to be analyzed and aggregated to a new pollObj
       var newPollObj = addResultsToPoll(req.body, result.val());
       // stopping aggregation function
-      cronJobs[newPollObj._id].stop();
+      if (cronJobs[newPollObj._id]) {
+        cronJobs[newPollObj._id].stop();
+      }
       // updating poll with votes
       db.updatePoll(req.params.id, newPollObj, function(err, result) {
         if(err) {

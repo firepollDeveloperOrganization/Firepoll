@@ -19,6 +19,7 @@ class ResponseClient extends React.Component {
       active: false,
       completed: false
     };
+    this.handleUserChoice = this.handleUserChoice.bind(this);
   };
 
   componentDidMount() {
@@ -30,6 +31,10 @@ class ResponseClient extends React.Component {
           currQuestion: parseInt(localStorage.getItem(this.state.poll_id))
         })
       }
+
+      // SIGN IN
+
+      firePollResponseClient.user.signin(this.state.user_id, pollId);
 
       // CHECK POLL STATUS
       firePollResponseClient.get.pollStatus(pollId).then((data) => {
@@ -108,8 +113,9 @@ class ResponseClient extends React.Component {
   };
 
   handleUserChoice(response) {
+    console.log(response);
     this.setState({
-      currChoice: response.target.value
+      currChoice: response
     });
   }
 
@@ -164,14 +170,22 @@ class ResponseClient extends React.Component {
     return (
       
     <div id="poll-dist" className = "poll-dist-class">
-      {/* <button onClick = {() => {this.testCloudFunction()}}>TEST</button> */}
-      {this.state.pollComplete ? '' : this.state.poll ? <div>
-          <h1 className="title is-4">{this.state.poll.title}</h1>
+      {this.state.pollComplete ? '' : this.state.poll ? <div className = "response-form">
+          <h1 className="title">{this.state.poll.title}</h1>
         { 
           this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
-            return (
-                <MultipleChoiceQuestion question = {question} handleUserChoice = {() => {this.handleUserChoice}} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
+            if (question.active) {
+              return (
+                <div className = "question-container"> 
+                  <MultipleChoiceQuestion currChoice = {this.state.currChoice} question = {question} handleUserChoice = {this.handleUserChoice} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
+                  <button className="vote-button" onClick = {(e) => {this.handleSubmit(e, question)}}>Submit</button>
+                </div>
               );
+            } else {
+              return (
+                <div>Waiting for next question...</div>
+              );
+            }
           })
           : <div></div>
         }
@@ -182,8 +196,6 @@ class ResponseClient extends React.Component {
           <div>
             <h1 className = "title is-4">{this.state.poll.title} Results</h1>
               {this.state.results ? Object.keys(this.state.results).map((id) => {
-                console.log('Object keys:', Object.keys(this.state.results));
-                console.log("this.state.questions: ", this.state.questions);
                 let questionForResults = this.state.questions.filter(question => id === question._id)
                 return (
                   <div className = "results-container">

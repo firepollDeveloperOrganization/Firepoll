@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import {firepoll, realTimeDB} from '../firepollManagementClient';
 import axios from 'axios';
+import Navbar from './navbar';
 
 class Live extends React.Component {
   constructor(props) {
@@ -9,17 +10,31 @@ class Live extends React.Component {
     this.state = {
       poll: {},
       questions: [],
-      closed: false
+      closed: false,
+      userCount: 0
     }
     this.fetchPoll = this.fetchPoll.bind(this);
     this.computeTimeRemaining = this.computeTimeRemaining.bind(this);
   }
+
   componentDidMount() {
+    firepoll.user.get(this.props.match.params.id).then(data => {
+      let userCount = 0;
+      for (let item of data) {
+        if (item) {
+          userCount +=1;
+        }
+      }
+      this.setState({
+        userCount
+      });
+    }).catch(err => console.log(err))
+    // (this.props.match.params.id).then((data) => {console.log(data)});
     this.fetchPoll();
   }
+
   fetchPoll() {
     let pollId = this.props.match.params.id;
-    console.log('fetching live poll info from firebase for', pollId);
     axios.get(`/polls/${pollId}`)
     .then(res => {
       // SETTING UP LIVE DATA FLOW IF POLL IS LIVE
@@ -69,7 +84,7 @@ class Live extends React.Component {
     firepoll.updateQuestion(this.state.poll._id, questions[i+1]._id, {active: true})
     this.setState({
       questions
-    })
+    });
   }
 
   close = () => {
@@ -90,16 +105,18 @@ class Live extends React.Component {
     })
   }
 
+  goBack() {
+    this.props.history.push('/dashboard')
+  }
 
   render() {
     let {user, email} = this.props;
-    console.log('loading live poll', this.state.pollId, 'for', email);
-    console.log('current poll in live view:', this.state.poll);
-    console.log('current questions in live view:', this.state.questions);
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
     if (!this.state.poll || !this.state.questions) return <div className="loadingPollAlert">LOADING POLL...</div>;
       return (
+
         <div className="liveViewWrapper" style={{textAlign: "center"}}>
+        <Navbar />
           <h1>🔥🔥🔥 FIRE POLL #{this.state.pollId} FOR {email} 🔥🔥🔥</h1>
             {this.state.questions.map((q, i, arr) => {
               let background = q.active ? "#A4FF8D" : "#fff";
@@ -110,7 +127,7 @@ class Live extends React.Component {
                   {/*<h3 className="question-time">{this.computeTimeRemaining()} Remains!</h3>*/}
                   <div className="question-answers">
                     {q.answers.map(ans => (
-                      <p key={ans.id}>{ans.value}: {ans.position}</p>
+                      <p key={ans.id}>{ans.position}: {ans.value}</p>
                     )
                       )}
                   </div>

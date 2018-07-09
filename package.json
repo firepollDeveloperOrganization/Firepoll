@@ -76,6 +76,7 @@
     "express": "^4.15.0",
     "express-static-gzip": "^0.3.2",
     "express-static-zip": "^0.2.2",
+    "extract-text-webpack-plugin": "^3.0.2",
     "firebase": "^5.1.0",
     "firebase-admin": "^5.12.1",
     "firebase-functions": "^1.1.0",
@@ -91,10 +92,15 @@
     "react": "^15.4.2",
     "react-code-splitting": "^1.2.1",
     "react-dom": "^15.4.2",
+<<<<<<< HEAD
     "react-router-test-context": "^0.1.0",
+=======
+    "react-modal": "^3.5.1",
+>>>>>>> dev
     "react-slick": "^0.23.1",
     "react-svg-piechart": "^2.1.1",
     "socket.io": "^2.1.1",
+    "twilio": "^3.17.5",
     "underscore": "^1.9.1",
     "url-loader": "^1.0.1"
   },

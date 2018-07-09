@@ -1,10 +1,9 @@
-// // NPM install mongoose and chai. Make sure mocha is globally
-// // installed
-// const mongoose = require('mongoose');
-// const {expect} = require('chai');
-// const schema = require('../db/schema');
-// const {testData} = require('../pollManager/pollTestData');
-// const axios = require('axios');
+// NPM install mongoose and chai. Make sure mocha is globally
+// installed
+const mongoose = require('mongoose');
+const {expect} = require('chai');
+const schema = require('../db/schema');
+const axios = require('axios');
 
 
 // // Create a new test schema

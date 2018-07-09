@@ -3,6 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const SRC_DIR = path.join(__dirname, '/client/src');
 const DIST_DIR = path.join(__dirname, '/client/dist');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -64,11 +65,15 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: [
-          'css-loader',
-          'sass-loader',
-          'style-loader',
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+              { loader: 'css-loader', options: { minimize: true } },
+              'css-loader',
+              'sass-loader',
+              'style-loader',
+          ]
+        })
       },
       {
         test: /\.(png|jpg|gif)$/,
