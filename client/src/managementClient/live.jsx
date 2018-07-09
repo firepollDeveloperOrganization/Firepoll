@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import {firepoll, realTimeDB} from '../firepollManagementClient';
 import axios from 'axios';
+import Navbar from './navbar';
 
 class Live extends React.Component {
   constructor(props) {
@@ -111,9 +112,11 @@ class Live extends React.Component {
   render() {
     let {user, email} = this.props;
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
-    if (!this.state.poll || !this.state.questions) return <div>LOADING POLL...</div>;
+    if (!this.state.poll || !this.state.questions) return <div className="loadingPollAlert">LOADING POLL...</div>;
       return (
+
         <div className="liveViewWrapper" style={{textAlign: "center"}}>
+        <Navbar />
           <h1>🔥🔥🔥 FIRE POLL #{this.state.pollId} FOR {email} 🔥🔥🔥</h1>
             {this.state.questions.map((q, i, arr) => {
               let background = q.active ? "#A4FF8D" : "#fff";
@@ -129,21 +132,15 @@ class Live extends React.Component {
                       )}
                   </div>
                   {i === arr.length - 1 ? 
-                    <div> 
-                      <button className="button is-danger" onClick={this.close}>Close Poll</button>
-                      <button onClick = {() => {this.goBack()}}>Back to dashboard</button>
-                    </div>
+                    <button className="button is-danger" id="closePollButton" onClick={this.close}>Close Poll</button>
                     :
-                    <button className="button" style={{display: visibilty}} onClick={() => this.nextQuestion(i)}>Next Question</button>
+                    <button className="button" id="nextQuestionButton" style={{display: visibilty}} onClick={() => this.nextQuestion(i)}>Next Question</button>
                   }
                 </div>
               )
             })}
               {this.state.closed && 
-                <div>
-                  <p style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
-                  <button onClick = {() => {this.goBack()}}>Back to dashboard</button>
-                </div>
+                <p className="pollIsClosedAlert" style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
               }
         </div>
       )
