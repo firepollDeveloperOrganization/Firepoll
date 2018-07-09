@@ -6,7 +6,8 @@ import Poll from './poll';
 import axios from 'axios';
 import { firepoll, realTimeDB } from '../firepollManagementClient';
 
-Modal.setAppElement('#app');
+// Modal.setAppElement('#app');
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
 
 const customStyles = {
   content : {

@@ -17,16 +17,18 @@ configure({ adapter: new Adapter() })
 
 describe('<Dashboard />', () => {
   it('renders the dashboard component if user is logged in', () => {
-    const dashboard = shallow(<Dashboard />);
-    expect(editor.find('div#dashboard').length).toEqual(1);
+    const dashboard = shallow(<Dashboard user={'Rose'}/>);
+    expect(dashboard.find('#dashboard').length).equal(1);
   });
   it ('renders a login component if user is not logged in', () => {
-
+    const dashboard = shallow(<Dashboard user={null}/>);
+    expect(dashboard.find('#dashboard').length).equal(0);
+    expect(dashboard.find('Link').length).equal(1);
   });
   it ('renders a heading that tells the user they have no polls if there are no polls', () => {
-
+    expect(0).equal(1);
   });
   it ('renders a poll container if filtered polls exist', () => {
-
+    expect(0).equal(1);
   });
 })
