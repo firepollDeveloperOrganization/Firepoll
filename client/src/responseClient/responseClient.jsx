@@ -25,10 +25,10 @@ class ResponseClient extends React.Component {
   componentDidMount() {
       var pollId = window.location.pathname.slice(10);
 
-      let currQuestion = localStorage.getItem(this.state.poll_id);
+      let currQuestion = localStorage.getItem(pollId);
       if (currQuestion) {
         this.setState({
-          currQuestion: parseInt(localStorage.getItem(this.state.poll_id))
+          currQuestion: parseInt(localStorage.getItem(pollId))
         })
       }
 
@@ -155,7 +155,9 @@ class ResponseClient extends React.Component {
     this.setState({
       currQuestion: this.state.currQuestion + 1,
       pollComplete: this.state.currQuestion + 1 > this.state.questions.length - 1
-    }, () => {localStorage.setItem(this.state.poll_id, this.state.currQuestion)});
+    }, () => {
+      localStorage.setItem(this.state.poll._id, this.state.currQuestion)
+    });
 
     firePollResponseClient.get.results(this.state.poll._id, question._id).then((data) => {
       let newResults = Object.assign({}, this.state.results);
@@ -243,7 +245,7 @@ class ResponseClient extends React.Component {
         let isScheduledText = "This poll is not yet live. Please wait for the host to start the poll and refresh this page.";
         let doesNotExistText = "We can't find the poll you are looking for. Try checking the link for typos.";
         let isCompleteText = "This poll is complete. Thank you for participating.";
-        var status = this.state.exists === false ? doesNotExistText : this.state.completed === true ? isCompleteText : isScheduledText;
+        var status = this.state.exists === false ? doesNotExistText : this.state.complete === true ? isCompleteText : isScheduledText;
       }
       return (
       <div className="responseClient" style={{margin: "40px 0 0 0"}}>
