@@ -8,8 +8,8 @@ class Live extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      poll: {},
-      questions: [],
+      poll: null,
+      questions: null,
       closed: false,
       userCount: 0
     }
@@ -28,7 +28,7 @@ class Live extends React.Component {
       this.setState({
         userCount
       });
-    }).catch(err => console.log(err))
+    }).catch(err => console.error(err))
     // (this.props.match.params.id).then((data) => {console.log(data)});
     this.fetchPoll();
   }
@@ -110,7 +110,6 @@ class Live extends React.Component {
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
     if (!this.state.poll || !this.state.questions) return <div className="loadingPollAlert">LOADING POLL...</div>;
       return (
-
         <div className="liveViewWrapper" style={{textAlign: "center"}}>
         <Navbar />
           <h1>🔥🔥🔥 FIRE POLL #{this.state.pollId} FOR {email} 🔥🔥🔥</h1>
