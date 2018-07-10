@@ -1,6 +1,7 @@
 import React from 'react';
-import firePollResponseClient from '../firepollResponseClient'
-import MultipleChoiceQuestion from './multipleChoiceQuestion';
+import firePollResponseClient from '../firepollResponseClient.js';
+import MultipleChoiceQuestion from './multipleChoiceQuestion.jsx';
+import QuestionIntro from './questionIntro.jsx';
 
 class ResponseClient extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class ResponseClient extends React.Component {
       loading: true,
       active: false,
       completed: false,
+      questionIntroLeave: false,
       reveal: false
     };
     this.handleUserChoice = this.handleUserChoice.bind(this);
@@ -118,10 +120,17 @@ class ResponseClient extends React.Component {
               }
             }
 
+          }).then(() => {
+            if (this.state.questions && this.state.questions[this.state.currQuestion].active === true) {
+              var duration = this.state.questions[this.state.currQuestion].question_title.length * 200;
+              duration = duration > 8000 ? 8000 : duration; 
+              setTimeout(() => {this.setState({questionIntroLeave: true})}, duration);
+              setTimeout(() => {this.setState({reveal: true})}, duration + 1000);
+            }
           });
-        } else {
-          this.setState({exists: false})
-        }
+          } else {
+            this.setState({exists: false})
+          }
       });
 
   };
@@ -150,7 +159,9 @@ class ResponseClient extends React.Component {
       user_id: this.state.user_id,
       question_id: question._id,
       question_title: question.question_title,
-      question_type: question.type
+      question_type: question.type,
+      reveal: false,
+      questionIntroLeave: false,
     }
 
     this.setState({
@@ -187,20 +198,14 @@ class ResponseClient extends React.Component {
       
     <div id="poll-dist" className = "poll-dist-class">
       {this.state.pollComplete ? '' : this.state.poll ? <div className = "response-form">
-          <h1 className="title">{this.state.poll.title}</h1>
-        { 
-          this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
+        { this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
             if (question.active) {
-              return (
+              return (this.state.reveal ?
                 <div className = "question-container"> 
-                  <div className = "question-title">
-                    <div className = "question-number">Q{this.state.currQuestion}: &#32;</div>
-                    <div>{question.question_title}</div>
-                  </div>
                   <MultipleChoiceQuestion currChoice = {this.state.currChoice} question = {question} handleUserChoice = {this.handleUserChoice} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
                   <button className="draw meet" onClick = {(e) => {this.handleSubmit(e, question)}}>Submit</button>
-                </div>
-              );
+                </div>: 
+                <QuestionIntro question = {question} questionIntroLeave = {this.state.questionIntroLeave}/>);
             } else {
               return (
                 <div>Waiting for next question...</div>
@@ -219,7 +224,6 @@ class ResponseClient extends React.Component {
                 let questionForResults = this.state.questions.filter(question => id === question._id)
                 return (
                   <div className = "results-container">
-                    <h2 className = "result-title title is-5">{questionForResults[0].question_title}</h2>
                     {this.state.results[id].map((result) => {
                     let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
                     const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
