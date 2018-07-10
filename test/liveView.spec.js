@@ -57,7 +57,7 @@ describe('Live View Component', function() {
   }) 
 
 
-  it('should start with an no poll, no questions and closed set to false.', function() {
+  it('should start with no poll, no questions and closed set to false.', function() {
       expect(wrapper.state('poll')).to.equal(null);
       expect(wrapper.state('questions')).to.equal(null);
       expect(wrapper.state('closed')).to.equal(false);      

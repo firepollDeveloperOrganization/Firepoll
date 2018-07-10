@@ -11,6 +11,7 @@
     "build-css": "node-sass --include-path scss ./client/src/main.scss ./client/dist/main.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\"",
     "test": "mocha --require test/testSetup test/*.spec.js",
+    "test-dash": "mocha --require test/testSetup test/dashboard.spec.js",
     "heroku-postbuild": "webpack -d"
   },
   "repository": {

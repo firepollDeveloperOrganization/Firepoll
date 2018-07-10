@@ -33,17 +33,30 @@ class ResponseClient extends React.Component {
       }
 
       // SIGN IN
-
       firePollResponseClient.user.signin(this.state.user_id, pollId);
 
       // CHECK POLL STATUS
       firePollResponseClient.get.pollStatus(pollId).then((data) => {
-        if (data !== undefined) {
+
+        console.log('data');
+
+        if (data === undefined) {
           this.setState({
             loading: false,
-            active: data.active,
-            completed: data.completed
-          })        
+            active: false,
+            completed: false,
+            exists: false,
+          });
+        }
+        
+        else if (data) {
+          this.setState(
+            {
+              active: data.active,
+              complete: data.completed,
+              loading: false
+            }
+          )     
         
           // GET POLL & SETUP LISTENER
           firePollResponseClient.get.poll(pollId).then((data) => {
@@ -63,7 +76,7 @@ class ResponseClient extends React.Component {
                 });
               });
             });
-          })
+          }).catch((err) => {console.log(err)})
 
           // GET ALL QUESTIONS & SETUP LISTENER
           firePollResponseClient.get.allQuestionsFromPoll(pollId).then((data) => {
@@ -109,7 +122,7 @@ class ResponseClient extends React.Component {
         } else {
           this.setState({exists: false})
         }
-      })
+      });
   };
 
   handleUserChoice(response) {
@@ -221,7 +234,7 @@ class ResponseClient extends React.Component {
   }
 
   render() {
-    if(true) {
+    if(this.state.active) {
       return this.renderLivePoll();
     } else {
       if (this.state.loading === true) {
