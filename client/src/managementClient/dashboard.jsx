@@ -229,11 +229,11 @@ class Dashboard extends React.Component {
   render() {
     let { user, email } = this.props;
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
-    let pollDisplay = !this.state.filteredPolls.length ? <h1>No Polls! Make a new one by clicking the "CREATE" button above!</h1> : this.state.filteredPolls.map((poll, i) => {
+    let pollDisplay = !this.state.filteredPolls.length ? <h1 id="no-polls-notification">No Polls! Make a new one by clicking the "CREATE" button above!</h1> : <div id="filtered-polls">{this.state.filteredPolls.map((poll, i) => {
       if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
         return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
       }
-    })
+    })}</div>
       return (
         <div id="dashboard">
           <div className="nav">
