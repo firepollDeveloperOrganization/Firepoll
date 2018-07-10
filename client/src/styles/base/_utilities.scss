@@ -1,0 +1,20 @@
+.u-center-text { text-align: center; }
+
+.u-margin-bottom-big { margin-bottom: 8rem; }
+.u-margin-bottom-small { margin-bottom: 1.5rem; }
+.u-margin-bottom-medium { margin-bottom: 4rem; }
+
+.u-horizontal-divider {
+  width: $default-width;
+  border-bottom: .1rem solid $grey-dark;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.u-is-relative {
+  position: relative;
+}
+
+.u-is-absolute {
+  position: absolute;
+}

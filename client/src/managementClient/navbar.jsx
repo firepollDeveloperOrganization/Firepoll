@@ -6,7 +6,7 @@ const Navbar = (props) => (
   <div className="navbar is-primary">
     <div className="navbar-brand">
       <a className="navbar-item" href="/">
-        <img className="logo" src={require('../../dist/images/logo.png')} alt="Firepoll: online live polling service" />
+        <img className="logo" src={require('../../dist/images/logo-white.png')} alt="Firepoll: online live polling service" />
       </a>
       <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
         <span aria-hidden="true"></span>
