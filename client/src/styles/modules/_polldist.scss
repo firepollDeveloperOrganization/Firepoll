@@ -1,10 +1,26 @@
+//Colors
+$background: #fefefe;
+$text: #4b507a;
+$cyan: #60daaa;
+$yellow: #fbca67;
+$orange: #ff8a30;
+$red: #C20114;
+$purple: #6477b9;
+$blue: #0eb7da;
+$lightGrey: #F5F5F5;
+$white: #ffffff;
+
 #poll-dist {
-  background-color: #f5f5f5;
+  background-color: #36454F;
   height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  div {
+    font-family: Roboto;
+  }
 
   .flex {
     display: flex;
@@ -14,8 +30,9 @@
 
   .title {
     color: #DD403A;
-    font-size: 3em;
-    margin-top: 3.5vh;
+    font-size: 1em;
+    margin-top: 2vh;
+    padding-left: 2vw;
   }
 
   .response-form {
@@ -32,23 +49,21 @@
   }
 
   .question-title {
-    border: solid 2px #DD403A; 
     display: flex;
     align-items: center;
-    color: #5F5449;
-    font-size: 1.7em;
     width: 80%;
-    border-radius: 10px;
     margin: 1vh auto; 
-    padding: 10px;
-    background-color: #F5F5F5;
+    color: #DD403A;
+    font-size: 1.5em;
+    margin-top: 2vh;
   }
 
   .question-container {
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: column;
   }
 
@@ -61,39 +76,45 @@
     align-items: center;
   }
 
+  .question-number {
+    font-size: 1em;
+  }
+
   .answer {
+    right: 200vw;
+    margin: 2vh auto; 
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #5F5449;
     font-size: 1.2em;
-    width: 80%;
-    flex-grow: 1.5;
-    border-radius: 10px;
-    margin: 1vh auto; 
-    padding: 10px;
-    background-color: #F5F5F5;
-    transition: background-color 0.2s;
-    transition: margin 0.3s;
-    transition: font-size 0.2s;
+    width: 75%;
+    flex-grow: 1;
+    padding: 1em 2em;
+    animation: slide 1.5s forwards;
+    transition: background-color 200ms linear, width 0.5s, font-size 0.5s, height 0.5s;
   }
 
   .answer-selected {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-color: #ffffff;
+    font-size: 1.5em;
+    background-color: $red;
     color: #ffffff;
-    font-size: 1.8em;
-    width: 80%;
-    flex-grow: 1;
-    border-radius: 10px;
-    margin: 2vh auto; 
-    padding: 10px;
-    background-color: #DD403A;
-    transition-duration: 0.5s;
-    transition-property: background-color;
-    transition: margin 0.4s;
-    transition: font-size 0.4s;
+    animation: slide 1s forwards;
+    transition: background-color 100ms linear, width 0.3s, font-size 0.3s, height 0.5s, border-radius 0.5s;
+  }
+
+
+  @-webkit-keyframes slide {
+    100% { right: 0; }
+  }
+
+  @keyframes slide {
+      100% { right: 0; }
+  }
+
+  .answer:hover:not(.answer-selected) {
+    font-size: 1.1em;
+    transition: background-color 100ms linear,  font-size 0.8s;
   }
 
   .results-container {
@@ -107,21 +128,6 @@
     padding-top: 10px;
   }
 
-  .vote-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 1.2em;
-    width: 80%;
-    flex-grow: 0.8;
-    border-radius: 10px;
-    margin: 20px auto;
-    margin-bottom: 6vh; 
-    padding: 10px;
-    background-color: #DD403A;
-  }
-
 }
 
 #poll-hr {
@@ -130,4 +136,152 @@
   background-color: $red;
   height: 1px; border: 0;
   padding: 1px;
+}
+
+// Basic styles
+button, .answer, .answer-selected {
+  background: none;
+  border: 0;
+  box-sizing: border-box;
+  padding: 1em 2em;
+  
+  // Using inset box-shadow instead of border for sizing simplicity
+  box-shadow: inset 0 0 0 2px $red;
+  color: $red;
+  font-size: inherit;
+  font-weight: 700;
+
+  // Required, since we're setting absolute on pseudo-elements
+  position: relative;
+  vertical-align: middle;
+
+  &::before,
+  &::after {
+    box-sizing: inherit;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+button.draw, .answer.draw {
+  margin: 2em;
+}
+
+.draw {
+    transition: color 0.25s;
+
+  &::before,
+  &::after {
+    // Set border to invisible, so we don't see a 4px border on a 0x0 element before the transition starts
+    border: 2px solid transparent;
+    width: 0;
+    height: 0;
+  }
+
+  // This covers the top & right borders (expands right, then down)
+  &::before {
+    top: 0;
+    left: 0;
+  }
+
+  // And this the bottom & left borders (expands left, then up)
+  &::after {
+    bottom: 0;
+    right: 0;
+  }
+  
+  &:hover {
+    color: $cyan;
+  }
+
+  // Hover styles
+  &:hover::before,
+  &:hover::after {
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover::before {
+    border-top-color: $cyan; // Make borders visible
+    border-right-color: $cyan;
+    transition:
+      width 0.25s ease-out, // Width expands first
+      height 0.25s ease-out 0.25s; // And then height
+  }
+
+  &:hover::after {
+    border-bottom-color: $cyan; // Make borders visible
+    border-left-color: $cyan;
+    transition:
+      border-color 0s ease-out 0.5s, // Wait for ::before to finish before showing border
+      width 0.25s ease-out 0.5s, // And then exanding width
+      height 0.25s ease-out 0.75s; // And finally height
+  }
+}
+
+// Inherits from .draw
+.meet {
+  
+  &:hover {
+    color: $yellow;
+  }
+
+  // Start ::after in same position as ::before
+  &::after {
+    top: 0;
+    left: 0;
+  }
+
+  // Change colors
+  &:hover::before {
+    border-top-color: $yellow;
+    border-right-color: $yellow;
+  }
+
+  &:hover::after {
+    border-bottom-color: $yellow;
+    border-left-color: $yellow;
+    transition: // Animate height first, then width
+      height 0.25s ease-out,
+      width 0.25s ease-out 0.25s;
+  }
+
+}
+
+// Does not inherit
+.center {
+  &:hover {
+    color: $purple;
+  }
+
+  // Set up base styles, we're going to scale instead of animating width/height
+  &::before,
+  &::after {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: center; // Ensure scaling is done from the center (expands outwards)
+  }
+
+  // scale3d(<scale-horizontal>, <scale-vertical>, <scale-depth>);
+  &::before {
+    border-top: 2px solid $purple;
+    border-bottom: 2px solid $purple;
+    transform: scale3d(0,1,1); // Shrink only width
+  }
+
+  &::after {
+    border-left: 2px solid $purple;
+    border-right: 2px solid $purple;
+    transform: scale3d(1,0,1); // Shrink only height
+  }
+
+  &:hover::before,
+  &:hover::after {
+    transform: scale3d(1,1,1); // Show full-size
+    transition: transform 0.5s;
+  }
 }

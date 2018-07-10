@@ -17,18 +17,20 @@ class ResponseClient extends React.Component {
       exists: true,
       loading: true,
       active: false,
-      completed: false
+      completed: false,
+      reveal: false
     };
     this.handleUserChoice = this.handleUserChoice.bind(this);
   };
 
   componentDidMount() {
+
       var pollId = window.location.pathname.slice(10);
 
-      let currQuestion = localStorage.getItem(pollId);
+      let currQuestion = window.localStorage.getItem(pollId);
       if (currQuestion) {
         this.setState({
-          currQuestion: parseInt(localStorage.getItem(pollId))
+          currQuestion: parseInt(window.localStorage.getItem(pollId))
         })
       }
 
@@ -37,8 +39,6 @@ class ResponseClient extends React.Component {
 
       // CHECK POLL STATUS
       firePollResponseClient.get.pollStatus(pollId).then((data) => {
-
-        console.log('data');
 
         if (data === undefined) {
           this.setState({
@@ -123,6 +123,7 @@ class ResponseClient extends React.Component {
           this.setState({exists: false})
         }
       });
+
   };
 
   handleUserChoice(response) {
@@ -156,7 +157,7 @@ class ResponseClient extends React.Component {
       currQuestion: this.state.currQuestion + 1,
       pollComplete: this.state.currQuestion + 1 > this.state.questions.length - 1
     }, () => {
-      localStorage.setItem(this.state.poll._id, this.state.currQuestion)
+      window.localStorage.setItem(this.state.poll._id, this.state.currQuestion)
     });
 
     firePollResponseClient.get.results(this.state.poll._id, question._id).then((data) => {
@@ -192,8 +193,12 @@ class ResponseClient extends React.Component {
             if (question.active) {
               return (
                 <div className = "question-container"> 
+                  <div className = "question-title">
+                    <div className = "question-number">Q{this.state.currQuestion}: &#32;</div>
+                    <div>{question.question_title}</div>
+                  </div>
                   <MultipleChoiceQuestion currChoice = {this.state.currChoice} question = {question} handleUserChoice = {this.handleUserChoice} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
-                  <button className="vote-button" onClick = {(e) => {this.handleSubmit(e, question)}}>Submit</button>
+                  <button className="draw meet" onClick = {(e) => {this.handleSubmit(e, question)}}>Submit</button>
                 </div>
               );
             } else {
