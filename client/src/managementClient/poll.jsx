@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import copy from 'copy-to-clipboard';
 import axios from 'axios';
 // () => {textLink(linkUrl, prompt('Enter a number to text your link to!'))}
-const textLink = (link, phoneNumber) => {
-  console.log('texting link to', phoneNumber);
-  // let password = 'rose123';  // implement paywalling later on based on userId
+// const textLink = (link, phoneNumber) => {
+//   console.log('texting link to', phoneNumber);
+//   // let password = 'rose123';  // implement paywalling later on based on userId
 
-}
+// }
 
 const Poll = (props) => {
   let {poll, deletePoll, editPoll, openModal, setCurrentLink} = props;
