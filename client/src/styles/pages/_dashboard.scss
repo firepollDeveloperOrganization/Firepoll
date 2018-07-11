@@ -35,6 +35,7 @@
 #dashboard {
   // position: absolute;
   // margin: 1em;
+  margin: 0;
   padding: 0;
   height: 90vh;
   overflow: hidden;
@@ -43,6 +44,7 @@
   display: flex;
   flex-direction: column;
   .dash-nav {
+    height: 25vh;
     display: flex;
     flex-direction: row;
     .dash-logo {
@@ -86,6 +88,7 @@
 
 #polls-filter button {
   @include button-style();
+  // height: 5vh;
   font-size: $default-font-size * .7;
   padding: 1.1em;
   margin: 1.5em;
@@ -101,6 +104,7 @@
 }
 
 #dashboard input {
+  // height: 5vh;
   width: 35%;
   font-size:  $default-font-size;
   background-color: $grey-light;
@@ -130,25 +134,17 @@
 // }
 
 #filtered-polls {
-  // transition: all 2s;
   position: relative;
   bottom: 0;
-  height: 30vh;
+  height: 40vh;
   width: 100%;
   overflow-y: auto;
-  // padding-right: 20px;
-
-  // overflow-y: scroll;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  // flex-basis: 20%;
 }
 
-
-
 .poll-item {
-  // flex: 1;
   padding: 2em;
   margin: 2em;
   width: 30%;
@@ -164,6 +160,25 @@
     a {
       text-decoration: none;
       color: $primary;
+    }
+  }
+  h1, .questions-box {
+    color: $black;
+    text-align: center;
+    cursor: default;
+    text-shadow: 0 .5rem .5rem rgba($black, .2);
+  }
+  h1 {
+    margin: 0;
+    margin-top: .5rem;
+    font-size: $default-font-size * 2;
+  }
+  .questions-box {
+    color: $black;
+    font-size: $default-font-size;
+    margin: 0;
+    p {
+      text-shadow: 0 .5rem .5rem rgba($black, .2);
     }
   }
 }

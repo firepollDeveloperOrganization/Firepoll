@@ -43,7 +43,7 @@ const Poll = (props) => {
       {/* &#8203; */}
       {/* <hr /> */}
 
-      <h1 className="title is-3">{poll.title}</h1>
+      <h1>{poll.title}</h1>
       <div className="questions-box">
         {poll.questions.map(question => <p key={question._id}>{question.question}</p>)}
       </div>
