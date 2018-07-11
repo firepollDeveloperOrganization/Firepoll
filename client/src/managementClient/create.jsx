@@ -13,7 +13,8 @@ class Create extends React.Component {
       questions: [],
       currentQuestion: '',
       currentAnswer: '',
-      answers: []
+      answers: [],
+      invalid: false,
     };
  }
   componentDidMount() {
@@ -40,7 +41,6 @@ class Create extends React.Component {
     this.forceUpdate();
   }
   resetPoll = () => {
-    console.log('resetting poll');
     this.setState({
       pollname: '',
       questions: [],
@@ -91,34 +91,54 @@ class Create extends React.Component {
   }
 
   addQuestion = () => {
-    var newQuestion = {
-      question: this.state.currentQuestion,
-      answers: this.state.answers,
-      question_type: "multiple-choice",
-      total_voting_time: 10000
+    if (this.state.currentQuestion && this.state.answers.length !== 0) {
+      var newQuestion = {
+        question: this.state.currentQuestion,
+        answers: this.state.answers,
+        question_type: "multiple-choice",
+        total_voting_time: 10000
+      }
+      var allQuestions = this.state.questions;
+      allQuestions.push(newQuestion);
+      this.setState({
+        answers: [],
+        currentQuestion: '',
+        currentAnswer: '',
+        questions: allQuestions
+      });
+    } else {
+      this.setState({
+        invalid: true
+      }, setTimeout(() => {
+        this.setState({
+          invalid: false
+        });
+      }, 1000));
     }
-    var allQuestions = this.state.questions;
-    allQuestions.push(newQuestion);
-    this.setState({
-      answers: [],
-      currentQuestion: '',
-      currentAnswer: '',
-      questions: allQuestions
-    })
   }
   
   addAnswer = (e) => {
     e.preventDefault();
-    let newAnswerArray = this.state.answers;
-    newAnswerArray.push({
-      choice: this.state.currentAnswer,
-      responders: [],
-      votes: 0
-    });
-    this.setState({
-      answers: newAnswerArray,
-      currentAnswer: ''
-    })
+    if (this.state.currentAnswer) {
+      let newAnswerArray = this.state.answers;
+      newAnswerArray.push({
+        choice: this.state.currentAnswer,
+        responders: [],
+        votes: 0
+      });
+      this.setState({
+        answers: newAnswerArray,
+        currentAnswer: ''
+      });
+    } else {
+      this.setState({
+        invalid: true
+      }, setTimeout(() => {
+        this.setState({
+          invalid: false
+        });
+      }, 1000));
+    }
   }
 
   deleteAnswer = (e) => {
@@ -171,6 +191,7 @@ class Create extends React.Component {
           </div>
           {/*NEW QUESTION*/}
           <div className="new-question box">
+            {this.state.invalid ? <div className = 'error-message'>Oops! You've left a field blank or entered an invalid value. Try again!</div>: ''}
             <div className="subtitle is-5"><i className="fa-fw far fa-question-circle"></i> Question #{this.state.questions.length + 1}</div>
             <div className="field">
               <div className="control">

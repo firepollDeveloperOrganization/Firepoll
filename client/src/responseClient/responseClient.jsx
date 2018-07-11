@@ -72,7 +72,7 @@ class ResponseClient extends React.Component {
                   firePollResponseClient.get.allQuestionsFromPoll(pollId).then((data) => {
                     this.setState({
                       questions: data,
-                      currChoice: JSON.stringify(data[0].answers[0])
+                      currChoice: JSON.stringify(data[this.state.currQuestion].answers[0])
                     });
                   }).catch((err) => {console.log(err)});
                 });
@@ -257,9 +257,11 @@ class ResponseClient extends React.Component {
         var status = this.state.exists === false ? doesNotExistText : this.state.complete === true ? isCompleteText : isScheduledText;
       }
       return (
-      <div className="responseClient" style={{margin: "40px 0 0 0"}}>
-        <div className="box" style={{maxWidth: "600px", minHeight: "600px", margin: "0 auto", textAlign: "center"}} id="app">
-          <p>{status}</p>
+      <div id = "poll-dist" className = "poll-dist-class">
+        <div className = "response-form">
+          <div className = "question-container">
+            <p>{status}</p>
+          </div>
         </div>
       </div>
       ) 

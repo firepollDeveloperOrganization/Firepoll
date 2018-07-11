@@ -449,11 +449,14 @@ body {
     animation: slidein 1.5s forwards;
     transition: background-color 200ms linear, width 0.5s, font-size 0.5s, height 0.5s; }
   #poll-dist .answer-selected {
+    color: #ffffff;
     border-color: #ffffff;
     background-color: #C20114;
-    color: #ffffff;
     animation: slidein 1s forwards;
-    transition: background-color 100ms linear, width 0.3s, font-size 0.3s, height 0.5s, border-radius 0.5s; }
+    transition: color 0.5s, background-color 100ms linear, width 0.3s, font-size 0.3s, height 0.5s, border-radius 0.5s; }
+  #poll-dist .answer-selected:hover {
+    color: #fbca67;
+    transition: color 0.5s; }
 
 @-webkit-keyframes slidein {
   100% {

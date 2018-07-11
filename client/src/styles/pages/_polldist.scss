@@ -120,11 +120,16 @@ $white: #ffffff;
   }
 
   .answer-selected {
+    color: #ffffff;
     border-color: #ffffff;
     background-color: $red;
-    color: #ffffff;
     animation: slidein 1s forwards;
-    transition: background-color 100ms linear, width 0.3s, font-size 0.3s, height 0.5s, border-radius 0.5s;
+    transition: color 0.5s, background-color 100ms linear, width 0.3s, font-size 0.3s, height 0.5s, border-radius 0.5s;
+  }
+
+  .answer-selected:hover {
+    color: $yellow;
+    transition: color 0.5s;
   }
 
   @-webkit-keyframes slidein {
