@@ -15,12 +15,19 @@ $black: rgba(16, 0, 7, 1);
 
 /* APP COLORS */
 $grey-light: #F7F7F7;
+$grey-light-2: #eee;
+$grey: rgb(173, 173, 173);
 $grey-dark: #777;
-$primary: #C20114;
-$primary-light: rgb(245, 87, 81);
-$primary-dark: #9A031E;
+$grey-dark-2: #333;
+$primary: rgb(211, 0, 21);
+$primary-light: rgb(255, 63, 57);
+$primary-dark: rgb(154, 3, 3);
 $white: #fff;
 $black: #000;
+$yellow-light: rgb(251, 255, 38);
+$yellow-dark: rgb(255, 187, 0);
+$orange-light:rgb(255, 170, 59);
+$orange-dark: rgb(255, 123, 0);
 
 // FONT SIZES
 $default-font-size: 1.6rem;
@@ -32,4 +39,3 @@ $width-smaller-1: 100rem;
 $grid-width: 114rem;
 $gutter-vertical: 8rem;
 $gutter-horizontal: 6rem;
-
