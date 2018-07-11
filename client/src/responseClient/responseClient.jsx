@@ -20,7 +20,7 @@ class ResponseClient extends React.Component {
       active: false,
       completed: false,
       questionIntroLeave: false,
-      reveal: false
+      reveal: false,
     };
     this.handleUserChoice = this.handleUserChoice.bind(this);
   };
@@ -222,23 +222,34 @@ class ResponseClient extends React.Component {
           this.state.pollComplete ? 
           <div className = "response-form">
             <div className = "question-container">
-              <h1 className = "poll-results-title">{this.state.poll.title} - Results</h1>
+            <h1 className = "poll-results-title">{this.state.poll.title} - Results</h1>
                 {this.state.results ? Object.keys(this.state.results).map((id) => {
-                  let questionForResults = this.state.questions.filter(question => id === question._id)
+                  let questionForResults = this.state.questions.filter(question => id === question._id)[0]
                   return (
                     <div className = "question-result-container">
-                      <div className = "question-result-title">{questionForResults[0].question_title}</div>
-                      <div className = "result-interactive">
-                        {this.state.results[id].map((result) => {
-                        let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
-                        const percent = result.vote_count / total;
-                        return (
-                          <div className = "title is-5 flex results">
-                            <span>{result.answer_value}</span>
-                            <span>{result.vote_count}</span>
-                          </div>)
+                      <div className = "question-result-title">{questionForResults.question_title}</div>
+                        {questionForResults.answers.map((answer) => {
+                          let total = this.state.results[id].filter(result => result.question_id === questionForResults._id).reduce((acc, result) => acc += result.vote_count, 0);
+                          let results = this.state.results[id].filter(result => result.answer_id === answer.id);
+                          let resultVotes = results.length > 0 ? results[0].vote_count : 0;
+                          let resultStyle = {
+                            width: `${resultVotes/ total * 100}%`
+                          }
+                          if (results.length > 0) {
+                            return (
+                            <div style = {resultStyle} className = "result-interactive">
+                              <span className = "result-overflow">{results[0].answer_value}</span>
+                              <span className = "result-overflow">{results[0].vote_count}</span>
+                            </div>
+                            );
+                          } else {
+                            return (
+                            <div className = "result-interactive not-yet">
+                              <span className = "result-overflow">No votes yet!</span>
+                            </div>
+                            );
+                          }
                         })}
-                      </div>
                     </div>
                   )
                 }):''} 
@@ -266,7 +277,7 @@ class ResponseClient extends React.Component {
       return (
       <div id = "poll-dist" className = "poll-dist-class">
         <div className = "response-form">
-          <div className = "question-container">
+          <div className = "question-container with-status">
             <div className = "loader"></div>
             <p className = "status">{status}</p>
           </div>
