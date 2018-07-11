@@ -1,5 +1,41 @@
+#dashboard>* {
+  border: 3px dotted green;
+}
 
+#dashboard {
+  // background: url("./images/dashboard_bg.jpg");
+  background: linear-gradient(to right bottom, rgba($primary-light, .7), rgba($primary-dark, .7)), url("/images/dashboard_bg.jpg");
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
 
+  .dash-nav {
+    display: flex;
+    flex-direction: row;
+    // height: auto;
+    // min-height: 100%;
+    .dash-logo {
+      flex: 1;
+    }
+    .dash-header {
+      flex: 10;
+      h1 {
+        color: $white;
+        font-size: $default-font-size * 2;
+        letter-spacing: 1rem;
+      }
+    }
+    #dashboard-nav {
+      flex: 3;
+      display: flex;
+      
+      >* {
+        // float: right;
+        
+      }
+    }
+  }
+}
 
 
 

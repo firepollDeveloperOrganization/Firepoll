@@ -236,14 +236,12 @@ class Dashboard extends React.Component {
     })}</div>
       return (
         <div id="dashboard">
-          <div className="nav">
-            <div>
-              <h1 className="title is-1">🔥 Welcome {user}!</h1>
-              {/* <h1 className="subtitle is-4">You are signing in with {email}</h1> */}
-            </div>
+          <div className="dash-nav">
+            <div className="dash-logo"></div>
+            <div className="dash-header"><h1>Welcome {user}!</h1></div>
             <div id="dashboard-nav">
-              <button className="button is-danger is-rounded is-large is-inverted is-outlined" onClick={() => this.props.logout()}>Log Out 	&nbsp; <i className="fa-fw fas fa-sign-out-alt"></i></button>
-              <Link to="/create"><button className="button is-danger is-rounded is-large is-inverted is-outlined">Create a poll! 	&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button></Link>
+              <div><a className="btn btn--white btn--animated" onClick={() => this.props.logout()}>Log Out 	&nbsp; <i className="fa-fw fas fa-sign-out-alt"></i></a></div>
+              <Link to="/create"><a className="btn btn--white btn--animated">Create a poll! 	&nbsp;<i className="fa-fw far fa-calendar-plus"></i></a></Link>
             </div>
           </div>
           <div id="polls-filter">

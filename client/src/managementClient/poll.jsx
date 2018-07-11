@@ -47,7 +47,7 @@ const Poll = (props) => {
         </div>
       </div>
       &#8203;
-      <hr />
+      {/* <hr /> */}
 
       <h1 className="title is-3">{poll.title}</h1>
       <div className="questions-box">

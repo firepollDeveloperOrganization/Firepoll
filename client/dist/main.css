@@ -290,6 +290,29 @@ body {
   padding: 35rem 0;
   margin-top: -40vh; }
 
+#dashboard > * {
+  border: 3px dotted green; }
+
+#dashboard {
+  background: linear-gradient(to right bottom, rgba(245, 87, 81, 0.7), rgba(154, 3, 30, 0.7)), url("/images/dashboard_bg.jpg");
+  padding: 2%;
+  display: flex;
+  flex-direction: column; }
+  #dashboard .dash-nav {
+    display: flex;
+    flex-direction: row; }
+    #dashboard .dash-nav .dash-logo {
+      flex: 1; }
+    #dashboard .dash-nav .dash-header {
+      flex: 10; }
+      #dashboard .dash-nav .dash-header h1 {
+        color: #fff;
+        font-size: 3.2rem;
+        letter-spacing: 1rem; }
+    #dashboard .dash-nav #dashboard-nav {
+      flex: 3;
+      display: flex; }
+
 /*#dashboard {
   background: url("./tic-tac-toe.png") $redder;
   height: 100vh;
