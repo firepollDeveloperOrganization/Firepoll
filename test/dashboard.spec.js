@@ -5,8 +5,6 @@ import Adapter from 'enzyme-adapter-react-15';
 import Poll from './testData';
 import Dashboard from '../client/src/managementClient/dashboard.jsx';
 
-// console.log(Poll);
-
 configure({ adapter: new Adapter() })
 
 describe('<Dashboard />', () => {

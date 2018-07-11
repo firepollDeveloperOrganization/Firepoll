@@ -1,3 +1,201 @@
+// #dashboard>*:last-child {
+//   border: 3px dotted green;
+// }
+// .dash-nav>* {
+//   border: 3px dotted blue;
+// }
+// .dash-nav>div:last-child>* {
+//   border: 3px dotted purple;
+// }
+// #polls-filter {
+//   border: 3px dotted blue;
+// }
+// #polls-filter button {
+//   // border: 3px dotted purple;
+// }
+
+
+@mixin button-style {
+  cursor: pointer;
+  color: $grey-dark;
+  text-transform: uppercase;
+  background-color: $grey-light;
+  text-decoration: none;
+  padding: 1em;
+  margin: 1em;
+  font-size: $default-font-size;
+  display: inline-block;
+  border-radius: 10rem;
+  transition: all .2s;
+  position: relative;
+  letter-spacing: .3em;
+  transition: 2s;
+}
+
+#dashboard {
+  // position: absolute;
+  // margin: 1em;
+  margin: 0;
+  padding: 0;
+  height: 90vh;
+  overflow: hidden;
+  background: linear-gradient(to right bottom, rgba($primary-light, .7), rgba($primary-dark, .7)), url("/images/dashboard_bg.jpg");
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  .dash-nav {
+    height: 25vh;
+    display: flex;
+    flex-direction: row;
+    .dash-logo {
+      flex: 1;
+      img {
+        width: 35px;
+        height: 35px;
+      }
+    }
+    .dash-header {
+      flex: 20;
+      h1 {
+        color: $white;
+        letter-spacing: 1.2rem;
+        cursor: default;
+        text-align: center;
+        text-transform: uppercase;
+      }
+    }
+    #dashboard-nav {
+      flex: 8;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      >* {
+        align-self: right;
+        button {
+          @include button-style();
+          &:hover {
+            box-shadow: 0 1rem 1.5rem rgba($black, .2);
+          }
+          &:active {
+            box-shadow: 0 .5rem 1rem rgba($black, .15);
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+}
+
+#polls-filter button {
+  @include button-style();
+  // height: 5vh;
+  font-size: $default-font-size * .7;
+  padding: 1.1em;
+  margin: 1.5em;
+  &:hover {
+    box-shadow: 0 .5rem .75rem rgba($black, .2);
+    transition: 2s;
+  }
+  &:active {
+    box-shadow: 0 .5rem 1rem rgba($black, .15);
+    transform: translateY(0);
+    transition: 2s;
+  }
+}
+
+#dashboard input {
+  // height: 5vh;
+  width: 35%;
+  font-size:  $default-font-size;
+  background-color: $grey-light;
+  text-transform: uppercase;
+  padding: .2em;
+  margin: 1em;
+  text-align: center;
+  letter-spacing: .15em;
+}
+
+// POLLS STYLING
+
+// #polls-container>* {
+//   border: 3px dotted purple;
+// }
+
+// #dashboard {
+//   height: 100%;
+//   width: 100%;
+//   overflow: hidden;
+// }
+
+// #polls-container {
+//   height: 100%;
+//   width: 100%;
+//   overflow: hidden;
+// }
+
+#filtered-polls {
+  position: relative;
+  bottom: 0;
+  height: 40vh;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.poll-item {
+  padding: 2em;
+  margin: 2em;
+  width: 30%;
+  background: linear-gradient(to right bottom, rgba($grey-light, .2), rgba($primary-light, .1));
+  box-shadow: 0 1rem 1.5rem rgba($black, .2);
+  button {
+    @include button-style();
+    padding: .8em;
+    margin: .2em;
+    font-size: $default-font-size * .6;
+    letter-spacing: 0;
+    color: $primary;
+    a {
+      text-decoration: none;
+      color: $primary;
+    }
+  }
+  h1, .questions-box {
+    color: $black;
+    text-align: center;
+    cursor: default;
+    text-shadow: 0 .5rem .5rem rgba($black, .2);
+  }
+  h1 {
+    margin: 0;
+    margin-top: .5rem;
+    font-size: $default-font-size * 2;
+  }
+  .questions-box {
+    color: $black;
+    font-size: $default-font-size;
+    margin: 0;
+    p {
+      text-shadow: 0 .5rem .5rem rgba($black, .2);
+    }
+  }
+}
+
+.dashboard-options, .dashboard-options-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-options-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
 
 
 
