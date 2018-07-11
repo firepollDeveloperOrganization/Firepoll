@@ -14,7 +14,7 @@ const MultipleChoiceQuestion = (props) => {
               props.handleUserChoice(answerString)
             }}>
               <div className = "answer-position">{answer.position}</div>
-              <div>{answer.value}</div>
+              <div className = "answer-text">{answer.value}</div>
             </div>
           );
         }

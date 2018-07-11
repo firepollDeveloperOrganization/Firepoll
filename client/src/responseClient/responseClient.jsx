@@ -220,26 +220,30 @@ class ResponseClient extends React.Component {
 
         { 
           this.state.pollComplete ? 
-          <div>
-            <h1 className = "title is-4">{this.state.poll.title} Results</h1>
-              {this.state.results ? Object.keys(this.state.results).map((id) => {
-                let questionForResults = this.state.questions.filter(question => id === question._id)
-                return (
-                  <div className = "results-container">
-                    {this.state.results[id].map((result) => {
-                    let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
-                    const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
-                    return (
-                      <div className = "title is-5 flex results">
-                        <span>{result.answer_value}</span>
-                        <span>{isLit}</span>
-                        <span>{result.vote_count}</span>
-                      </div>)
-                    })}
-                  </div>
-                )
-              }):''} 
-            </div>
+          <div className = "response-form">
+            <div className = "question-container">
+              <h1 className = "poll-results-title">{this.state.poll.title} - Results</h1>
+                {this.state.results ? Object.keys(this.state.results).map((id) => {
+                  let questionForResults = this.state.questions.filter(question => id === question._id)
+                  return (
+                    <div className = "question-result-container">
+                      <div className = "question-result-title">{questionForResults[0].question_title}</div>
+                      <div className = "result-interactive">
+                        {this.state.results[id].map((result) => {
+                        let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
+                        const percent = result.vote_count / total;
+                        return (
+                          <div className = "title is-5 flex results">
+                            <span>{result.answer_value}</span>
+                            <span>{result.vote_count}</span>
+                          </div>)
+                        })}
+                      </div>
+                    </div>
+                  )
+                }):''} 
+              </div>
+          </div>
           :''
         }
     </div>
