@@ -9,6 +9,7 @@
   background-position: bottom; /*ensures the top of the image always stays at the top of the conteiner*/
   position: relative;
 
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 80vh , 0 100%); 
   clip-path: polygon(0 0, 100% 0, 100% 80vh , 0 100%); /*Goes clockwise cornes and (x y) coordinates determine what part of the picture can still be seen check out bennettfeely.com/clippy */
 
   &__logo-box {

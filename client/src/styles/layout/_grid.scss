@@ -18,7 +18,14 @@
   &-animated {
     &__letter:hover {
       .capital-letter {
-        transform: scale(1.25);
+        // transform: scale(1.25);
+        // text-shadow: 0 1rem 1.5rem rgba($black, .2);
+        background-image: linear-gradient(to right, $primary-light, $primary-dark);
+        -webkit-background-clip: text; // will clip the background to exactly the places where the text sits
+        color: transparent;
+      }
+      .btn-text {
+        transform: translateY(-.5rem) scale(1.05);
         text-shadow: 0 1rem 1.5rem rgba($black, .2);
       }
     }
