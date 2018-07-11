@@ -1,6 +1,9 @@
 #dashboard>* {
   border: 3px dotted green;
 }
+.dash-nav>* {
+  border: 3px dotted blue;
+}
 
 #dashboard {
   // background: url("./images/dashboard_bg.jpg");
@@ -16,13 +19,20 @@
     // min-height: 100%;
     .dash-logo {
       flex: 1;
+      img {
+
+        width: 35px;
+        height: 35px;
+      }
     }
     .dash-header {
       flex: 10;
       h1 {
         color: $white;
-        font-size: $default-font-size * 2;
-        letter-spacing: 1rem;
+        letter-spacing: 1.2rem;
+        // font-size: $default-font-size * 2;
+        cursor: default;
+        text-align: center;
       }
     }
     #dashboard-nav {
