@@ -248,7 +248,7 @@ body {
       background-color: #fff; }
     .card__side--back {
       transform: rotateY(180deg);
-      background-image: linear-gradient(to right bottom, rgba(173, 173, 173, 0.9), rgba(119, 119, 119, 0.9));
+      background-color: rgba(247, 247, 247, 0.95);
       text-align: left; }
   .card:hover .card__side--front {
     transform: rotateY(-180deg); }
@@ -282,9 +282,8 @@ body {
     background-image: linear-gradient(to right bottom, rgba(247, 247, 247, 0.85), rgba(119, 119, 119, 0.85));
     border-radius: 3px; }
   .card__back-text {
-    font-size: 2rem;
-    font-weight: 300;
-    color: #F7F7F7;
+    font-size: 1.6rem;
+    color: #777;
     padding: 0 3rem;
     position: relative;
     top: 50%;
@@ -412,18 +411,18 @@ body {
 
 .section-about {
   background-color: #F7F7F7;
-  padding: 35rem 0;
+  padding: 30rem 0;
   margin-top: -40vh; }
 
 .section-UX {
   margin-top: -25rem;
-  padding: 20rem 0 12.5rem 0;
+  padding: 15rem 0 10rem 0;
   background-image: linear-gradient(to right bottom, rgba(255, 63, 57, 0.7), rgba(211, 0, 21, 0.7)), url(../images/background-2.jpg);
   /*first image is on top of second*/
   background-size: cover;
   background-position: bottom;
-  -webkit-clip-path: polygon(0 20vh, 100% 0, 100% 100%, 0 100%);
-  clip-path: polygon(0 20vh, 100% 0, 100% 100%, 0 100%); }
+  -webkit-clip-path: polygon(0 16vh, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 16vh, 100% 0, 100% 100%, 0 100%); }
 
 /*#dashboard {
   background: url("./tic-tac-toe.png") $redder;
