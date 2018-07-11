@@ -66,6 +66,7 @@
         align-self: center;
         button {
           @include button-style();
+          // float: right;
           &:hover {
             box-shadow: 0 1rem 1.5rem rgba($black, .2);
           }
@@ -79,9 +80,6 @@
   }
 }
 
-#polls-filter {
-
-}
 #polls-filter button {
   @include button-style();
   font-size: $default-font-size * .7;
@@ -96,8 +94,18 @@
   }
 }
 
+#dashboard input {
+  width: 40%;
+  // min-height: 2em;
+  font-size:  $default-font-size * 1.2;
+  background-color: $grey-light;
+  padding: .2em;
+  margin: 1em;
+}
 
-
+#polls-container {
+  background: linear-gradient(to right bottom, rgba($grey-light, .3), rgba($primary-light, .3))
+}
 
 /*#dashboard {
   background: url("./tic-tac-toe.png") $redder;

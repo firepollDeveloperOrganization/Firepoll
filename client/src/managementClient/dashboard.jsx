@@ -250,7 +250,7 @@ class Dashboard extends React.Component {
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
             <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
           </div>
-          <input type="text" onChange = {e => this.handleInput(e)}></input>
+          <input placeholder="Type to filter your polls by name" type="text" onChange = {e => this.handleInput(e)}></input>
           <div id="polls-container">
             {pollDisplay}
           </div>
