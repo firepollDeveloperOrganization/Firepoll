@@ -427,8 +427,16 @@ body {
     width: 90%;
     display: flex;
     align-items: center;
+    flex-direction: column;
+    overflow: scroll; }
+  #poll-dist .question-container.with-status {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    flex-direction: column; }
+    flex-direction: column;
+    overflow: scroll; }
   #poll-dist .question {
     height: 85%;
     width: 90%;
@@ -439,19 +447,38 @@ body {
   #poll-dist .question-number {
     font-size: 1em; }
   #poll-dist .question-result-container {
-    width: 90%; }
+    width: 80%;
+    margin-bottom: 0.2em;
+    text-align: left; }
   #poll-dist .question-result-title {
     font-size: 0.5em; }
   #poll-dist .poll-results-title {
     font-size: 1em;
     color: #C20114;
-    margin-bottom: 1em; }
+    margin-top: 0.7em;
+    margin-bottom: 0.7em; }
   #poll-dist .result-interactive {
-    border: 2px #C20114 solid;
-    font-size: 0.7em;
-    margin: 0.5em;
+    background-color: #C20114;
+    padding-left: 0.4em;
+    height: 7%;
     display: flex;
-    vertical-align: center; }
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.5em;
+    display: flex;
+    color: #ffffff;
+    max-height: 1.9em;
+    transition: width 1.5s;
+    margin: 1em 0; }
+  #poll-dist .result-interactive.not-yet {
+    background-color: #cecece;
+    height: 3%;
+    width: 8em; }
+  #poll-dist .result-overflow {
+    max-width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 1em; }
   #poll-dist .answer {
     overflow: scroll;
     right: 200vw;
@@ -460,7 +487,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 0.5em;
-    width: 60%;
+    width: 0%;
     flex-grow: 0.28;
     animation: slidein 1.5s forwards;
     transition: color 0.3s background-color 200ms linear, width 0.5s, font-size 0.5s, height 0.5s; }
