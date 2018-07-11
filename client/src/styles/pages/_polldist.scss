@@ -151,27 +151,31 @@ $white: #ffffff;
     transition: background-color 100ms linear,  font-size 0.8s;
   }
 
-  .answer.answer-position {
-    font-size: 0.6em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 3px solid $red; /* Light grey */
-    border-right: 3px solid $yellow; /* Blue */
-    border-radius: 50%;
-    height: 1.7em;
-    width: 1.7em;
-    position: relative;
-    top: 50%;
-    margin-right: 2em;
-    transition: border 0.3s;
+  .answer {
+    .answer-position {
+      font-size: 0.6em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 3px solid $red; /* Light grey */
+      border-right: 3px solid $yellow; /* Blue */
+      border-radius: 50%;
+      height: 1.7em;
+      width: 1.7em;
+      position: relative;
+      top: 50%;
+      margin-right: 2em;
+      transition: border 0.3s;
+    }
   }
 
-  .answer.answer-select.answer-position {
-    border: 3px solid $yellow; /* Light grey */
-    border-right: 3px solid $red; /* Blue */
-    transition: border 0.3s;
-  }
+  .answer.answer-select {
+    .answer-position {
+      border: 3px solid $yellow; /* Light grey */
+      border-right: 3px solid $red; /* Blue */
+      transition: border 0.3s;
+    }
+  } 
 
   .results-container {
     margin-bottom: 20px;
