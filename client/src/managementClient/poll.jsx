@@ -15,7 +15,7 @@ const Poll = (props) => {
   let statusButton = poll.completed ? analyticsButton : poll.active ? liveButton : deployButton;
   let deletePollButton = (<button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={() => deletePoll(poll._id)}>DELETE&nbsp;<i className="fa-fw fas fa-trash"></i></button>);
   let UndeployedEdit = (<Link to={`/edit/${poll._id}`}>
-  <button className="button is-danger is-rounded is-small is-inverted is-outlined">EDIT&nbsp;<i className="fa-fw fas fa-edit"></i></button>
+  <button className="button is-danger is-rounded is-small is-inverted is-outlined">EDIT &nbsp;<i className="fa-fw fas fa-edit"></i></button>
   </Link>);
   // let completedDelete = <button onClick={() => deletePoll(poll._id)}>DELETE POLL</button>;
   // let deleteButton = poll.completed ? completedDelete : poll.active ? '' : undeployedDelete;
@@ -24,13 +24,13 @@ const Poll = (props) => {
     <div className="poll-item">
       <div className="dashboard-options">
         <div className="response-url">
-          <button className="button is-danger is-rounded is-inverted is-outlined" onClick={() => copy(linkUrl)}>Copy Link to Vote&nbsp;<i className="far fa-clipboard"></i></button>
+          <button className="button is-danger is-rounded is-inverted is-outlined" onClick={() => copy(linkUrl)}>Copy Link &nbsp;<i className="far fa-clipboard"></i>&nbsp;</button>
           <button className="button is-danger is-rounded is-inverted is-outlined">
             <a href={`mailto:?subject=Vote in this Fire Poll!&body=Here is a link to your fire poll!%0D%0A
             ${linkUrl}%0D%0A
-            Thanks for voting!`} >Email Link&nbsp;<i className="far fa-envelope"></i></a>
+            Thanks for voting!`} >Email Link &nbsp;<i className="far fa-envelope"></i>&nbsp;</a>
           </button>
-          <button onClick={() => {openModal(); setCurrentLink(linkUrl);}} className="button is-danger is-rounded is-inverted is-outlined">Text Link</button>
+          <button onClick={() => {openModal(); setCurrentLink(linkUrl);}} className="button is-danger is-rounded is-inverted is-outlined">Text Link &nbsp; <i className="fas fa-mobile-alt"></i>&nbsp;</button>
         </div>
         <div className="dashboard-options-group">
           {statusButton}

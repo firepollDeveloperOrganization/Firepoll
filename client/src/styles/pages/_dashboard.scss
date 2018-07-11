@@ -1,6 +1,6 @@
-#dashboard>*:last-child {
-  border: 3px dotted green;
-}
+// #dashboard>*:last-child {
+//   border: 3px dotted green;
+// }
 // .dash-nav>* {
 //   border: 3px dotted blue;
 // }
@@ -23,12 +23,12 @@
   text-decoration: none;
   padding: 1em;
   margin: 1em;
+  font-size: $default-font-size;
   display: inline-block;
   border-radius: 10rem;
   transition: all .2s;
   position: relative;
-  font-size: $default-font-size;
-  letter-spacing: .3rem;
+  letter-spacing: .3em;
   transition: 2s;
 }
 
@@ -110,11 +110,13 @@
 
 // POLLS STYLING
 
-#polls-container>* {
-  border: 3px dotted purple;
-}
+// #polls-container>* {
+//   border: 3px dotted purple;
+// }
 
-#polls-container #filtered-polls{
+// #polls-container {}
+
+#filtered-polls {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -128,6 +130,18 @@
   margin: 2em;
   background: linear-gradient(to right bottom, rgba($grey-light, .2), rgba($primary-light, .1));
   box-shadow: 0 1rem 1.5rem rgba($black, .2);
+  button {
+    @include button-style();
+    padding: .8em;
+    margin: .2em;
+    font-size: $default-font-size * .6;
+    letter-spacing: 0;
+    color: $primary;
+    a {
+      text-decoration: none;
+      color: $primary;
+    }
+  }
 }
 
 
