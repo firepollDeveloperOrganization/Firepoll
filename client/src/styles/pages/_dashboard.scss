@@ -1,4 +1,4 @@
-#dashboard>* {
+#dashboard>*:last-child {
   border: 3px dotted green;
 }
 // .dash-nav>* {
@@ -7,12 +7,12 @@
 // .dash-nav>div:last-child>* {
 //   border: 3px dotted purple;
 // }
-#polls-filter {
-  border: 3px dotted blue;
-}
-#polls-filter button {
-  // border: 3px dotted purple;
-}
+// #polls-filter {
+//   border: 3px dotted blue;
+// }
+// #polls-filter button {
+//   // border: 3px dotted purple;
+// }
 
 
 @mixin button-style {
@@ -54,6 +54,7 @@
         letter-spacing: 1.2rem;
         cursor: default;
         text-align: center;
+        text-transform: uppercase;
       }
     }
     #dashboard-nav {
@@ -83,6 +84,8 @@
 #polls-filter button {
   @include button-style();
   font-size: $default-font-size * .7;
+  padding: 1.1em;
+  margin: 1.5em;
   &:hover {
     box-shadow: 0 .5rem .75rem rgba($black, .2);
     transition: 2s;
@@ -95,17 +98,48 @@
 }
 
 #dashboard input {
-  width: 40%;
-  // min-height: 2em;
-  font-size:  $default-font-size * 1.2;
+  width: 35%;
+  font-size:  $default-font-size;
   background-color: $grey-light;
+  text-transform: uppercase;
   padding: .2em;
   margin: 1em;
+  text-align: center;
+  letter-spacing: .15em;
 }
 
-#polls-container {
-  background: linear-gradient(to right bottom, rgba($grey-light, .3), rgba($primary-light, .3))
+// POLLS STYLING
+
+#polls-container>* {
+  border: 3px dotted purple;
 }
+
+#polls-container #filtered-polls{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+
+
+.poll-item {
+  flex: 1;
+  padding: 2em;
+  margin: 2em;
+  background: linear-gradient(to right bottom, rgba($grey-light, .2), rgba($primary-light, .1));
+  box-shadow: 0 1rem 1.5rem rgba($black, .2);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 /*#dashboard {
   background: url("./tic-tac-toe.png") $redder;

@@ -213,12 +213,6 @@ class Dashboard extends React.Component {
     })
   }
 
-  // unstagePoll = id => {
-  //   firepoll.unstage(pollId)
-  //   .then(data => console.log(data))
-  //   .catch(err => console.log(err));
-  // }
-
   handleInput(e) {
     console.log(e.target.value);
     this.setState({
@@ -238,7 +232,7 @@ class Dashboard extends React.Component {
         <div id="dashboard">
           <div className="dash-nav">
             <div className="dash-logo"><img alt="logo" src="/7a93ab2d8edcc0f88d8aadde58d3245c.png" className="header__logo"/></div>
-            <div className="dash-header"><h1 className="heading-primary--main">Welcome {user}!</h1></div>
+            <div className="dash-header"><h1 className="heading-primary--main">Welcome <span>{user}</span>!</h1></div>
             <div id="dashboard-nav">
               <Link to="/create"><button className="dash-button">Create a poll!&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button></Link>
               <div><button className="dash-button" onClick={() => this.props.logout()}>Log Out&nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></button></div>
@@ -255,7 +249,7 @@ class Dashboard extends React.Component {
             {pollDisplay}
           </div>
         <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
-          <button onClick={this.closeModal}>close</button>
+          <button onClick={this.closeModal}>X</button>
           <h2 ref={subtitle => this.subtitle = subtitle}>Please input any numbers you'd like to text!</h2>
           <form id="text-polls-form" onSubmit={e => e.preventDefault()}>
             <textarea value={this.state.phoneNumbers} form="text-polls-form" cols="50" rows="5" placeholder="You may use comma-separated values (as in CSV sheet imports), starting with the area code." onChange={e => this.setState({phoneNumbers: e.target.value})} />
