@@ -68,7 +68,7 @@ class Create extends React.Component {
       axios.put(`/polls/edit/${editPollId}`, poll)
         .then(res => this.props.returnToDash())
         .catch(err => console.error(err));
-    } else {
+    } else if (this.state.pollname) {
       //  adding poll to MongoDB
       axios.post('/polls/', poll)
       .then(res => {
@@ -87,6 +87,14 @@ class Create extends React.Component {
       .catch(err => {
         console.error(err);
       })
+    } else {
+      this.setState({
+        invalid: true
+      }, setTimeout(() => {
+        this.setState({
+          invalid: false
+        });
+      }, 3000));
     }
   }
 
@@ -113,7 +121,7 @@ class Create extends React.Component {
         this.setState({
           invalid: false
         });
-      }, 1000));
+      }, 3000));
     }
   }
   
@@ -137,7 +145,7 @@ class Create extends React.Component {
         this.setState({
           invalid: false
         });
-      }, 1000));
+      }, 3000));
     }
   }
 
