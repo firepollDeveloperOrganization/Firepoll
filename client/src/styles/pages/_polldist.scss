@@ -38,7 +38,6 @@ $white: #ffffff;
   }
 
   .response-form {
-    font-size: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -47,6 +46,7 @@ $white: #ffffff;
     width: 80vw;
     margin: 10px auto; 
     background-color: rgb(255, 255, 255);
+    font-size: 400%;
   }
 
   .answer.draw.meet.question-intro {
@@ -56,7 +56,6 @@ $white: #ffffff;
     transition: flex-grow 0.3s 0.1s, height 0.3s 0.1s, font-size 0.3s, width 0.5s 0.35s;
     overflow: scroll;
     margin: 1vh auto;
-    padding: 1em 1em 1em 1em;
   }
 
   .answer.draw.meet.question-intro.slide-out {
@@ -67,23 +66,22 @@ $white: #ffffff;
   }
 
   .question-title {
+    min-height: 15%;
     display: flex;
     align-items: center;
-    margin: 2vh auto; 
     color: #DD403A;
     box-shadow: inset 0 0 0 2px $red;
-    width: 75%;
-    font-size: 1em;
-    margin-top: 2vh;
+    width: 90%;
+    font-size: 0.7em;
+    margin-top: 3em;
+    margin-bottom: 0.7em;
     overflow: scroll;
-    padding-top: 2.5vh;
-    padding-bottom: 2.5vh;
-    padding-left: 20px;
+    padding: 0.2em;
     font-style: italic;
   }
 
   .question-container {
-    height: 90%;
+    height: 100%;
     width: 90%;
     display: flex;
     align-items: center;
@@ -107,29 +105,29 @@ $white: #ffffff;
   .answer {
     overflow: scroll;
     right: 200vw;
-    margin: 1vh 0.5vw; 
+    margin: 0.7em 0; 
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1em;
-    width: 75%;
-    flex-grow: 1;
+    font-size: 0.5em;
+    width: 60%;
+    flex-grow: 0.28;
     padding: 1em 1em 1em 1em;
     animation: slidein 1.5s forwards;
-    transition: background-color 200ms linear, width 0.5s, font-size 0.5s, height 0.5s;
+    transition: color 0.3s background-color 200ms linear, width 0.5s, font-size 0.5s, height 0.5s;
   }
 
-  .answer-selected {
+  .answer.answer-selected.draw.meet {
     color: #ffffff;
     border-color: #ffffff;
     background-color: $red;
     animation: slidein 1s forwards;
-    transition: color 0.5s, background-color 100ms linear, width 0.3s, font-size 0.3s, height 0.5s, border-radius 0.5s;
+    transition: color 0.3s, background-color 300ms linear, width 0.3s, font-size 0.3s, height 0.5s, border-radius 0.5s;
   }
 
   .answer-selected:hover {
     color: $yellow;
-    transition: color 0.5s;
+    transition: color 0.5s, background-color 300ms
   }
 
   @-webkit-keyframes slidein {
@@ -153,6 +151,28 @@ $white: #ffffff;
     transition: background-color 100ms linear,  font-size 0.8s;
   }
 
+  .answer.answer-position {
+    font-size: 0.6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid $red; /* Light grey */
+    border-right: 3px solid $yellow; /* Blue */
+    border-radius: 50%;
+    height: 1.7em;
+    width: 1.7em;
+    position: relative;
+    top: 50%;
+    margin-right: 2em;
+    transition: border 0.3s;
+  }
+
+  .answer.answer-select.answer-position {
+    border: 3px solid $yellow; /* Light grey */
+    border-right: 3px solid $red; /* Blue */
+    transition: border 0.3s;
+  }
+
   .results-container {
     margin-bottom: 20px;
     padding-bottom: 20px;
@@ -164,6 +184,180 @@ $white: #ffffff;
     padding-top: 10px;
   }
 
+  .loader {
+    border: 6px solid $red;
+    border-top: 6px solid $yellow;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+  }
+
+  .status {
+    color: $red;
+  }
+  
+  @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+  }
+
+  .draw.meet.submit {
+    min-width: 30%;
+    min-height: 10%;
+    margin-bottom: 3em;
+  }
+  
+  // Basic styles
+  button, .answer, .answer-selected {
+    background: none;
+    border: 0;
+    box-sizing: border-box;
+    
+    // Using inset box-shadow instead of border for sizing simplicity
+    box-shadow: inset 0 0 0 2px $red;
+    color: $red;
+    font-size: 0.7em;
+  
+    // Required, since we're setting absolute on pseudo-elements
+    position: relative;
+  
+    &::before,
+    &::after {
+      box-sizing: inherit;
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  .answer.draw {
+    margin: 0.5em;
+  }
+  
+  button.draw {
+    margin: 0.7em;
+  }
+  
+  .draw {
+      transition: color 0.25s;
+  
+    &::before,
+    &::after {
+      // Set border to invisible, so we don't see a 4px border on a 0x0 element before the transition starts
+      border: 2px solid transparent;
+      width: 0;
+      height: 0;
+    }
+  
+    // This covers the top & right borders (expands right, then down)
+    &::before {
+      top: 0;
+      left: 0;
+    }
+  
+    // And this the bottom & left borders (expands left, then up)
+    &::after {
+      bottom: 0;
+      right: 0;
+    }
+    
+    &:hover {
+      color: $cyan;
+    }
+  
+    // Hover styles
+    &:hover::before,
+    &:hover::after {
+      width: 100%;
+      height: 100%;
+    }
+  
+    &:hover::before {
+      border-top-color: $cyan; // Make borders visible
+      border-right-color: $cyan;
+      transition:
+        width 0.25s ease-out, // Width expands first
+        height 0.25s ease-out 0.25s; // And then height
+    }
+  
+    &:hover::after {
+      border-bottom-color: $cyan; // Make borders visible
+      border-left-color: $cyan;
+      transition:
+        border-color 0s ease-out 0.5s, // Wait for ::before to finish before showing border
+        width 0.25s ease-out 0.5s, // And then exanding width
+        height 0.25s ease-out 0.75s; // And finally height
+    }
+  }
+  
+  // Inherits from .draw
+  .meet {
+    
+    &:hover {
+      color: $yellow;
+    }
+  
+    // Start ::after in same position as ::before
+    &::after {
+      top: 0;
+      left: 0;
+    }
+  
+    // Change colors
+    &:hover::before {
+      border-top-color: $yellow;
+      border-right-color: $yellow;
+    }
+  
+    &:hover::after {
+      border-bottom-color: $yellow;
+      border-left-color: $yellow;
+      transition: // Animate height first, then width
+        height 0.25s ease-out,
+        width 0.25s ease-out 0.25s;
+    }
+  
+  }
+  
+  // Does not inherit
+  .center {
+    &:hover {
+      color: $purple;
+    }
+  
+    // Set up base styles, we're going to scale instead of animating width/height
+    &::before,
+    &::after {
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      transform-origin: center; // Ensure scaling is done from the center (expands outwards)
+    }
+  
+    // scale3d(<scale-horizontal>, <scale-vertical>, <scale-depth>);
+    &::before {
+      border-top: 2px solid $purple;
+      border-bottom: 2px solid $purple;
+      transform: scale3d(0,1,1); // Shrink only width
+    }
+  
+    &::after {
+      border-left: 2px solid $purple;
+      border-right: 2px solid $purple;
+      transform: scale3d(1,0,1); // Shrink only height
+    }
+  
+    &:hover::before,
+    &:hover::after {
+      transform: scale3d(1,1,1); // Show full-size
+      transition: transform 0.5s;
+    }
+  }
+
 }
 
 #poll-hr {
@@ -172,152 +366,4 @@ $white: #ffffff;
   background-color: $red;
   height: 1px; border: 0;
   padding: 1px;
-}
-
-// Basic styles
-button, .answer, .answer-selected {
-  background: none;
-  border: 0;
-  box-sizing: border-box;
-  padding: 1em 2em;
-  
-  // Using inset box-shadow instead of border for sizing simplicity
-  box-shadow: inset 0 0 0 2px $red;
-  color: $red;
-  font-size: inherit;
-  font-weight: 700;
-
-  // Required, since we're setting absolute on pseudo-elements
-  position: relative;
-  vertical-align: middle;
-
-  &::before,
-  &::after {
-    box-sizing: inherit;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-button.draw, .answer.draw {
-  margin: 2em;
-}
-
-.draw {
-    transition: color 0.25s;
-
-  &::before,
-  &::after {
-    // Set border to invisible, so we don't see a 4px border on a 0x0 element before the transition starts
-    border: 2px solid transparent;
-    width: 0;
-    height: 0;
-  }
-
-  // This covers the top & right borders (expands right, then down)
-  &::before {
-    top: 0;
-    left: 0;
-  }
-
-  // And this the bottom & left borders (expands left, then up)
-  &::after {
-    bottom: 0;
-    right: 0;
-  }
-  
-  &:hover {
-    color: $cyan;
-  }
-
-  // Hover styles
-  &:hover::before,
-  &:hover::after {
-    width: 100%;
-    height: 100%;
-  }
-
-  &:hover::before {
-    border-top-color: $cyan; // Make borders visible
-    border-right-color: $cyan;
-    transition:
-      width 0.25s ease-out, // Width expands first
-      height 0.25s ease-out 0.25s; // And then height
-  }
-
-  &:hover::after {
-    border-bottom-color: $cyan; // Make borders visible
-    border-left-color: $cyan;
-    transition:
-      border-color 0s ease-out 0.5s, // Wait for ::before to finish before showing border
-      width 0.25s ease-out 0.5s, // And then exanding width
-      height 0.25s ease-out 0.75s; // And finally height
-  }
-}
-
-// Inherits from .draw
-.meet {
-  
-  &:hover {
-    color: $yellow;
-  }
-
-  // Start ::after in same position as ::before
-  &::after {
-    top: 0;
-    left: 0;
-  }
-
-  // Change colors
-  &:hover::before {
-    border-top-color: $yellow;
-    border-right-color: $yellow;
-  }
-
-  &:hover::after {
-    border-bottom-color: $yellow;
-    border-left-color: $yellow;
-    transition: // Animate height first, then width
-      height 0.25s ease-out,
-      width 0.25s ease-out 0.25s;
-  }
-
-}
-
-// Does not inherit
-.center {
-  &:hover {
-    color: $purple;
-  }
-
-  // Set up base styles, we're going to scale instead of animating width/height
-  &::before,
-  &::after {
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    transform-origin: center; // Ensure scaling is done from the center (expands outwards)
-  }
-
-  // scale3d(<scale-horizontal>, <scale-vertical>, <scale-depth>);
-  &::before {
-    border-top: 2px solid $purple;
-    border-bottom: 2px solid $purple;
-    transform: scale3d(0,1,1); // Shrink only width
-  }
-
-  &::after {
-    border-left: 2px solid $purple;
-    border-right: 2px solid $purple;
-    transform: scale3d(1,0,1); // Shrink only height
-  }
-
-  &:hover::before,
-  &:hover::after {
-    transform: scale3d(1,1,1); // Show full-size
-    transition: transform 0.5s;
-  }
 }
