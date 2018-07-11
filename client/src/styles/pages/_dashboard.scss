@@ -117,20 +117,23 @@
 //   border: 3px dotted purple;
 // }
 
-#dashboard {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
+// #dashboard {
+//   height: 100%;
+//   width: 100%;
+//   overflow: hidden;
+// }
 
-#polls-container {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-}
+// #polls-container {
+//   height: 100%;
+//   width: 100%;
+//   overflow: hidden;
+// }
 
 #filtered-polls {
-  height: 50%;
+  // transition: all 2s;
+  position: relative;
+  bottom: 0;
+  height: 30vh;
   width: 100%;
   overflow-y: auto;
   // padding-right: 20px;
