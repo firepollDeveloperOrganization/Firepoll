@@ -1,30 +1,48 @@
 #dashboard>* {
   border: 3px dotted green;
 }
-.dash-nav>* {
+// .dash-nav>* {
+//   border: 3px dotted blue;
+// }
+// .dash-nav>div:last-child>* {
+//   border: 3px dotted purple;
+// }
+#polls-filter {
   border: 3px dotted blue;
 }
-.dash-nav>div:last-child>* {
-  border: 3px dotted purple;
+#polls-filter button {
+  // border: 3px dotted purple;
 }
 
 
+@mixin button-style {
+  cursor: pointer;
+  color: $grey-dark;
+  text-transform: uppercase;
+  background-color: $grey-light;
+  text-decoration: none;
+  padding: 1em;
+  margin: 1em;
+  display: inline-block;
+  border-radius: 10rem;
+  transition: all .2s;
+  position: relative;
+  font-size: $default-font-size;
+  letter-spacing: .3rem;
+  transition: 2s;
+}
+
 #dashboard {
-  // background: url("./images/dashboard_bg.jpg");
   background: linear-gradient(to right bottom, rgba($primary-light, .7), rgba($primary-dark, .7)), url("/images/dashboard_bg.jpg");
   padding: 2%;
   display: flex;
   flex-direction: column;
-
   .dash-nav {
     display: flex;
     flex-direction: row;
-    // height: auto;
-    // min-height: 100%;
     .dash-logo {
       flex: 1;
       img {
-
         width: 35px;
         height: 35px;
       }
@@ -44,29 +62,39 @@
       flex-direction: column;
       align-content: center;
       justify-content: space-around;
-      
       >* {
         align-self: center;
         button {
-          cursor: pointer;
-          text-transform: uppercase;
-          background-color: $grey-light;
-          text-decoration: none;
-          padding: 1em;
-          margin: 1em;
-          display: inline-block;
-          border-radius: 10rem;
-          transition: all .2s;
-          position: relative;
-          font-size: $default-font-size;
-          letter-spacing: .3rem;
+          @include button-style();
+          &:hover {
+            box-shadow: 0 1rem 1.5rem rgba($black, .2);
+          }
+          &:active {
+            box-shadow: 0 .5rem 1rem rgba($black, .15);
+            transform: translateY(0);
+          }
         }
       }
     }
   }
 }
 
+#polls-filter {
 
+}
+#polls-filter button {
+  @include button-style();
+  font-size: $default-font-size * .7;
+  &:hover {
+    box-shadow: 0 .5rem .75rem rgba($black, .2);
+    transition: 2s;
+  }
+  &:active {
+    box-shadow: 0 .5rem 1rem rgba($black, .15);
+    transform: translateY(0);
+    transition: 2s;
+  }
+}
 
 
 
