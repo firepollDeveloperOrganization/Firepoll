@@ -240,8 +240,8 @@ class Dashboard extends React.Component {
             <div className="dash-logo"><img alt="logo" src="/7a93ab2d8edcc0f88d8aadde58d3245c.png" className="header__logo"/></div>
             <div className="dash-header"><h1 className="heading-primary--main">Welcome {user}!</h1></div>
             <div id="dashboard-nav">
-              <Link to="/create"><button className="dash-button">Create a poll! 	&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button></Link>
-              <div><button className="dash-button" onClick={() => this.props.logout()}>Log Out 	&nbsp; <i className="fa-fw fas fa-sign-out-alt"></i></button></div>
+              <Link to="/create"><button className="dash-button">Create a poll!&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button></Link>
+              <div><button className="dash-button" onClick={() => this.props.logout()}>Log Out&nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></button></div>
             </div>
           </div>
           <div id="polls-filter">
