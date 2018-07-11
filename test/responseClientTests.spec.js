@@ -13,32 +13,34 @@ describe('Response Client Tests', function() {
   var wrapper;
   var responseClient;
 
+  window = {};
+
+  global.window.localStorage = {
+    getItem: () => { return '{}'; },
+    setItem: () => {}
+  };
+
+  global.window.location = {};
+  global.window.location.pathname = 'xxxxxxxxxx1a2b3c4d5e6f';
+
   before(function() {
     let match = {params: {}};
-    match.params.id = '2b3c4d5e6f7g'
+    match.params.id = '1a2b3c4d5e6f'
     wrapper = shallow(<ResponseClient/>);
-    poll = testData
-  })
-
-
-  before(function() {
-    let match = {params: {}};
-    match.params.id = '1a2b3c4d5e6f';
-    wrapper = shallow(<Live match={match} user={'Dorothea Schoepfer'} email={'dorothea.schoepfer@gmail.com'}/>);
-    poll = testData;
+    var poll = testData
     poll.active = true;
-    questions = testData.questions;
+    var questions = testData.questions;
     questions.forEach((question, i) => {
-      if (i === 0) {
-        question.active = true;
-      } else {
-        question.active = false;
-      }
-    })
-  });  
+      question.active = true;
+    });
+  });
 
-  it('should start with an empty poll, no questions and closed set to false.', function() {
-    expect(wrapper.state('poll')).to.eql({});   
+  it('When provided with an invalid poll ID in the URL, poll data should be false', function() {
+    expect(wrapper.state('poll')).to.equal(false);  
+  });
+  
+  it('When provided with an invalid poll ID in the URL, exists should be false', function() {
+    expect(wrapper.state('exists')).to.equal(false);  
   });
 
 });
