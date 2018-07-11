@@ -17,6 +17,7 @@ body {
     font-size: 6rem;
     font-weight: 400; /*thickness of the letters not all font-weights are loaded for the font*/
     letter-spacing: 3.5rem;
+    margin-bottom: 1.5rem;
   
     animation-name: moveInLeft;
     animation-duration: 1s;
@@ -32,6 +33,7 @@ body {
     font-weight: 700;
     letter-spacing: 1.75rem;
     margin-bottom: 6rem;
+    width: 75vw;
   
     animation: moveInRight 1s ease-out; /* shorthand for animations, same as above */
   }
@@ -65,7 +67,7 @@ body {
   font-size: $default-font-size;
 
   &:not(last-child) {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -75,8 +77,6 @@ body {
   line-height: 200%;
   display: block;
   // THE BELOW 3 LINES CREATE THE EFFECT OF MAKING THE TEXT BE IN A GRADIENT COLOR
-  background-image: linear-gradient(to right, $primary-light, $primary-dark);
-  -webkit-background-clip: text; // will clip the background to exactly the places where the text sits
-  color: transparent;
-  transition: all .2s;
+  color: $grey-dark;
+  transition: color .5s ease;
 }
