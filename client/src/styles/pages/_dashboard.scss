@@ -143,6 +143,14 @@
 //   width: 100%;
 //   overflow: hidden;
 // }
+// #filtered-polls::scrollbar {
+//   width: 0 !important;
+
+// }
+
+::-webkit-scrollbar {
+  width: 0 !important;
+}
 
 #filtered-polls {
   position: relative;
@@ -154,6 +162,8 @@
   flex-wrap: wrap;
   flex-direction: row;
 }
+
+
 
 .poll-item {
   padding: 2em;
