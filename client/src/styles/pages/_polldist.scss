@@ -90,8 +90,18 @@ $white: #ffffff;
     width: 90%;
     display: flex;
     align-items: center;
+    flex-direction: column;
+    overflow: scroll;
+  }
+
+  .question-container.with-status {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    align-items: center;
     justify-content: center;
     flex-direction: column;
+    overflow: scroll;
   }
 
   .question {
@@ -108,7 +118,9 @@ $white: #ffffff;
   }
 
   .question-result-container {
-    width: 90%;
+    width: 80%;
+    margin-bottom: 0.2em;
+    text-align: left;
   }
 
   .question-result-title {
@@ -118,15 +130,37 @@ $white: #ffffff;
   .poll-results-title {
     font-size: 1em;
     color: $red;
-    margin-bottom: 1em;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
   }
 
   .result-interactive {
-    border: 2px $red solid;
-    font-size: 0.7em;
-    margin: 0.5em;
+    background-color: $red;
+    padding-left: 0.4em;
+    height: 7%;
     display: flex;
-    vertical-align: center;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.5em;
+    display: flex;
+    color: $white;
+    max-height: 1.9em;
+    transition: width 1.5s;
+    margin: 1em 0;
+  }
+
+   
+  .result-interactive.not-yet {
+    background-color: $grey;
+    height: 3%;
+    width: 8em;
+  }
+
+  .result-overflow {
+    max-width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-right: 1em;
   }
 
   .answer {
@@ -137,7 +171,7 @@ $white: #ffffff;
     align-items: center;
     justify-content: center;
     font-size: 0.5em;
-    width: 60%;
+    width: 0%;
     flex-grow: 0.28;
     animation: slidein 1.5s forwards;
     transition: color 0.3s background-color 200ms linear, width 0.5s, font-size 0.5s, height 0.5s;
