@@ -195,7 +195,6 @@ class ResponseClient extends React.Component {
   // GETS RENDERED IF POLL IS LIVE
   renderLivePoll = () => {
     return (
-      
     <div id="poll-dist" className = "poll-dist-class">
       {this.state.pollComplete ? '' : this.state.poll ? <div className = "response-form">
         { this.state.questions ? this.state.questions.filter((ele, i) => i === this.state.currQuestion).map((question) => {
@@ -203,12 +202,15 @@ class ResponseClient extends React.Component {
               return (this.state.reveal ?
                 <div className = "question-container"> 
                   <MultipleChoiceQuestion currChoice = {this.state.currChoice} question = {question} handleUserChoice = {this.handleUserChoice} handleSubmit = {(e, question) => this.handleSubmit(e, question)}/>
-                  <button className="draw meet" onClick = {(e) => {this.handleSubmit(e, question)}}>Submit</button>
+                  <button className="draw meet submit" onClick = {(e) => {this.handleSubmit(e, question)}}>Submit</button>
                 </div>: 
                 <QuestionIntro question = {question} questionIntroLeave = {this.state.questionIntroLeave}/>);
             } else {
               return (
-                <div>Waiting for next question...</div>
+                <div className = "question-container">
+                  <div className = "loader"></div>
+                  <div className = "status">Waiting for next question...</div>
+                </div>
               );
             }
           })
@@ -218,26 +220,30 @@ class ResponseClient extends React.Component {
 
         { 
           this.state.pollComplete ? 
-          <div>
-            <h1 className = "title is-4">{this.state.poll.title} Results</h1>
-              {this.state.results ? Object.keys(this.state.results).map((id) => {
-                let questionForResults = this.state.questions.filter(question => id === question._id)
-                return (
-                  <div className = "results-container">
-                    {this.state.results[id].map((result) => {
-                    let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
-                    const isLit = '🔥'.repeat(Math.floor(result.vote_count / total *10));
-                    return (
-                      <div className = "title is-5 flex results">
-                        <span>{result.answer_value}</span>
-                        <span>{isLit}</span>
-                        <span>{result.vote_count}</span>
-                      </div>)
-                    })}
-                  </div>
-                )
-              }):''} 
-            </div>
+          <div className = "response-form">
+            <div className = "question-container">
+              <h1 className = "poll-results-title">{this.state.poll.title} - Results</h1>
+                {this.state.results ? Object.keys(this.state.results).map((id) => {
+                  let questionForResults = this.state.questions.filter(question => id === question._id)
+                  return (
+                    <div className = "question-result-container">
+                      <div className = "question-result-title">{questionForResults[0].question_title}</div>
+                      <div className = "result-interactive">
+                        {this.state.results[id].map((result) => {
+                        let total = this.state.results[result.question_id].reduce((acc, ele) => acc + ele.vote_count, 0);
+                        const percent = result.vote_count / total;
+                        return (
+                          <div className = "title is-5 flex results">
+                            <span>{result.answer_value}</span>
+                            <span>{result.vote_count}</span>
+                          </div>)
+                        })}
+                      </div>
+                    </div>
+                  )
+                }):''} 
+              </div>
+          </div>
           :''
         }
     </div>
@@ -250,6 +256,7 @@ class ResponseClient extends React.Component {
     } else {
       if (this.state.loading === true) {
         var status = "LOADING ...";
+        var loader = true;
       } else {
         let isScheduledText = "This poll is not yet live. Please wait for the host to start the poll and refresh this page.";
         let doesNotExistText = "We can't find the poll you are looking for. Try checking the link for typos.";
@@ -260,7 +267,8 @@ class ResponseClient extends React.Component {
       <div id = "poll-dist" className = "poll-dist-class">
         <div className = "response-form">
           <div className = "question-container">
-            <p>{status}</p>
+            <div className = "loader"></div>
+            <p className = "status">{status}</p>
           </div>
         </div>
       </div>

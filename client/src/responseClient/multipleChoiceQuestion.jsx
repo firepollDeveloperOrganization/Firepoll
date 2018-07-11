@@ -12,7 +12,10 @@ const MultipleChoiceQuestion = (props) => {
           return (
             <div className = {props.currChoice === answerString ? "answer answer-selected draw meet" : "answer draw meet"} key={i} onClick = {() => {
               props.handleUserChoice(answerString)
-            }}>{answer.value}</div>
+            }}>
+              <div className = "answer-position">{answer.position}</div>
+              <div className = "answer-text">{answer.value}</div>
+            </div>
           );
         }
       })}
