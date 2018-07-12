@@ -1,11 +1,14 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const axios = require('axios');
-admin.initializeApp();
+const app = require('../pollManager/index.js');
+// admin.initializeApp();
 
-if (!admin.apps.length) {
-  admin.initializeApp(config);
-}
+// if (!admin.apps.length) {
+//   admin.initializeApp(config);
+// }
+
+exports.app = functions.https.onRequest(app);
 
 exports.mapReduceVotesAtScale = functions.https.onRequest((req, res) => {
 

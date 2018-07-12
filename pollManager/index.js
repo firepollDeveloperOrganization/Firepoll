@@ -1,3 +1,4 @@
+const functions = require('firebase-functions');
 const express = require('express');
 const bodyParser = require('body-parser');
 const pollRouter = require('./routers/pollRouter');
@@ -62,3 +63,13 @@ var port = process.env.PORT || 5000;
 var server = app.listen(port, () => {
   console.log('listening on port, ', port);
 });
+
+// module.exports.app = functions.https.onRequest(app);
+
+// const api = functions.https.onRequest(app)
+
+// module.exports = {
+//   api
+// }
+
+module.exports = app;
