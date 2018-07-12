@@ -110,27 +110,27 @@ class Live extends React.Component {
     if (!user) return <Link to="/login"><button>Log In!</button></Link>;
     if (!this.state.poll || !this.state.questions) return <div className="loadingPollAlert">LOADING POLL...</div>;
       return (
-        <div className="liveViewWrapper" style={{textAlign: "center"}}>
+        <div id = "live-view" className="live-view-wrapper" style={{textAlign: "center"}}>
         <Navbar />
-          <h1>🔥🔥🔥 FIRE POLL #{this.state.pollId} FOR {email} 🔥🔥🔥</h1>
+          <h1 className = 'poll-title'>Live View - Poll: {this.state.poll.title}</h1>
             {this.state.questions.map((q, i, arr) => {
-              let background = q.active ? "#A4FF8D" : "#fff";
-              let visibilty = q.active ? "inline-flex": "none"; 
               return (
-                <div className="box" style={{maxWidth: "900px", margin: "10px auto", backgroundColor: background}} key={q.id}>
-                  <h1 className="question-question" style={{fontWeight: "700"}}>{q.question_title}</h1>
-                  {/*<h3 className="question-time">{this.computeTimeRemaining()} Remains!</h3>*/}
-                  <div className="question-answers">
-                    {q.answers.map(ans => (
-                      <p key={ans.id}>{ans.position}: {ans.value}</p>
-                    )
-                      )}
-                  </div>
-                  {i === arr.length - 1 ? 
-                    <button className="button is-danger" id="closePollButton" onClick={this.close}>Close Poll</button>
-                    :
-                    <button className="button" id="nextQuestionButton" style={{display: visibilty}} onClick={() => this.nextQuestion(i)}>Next Question</button>
-                  }
+                <div className="box" key={q.id}>
+                  <h1 className="question-question">Q: {q.question_title}</h1>
+                  <div className = "question-answers-container">
+                    <div className="question-answers">
+                      {q.answers.map(ans => (
+                        <p key={ans.id}>A{ans.position}:   {ans.value}</p>
+                      )
+                        )}
+                    </div>
+                      {
+                        i === arr.length - 1 ? 
+                        <button className="draw meet" id="closePollButton" onClick={this.close}>Close Poll</button>
+                        :
+                        <button className="draw meet id=" onClick={() => this.nextQuestion(i)}>Next Question</button>
+                      }
+                    </div>
                 </div>
               )
             })}
