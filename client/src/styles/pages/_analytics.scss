@@ -1,0 +1,30 @@
+#analytics {
+  margin: 0;
+  padding: 2%;
+  height: 90vh;
+  img {
+    width: 35px;
+    height: 35px;
+  }
+  h1 {
+    font-size: $default-font-size *2;
+    color: $white;
+    letter-spacing: 1.2rem;
+    color: $primary;  // maybe make this a gradient?
+    cursor: default;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  svg {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+#analytics>*{
+  // border: 1px dotted green; //for testing
+}
+
+#donuts-container {
+  display: flex;
+}
