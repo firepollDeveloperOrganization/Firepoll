@@ -3,13 +3,13 @@ module.exports.createPie = function(divId, title, dataSet) {
       "header": {
         "title": {
           "text": title,
-          "fontSize": 24,
-          "font": "open sans"
+          "fontSize": 20,
+          "font": "Lato"
         },
         "subtitle": {
           "color": "#999999",
           "fontSize": 12,
-          "font": "open sans"
+          "font": "Lato"
         },
         "location": "pie-center",
         "titleSubtitlePadding": 9
@@ -17,7 +17,7 @@ module.exports.createPie = function(divId, title, dataSet) {
       "footer": {
         "color": "#999999",
         "fontSize": 10,
-        "font": "open sans",
+        "font": "Lato",
         "location": "bottom-left"
       },
       "size": {
