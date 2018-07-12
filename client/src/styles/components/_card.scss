@@ -24,7 +24,7 @@
 
     &--back {
       transform: rotateY(180deg);
-      background-image: linear-gradient(to right bottom, rgba($grey, .9), rgba($grey-dark, .9));
+      background-color: rgba($grey-light, .95);
       text-align: left;
     }
   }
@@ -85,9 +85,9 @@
   // BACK SIDE STYLING
 
   &__back-text {
-    font-size: 2rem;
-    font-weight: 300;
-    color: $grey-light;
+    font-size: 1.6rem;
+   // font-weight: 300;
+    color: $grey-dark;
     padding: 0 3rem;
     position: relative;
     top: 50%;
