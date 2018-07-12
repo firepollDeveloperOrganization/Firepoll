@@ -33,14 +33,68 @@
 }
 
 #dashboard {
-  // position: absolute;
-  // margin: 1em;
+
+  $yellow: #fbca67;
+  $orange: #ff8a30;
+  $red: #C20114;
+
   margin: 0;
   padding: 0;
   height: 90vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    width: 100%;
+  }
+
+  circle {
+    fill: white;
+    stroke: $red;
+    stroke-width: 4;
+    stroke-dasharray: 250;
+    stroke-dashoffset: 1000;
+    animation: rotate 2s cubic-bezier(0.39, 0.575, 0.565, 1) infinite, change-color 4s 0.7s linear infinite;
+  }
+  
+  @keyframes rotate {
+    to {
+      stroke-dashoffset: 500;
+    }
+  }
+
+  @keyframes change-color {
+    49% {
+      stroke: $red;
+    }
+
+    50% {
+      stroke: $yellow;
+    }
+
+    99% {
+      stroke: $yellow;
+    }
+
+    100% {
+      stroke: $red;
+    }
+  }
+
+  .loader-rotate {
+    animation: spin 3s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
   #dash-banner {
     background: linear-gradient(to right bottom, rgba($primary-light, .7), rgba($primary-dark, .7)), url("/images/dashboard_bg.jpg");
     margin: -1em;

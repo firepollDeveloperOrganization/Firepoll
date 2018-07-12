@@ -19,7 +19,7 @@ class Landing extends React.Component {
               <span className="heading-primary--main">FIREPOLL</span>
               <span className="heading-primary--sub">IGNITE ENGAGEMENT WITH YOUR AUDIENCE</span>
             </h1>
-            <a href="#" className="btn btn--white btn--animated">GET STARTED</a>
+            <a href="/dashboard" className="btn btn--white btn--animated">GET STARTED</a>
           </div>
         </header>
         <div className="u-margin-bottom-big"></div>
