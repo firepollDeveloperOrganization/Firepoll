@@ -1,7 +1,12 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const axios = require('axios');
-const app = require('../pollManager/index.js');
+const path = require('path');
+// const app = require('../pollManager/index.js');
+// const app = require(__dirname + '/pollManager/index')
+// const app = require('../../pollManager/index.js');
+const app = require(path.join(__dirname, '../pollManager/index.js'));
+// const app = require('../pollManager/index');
 // admin.initializeApp();
 
 // if (!admin.apps.length) {

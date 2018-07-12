@@ -72,4 +72,4 @@ var server = app.listen(port, () => {
 //   api
 // }
 
-module.exports = app;
+module.exports.app = app;
