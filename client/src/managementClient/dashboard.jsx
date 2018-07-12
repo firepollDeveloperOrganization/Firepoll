@@ -76,7 +76,8 @@ class Dashboard extends React.Component {
       userFilterInput: '',
       modalIsOpen: false,
       phoneNumbers: '',
-      currentLink: null
+      currentLink: null,
+      signedIn: false
     }
   }
 
@@ -222,12 +223,42 @@ class Dashboard extends React.Component {
 
   render() {
     let { user, email } = this.props;
-    if (!user) return <Link to="/login"><button>Log In!</button></Link>;
-    let pollDisplay = !this.state.filteredPolls.length ? <h1 id="no-polls-notification">No Polls! Make a new one by clicking the "CREATE" button above!</h1> : <div id="filtered-polls">{this.state.filteredPolls.map((poll, i) => {
-      if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
-        return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
-      }
-    })}</div>
+    if (!user) {
+      setTimeout(() => {
+        if (!this.props.user) {
+          this.props.history.push('/login');
+        }}, 2000);
+      return (
+        <div id = "dashboard">
+          <div className = "loading-container">
+            <svg className = "loader-rotate" height = "100" width = "100">
+              <circle cx="50" cy="50" r="40" />
+            </svg>
+            <div className = "loading-text"></div>
+          </div>
+        </div>
+        );
+    } else if (this.props.user && !this.state.signedIn) {
+      setTimeout(() => {
+        this.setState({
+          signedIn: true
+        })}, 1510);
+      return (
+        <div id = "dashboard">
+          <div className = "loading-container">
+            <svg className = "loader-rotate" height = "100" width = "100">
+              <circle cx="50" cy="50" r="40" />
+            </svg>
+            <div className = "loading-text"></div>
+          </div>
+        </div>
+        );
+    } else if (this.state.signedIn) {
+      let pollDisplay = !this.state.filteredPolls.length ? <h1 id="no-polls-notification">No Polls! Make a new one by clicking the "CREATE" button above!</h1> : <div id="filtered-polls">{this.state.filteredPolls.map((poll, i) => {
+        if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
+          return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
+        }
+      })}</div>
       return (
         <div id="dashboard">
         <div id="dash-banner">
@@ -259,7 +290,8 @@ class Dashboard extends React.Component {
           </form>
         </Modal>
         </div>
-      )
+      );
+    }
   }
 }
 

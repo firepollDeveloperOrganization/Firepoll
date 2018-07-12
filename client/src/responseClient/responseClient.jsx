@@ -278,7 +278,9 @@ class ResponseClient extends React.Component {
       <div id = "poll-dist" className = "poll-dist-class">
         <div className = "response-form">
           <div className = "question-container with-status">
-            <div className = "loader"></div>
+            <svg className = "loader-rotate" height = "100" width = "100">
+              <circle cx="50" cy="50" r="40" />
+            </svg>
             <p className = "status">{status}</p>
           </div>
         </div>
