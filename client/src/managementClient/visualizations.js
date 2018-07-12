@@ -1,4 +1,4 @@
-module.exports.createPie = (divId, title, dataSet) => {
+module.exports.createPie = function(divId, title, dataSet) {
     var pie = new d3pie(divId, {
       "header": {
         "title": {
@@ -74,6 +74,6 @@ module.exports.createPie = (divId, title, dataSet) => {
           "percentage": 100
         }
       },
-      "callbacks": {}
     });
+    return pie;
   }
