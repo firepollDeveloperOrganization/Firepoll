@@ -9,7 +9,7 @@ const MultipleChoiceQuestion = (props) => {
       {props.question.answers.map((answer, i) => {
         if (answer.value) {
           var answerString = JSON.stringify(answer);
-          return (
+          let htmlToReturn = (
             <div className = {props.currChoice === answerString ? "answer answer-selected draw meet" : "answer draw meet"} key={i} onClick = {() => {
               props.handleUserChoice(answerString)
             }}>
@@ -17,6 +17,7 @@ const MultipleChoiceQuestion = (props) => {
               <div className = "answer-text">{answer.value}</div>
             </div>
           );
+          return htmlToReturn;
         }
       })}
     </div>

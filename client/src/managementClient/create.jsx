@@ -83,6 +83,8 @@ class Create extends React.Component {
           })
           //then redirect to dashboard
         });
+      }).then(() => {
+        this.props.history.push('/dashboard');
       })
       .catch(err => {
         console.error(err);

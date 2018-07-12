@@ -208,7 +208,9 @@ class ResponseClient extends React.Component {
             } else {
               return (
                 <div className = "question-container">
-                  <div className = "loader"></div>
+                  <svg className = "loader-rotate" height = "80" width = "80">
+                    <circle cx="40" cy="40" r="32" />
+                  </svg>
                   <div className = "status">Waiting for next question...</div>
                 </div>
               );
@@ -224,7 +226,7 @@ class ResponseClient extends React.Component {
             <div className = "question-container">
             <h1 className = "poll-results-title">{this.state.poll.title} - Results</h1>
                 {this.state.results ? Object.keys(this.state.results).map((id) => {
-                  let questionForResults = this.state.questions.filter(question => id === question._id)[0]
+                  let questionForResults = this.state.questions.filter(question => id === question._id)[0];
                   return (
                     <div className = "question-result-container">
                       <div className = "question-result-title">{questionForResults.question_title}</div>
@@ -278,7 +280,9 @@ class ResponseClient extends React.Component {
       <div id = "poll-dist" className = "poll-dist-class">
         <div className = "response-form">
           <div className = "question-container with-status">
-            <div className = "loader"></div>
+            <svg className = "loader-rotate" height = "80" width = "80">
+              <circle cx="40" cy="40" r="32" />
+            </svg>
             <p className = "status">{status}</p>
           </div>
         </div>
