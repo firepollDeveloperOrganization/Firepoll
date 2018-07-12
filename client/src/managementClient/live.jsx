@@ -99,6 +99,8 @@ class Live extends React.Component {
       })
       console.log("closed poll ", poll.title);
       console.log('Saved: ', res.data);
+    }).then(() => {
+      this.props.history.push('/dashboard');
     })
     .catch(err => {
       console.error('Closing Poll: ', err);
@@ -113,12 +115,14 @@ class Live extends React.Component {
           this.props.history.push('/login');
         }}, 2000);
       return (
-        <div id = "dashboard">
-          <div className = "loading-container">
-            <svg className = "loader-rotate" height = "100" width = "100">
-              <circle cx="50" cy="50" r="40" />
-            </svg>
-            <div className = "loading-text"></div>
+        <div id = "live-view">
+          <div className = "loading-view">
+            <div className = "loading-container">
+              <svg className = "loader-rotate" height = "100" width = "100">
+                <circle cx="50" cy="50" r="40" />
+              </svg>
+              <div className = "loading-text"></div>
+            </div>
           </div>
         </div>
         );
@@ -128,7 +132,18 @@ class Live extends React.Component {
           signedIn: true
         })}, 1510);
     
-      if (!this.state.poll || !this.state.questions) return <div className="loadingPollAlert">LOADING POLL...</div>;
+      if (!this.state.poll || !this.state.questions) return (
+        <div id = "live-view">
+          <div className = "loading-view">
+            <div className = "loading-container">
+              <svg className = "loader-rotate" height = "100" width = "100">
+                <circle cx="50" cy="50" r="40" />
+              </svg>
+              <div className = "loading-text"></div>
+            </div>
+          </div>
+        </div>
+        );
       return (
         <div id = "live-view" className="live-view-wrapper" style={{textAlign: "center"}}>
         <Navbar />
@@ -146,7 +161,10 @@ class Live extends React.Component {
                     </div>
                       {
                         i === arr.length - 1 ? 
-                        <button className="draw meet" id="closePollButton" onClick={this.close}>Close Poll</button>
+                        <div className = "button-container">
+                          <button className="draw meet id=" onClick={() => this.nextQuestion(i)}>Next Question</button>
+                          <button className="draw meet" id="closePollButton" onClick={this.close}>Close Poll</button>
+                        </div>
                         :
                         <button className="draw meet id=" onClick={() => this.nextQuestion(i)}>Next Question</button>
                       }
