@@ -133,21 +133,6 @@ class Dashboard extends React.Component {
       }
     }, 200);
   }
-
-  // ONE WAY TO SOLVE IT, KINDA RISKY
-  /*shouldComponentUpdate(nextProps, nextState) {
-    if(nextProps === this.props && this.state.allPolls.length > 0) {
-      if(nextState.filteredPolls !== nextState.allPolls) {
-        return true;
-      }
-      return false;
-    }
-    return true;
-  }
-
-  componentDidUpdate() {
-    this.getPolls();
-  }*/
   
   // THIS SHOULD RUN, BUT IT NEVER GETS RUN
   UNSAFE_componentWillReceiveProps(nextProps) {

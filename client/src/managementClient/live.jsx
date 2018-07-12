@@ -107,8 +107,28 @@ class Live extends React.Component {
 
   render() {
     let {user, email} = this.props;
-    if (!user) return <Link to="/login"><button>Log In!</button></Link>;
-    if (!this.state.poll || !this.state.questions) return <div className="loadingPollAlert">LOADING POLL...</div>;
+    if (!user) {
+      setTimeout(() => {
+        if (!this.props.user) {
+          this.props.history.push('/login');
+        }}, 2000);
+      return (
+        <div id = "dashboard">
+          <div className = "loading-container">
+            <svg className = "loader-rotate" height = "100" width = "100">
+              <circle cx="50" cy="50" r="40" />
+            </svg>
+            <div className = "loading-text"></div>
+          </div>
+        </div>
+        );
+    } else if (this.props.user && !this.state.signedIn) {
+      setTimeout(() => {
+        this.setState({
+          signedIn: true
+        })}, 1510);
+    
+      if (!this.state.poll || !this.state.questions) return <div className="loadingPollAlert">LOADING POLL...</div>;
       return (
         <div id = "live-view" className="live-view-wrapper" style={{textAlign: "center"}}>
         <Navbar />
@@ -138,7 +158,9 @@ class Live extends React.Component {
                 <p className="pollIsClosedAlert" style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
               }
         </div>
-      )
+      );
+      
+    }
   }
 }
 

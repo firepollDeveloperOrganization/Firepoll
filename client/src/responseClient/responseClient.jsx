@@ -208,7 +208,9 @@ class ResponseClient extends React.Component {
             } else {
               return (
                 <div className = "question-container">
-                  <div className = "loader"></div>
+                  <svg className = "loader-rotate" height = "80" width = "80">
+                    <circle cx="40" cy="40" r="32" />
+                  </svg>
                   <div className = "status">Waiting for next question...</div>
                 </div>
               );
