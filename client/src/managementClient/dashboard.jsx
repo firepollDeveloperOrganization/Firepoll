@@ -246,34 +246,34 @@ class Dashboard extends React.Component {
       })}</div>
       return (
         <div id="dashboard">
-        <div id="dash-banner">
-          <div className="dash-nav">
-            <div className="dash-logo"><img alt="logo" src="/7a93ab2d8edcc0f88d8aadde58d3245c.png" className="header__logo"/></div>
-            <div className="dash-header"><h1 className="heading-primary--main">Welcome <span>{user}</span>!</h1></div>
-            <div id="dashboard-nav">
-              <Link to="/create"><button className="dash-button">Create a poll!&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button></Link>
-              <div><button className="dash-button" onClick={() => this.props.logout()}>Log Out&nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></button></div>
+          <div id="dash-banner">
+            <div className="dash-nav">
+              <div className="dash-logo"><img alt="logo" src="/7a93ab2d8edcc0f88d8aadde58d3245c.png" className="header__logo"/></div>
+              <div className="dash-header"><h1 className="heading-primary--main">Welcome <span>{user}</span>!</h1></div>
+              <div id="dashboard-nav">
+                <Link to="/create"><button className="dash-button">Create a poll!&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button></Link>
+                <div><button className="dash-button" onClick={() => this.props.logout()}>Log Out&nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></button></div>
+              </div>
             </div>
+            <div id="polls-filter">
+              <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
+              <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
+              <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
+              <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+            </div>
+            <input placeholder="Type to filter your polls by name" type="text" onChange = {e => this.handleInput(e)}></input>
           </div>
-          <div id="polls-filter">
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
-            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
-          </div>
-          <input placeholder="Type to filter your polls by name" type="text" onChange = {e => this.handleInput(e)}></input>
-        </div>
-          <div id="polls-container">
-            {pollDisplay}
-          </div>
-        <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
-          <button onClick={this.closeModal}>X</button>
-          <h2 ref={subtitle => this.subtitle = subtitle}>Please input any numbers you'd like to text!</h2>
-          <form id="text-polls-form" onSubmit={e => e.preventDefault()}>
-            <textarea value={this.state.phoneNumbers} form="text-polls-form" cols="50" rows="5" placeholder="You may use comma-separated values (as in CSV sheet imports), starting with the area code." onChange={e => this.setState({phoneNumbers: e.target.value})} />
-            <button type="submit" onClick={this.sendTexts}>Send Texts</button>
-          </form>
-        </Modal>
+            <div id="polls-container">
+              {pollDisplay}
+            </div>
+          <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
+            <button onClick={this.closeModal}>X</button>
+            <h2 ref={subtitle => this.subtitle = subtitle}>Please input any numbers you'd like to text!</h2>
+            <form id="text-polls-form" onSubmit={e => e.preventDefault()}>
+              <textarea value={this.state.phoneNumbers} form="text-polls-form" cols="50" rows="5" placeholder="You may use comma-separated values (as in CSV sheet imports), starting with the area code." onChange={e => this.setState({phoneNumbers: e.target.value})} />
+              <button type="submit" onClick={this.sendTexts}>Send Texts</button>
+            </form>
+          </Modal>
         </div>
       );
     }

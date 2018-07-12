@@ -3,6 +3,29 @@ import { Link } from 'react-router-dom';
 
 
 const Navbar = (props) => (
+  <header className="navbar">
+    <div className="brand">
+      <img className="brand__logo" src={require('../../dist/images/logo.png')} alt="Firepoll: online live polling service" /> 
+      <span className="brand__name">FIREPOLL</span>
+    </div>
+    <nav className="user-nav">
+      <div className="user-nav__button-box">
+        <a href="/create" className="user-nav__button">Create Poll &nbsp;<i className="fa-fw far fa-calendar-plus"></i></a>
+      </div>
+      <div className="user-nav__button-box">
+        <a href="/dashboard" className="user-nav__button">Dashboard &nbsp;<i className="fa-fw fas fa-home"></i></a>
+      </div>
+      <div className="user-nav__button-box">
+        <a href="#" className="user-nav__button" onClick={props.logout}>Log Out &nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></a>
+      </div>
+    </nav>
+  </header>
+
+)
+
+export default Navbar;
+
+  {/*
   <div className="navbar is-primary">
     <div className="navbar-brand">
       <a className="navbar-item" href="/">
@@ -23,7 +46,4 @@ const Navbar = (props) => (
         <a className="navbar-item" onClick={props.logout}>Log Out</a>
       </div>      
     </div>
-  </div>
-)
-
-export default Navbar;
+  </div>*/}
