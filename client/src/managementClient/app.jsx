@@ -2,7 +2,6 @@ import Async from 'react-code-splitting';
 import React from 'react';
 import { withRouter } from 'react-router';
 import { Route } from 'react-router-dom';
-import Landing from './landing.jsx';
 import Login from './login.jsx';
 import {firebase} from '../firepollManagementClient.js';
 
@@ -10,6 +9,10 @@ const Dashboard = (props) => <Async load = {import('./dashboard.jsx')} component
 const Live = (props) => <Async load = {import('./live.jsx')} componentProps = {props} />
 const Create = (props) => <Async load = {import('./create.jsx')} componentProps = {props} />
 const Analytics = (props) => <Async load = {import('./analytics.jsx')} componentProps = {props} />
+const Landing = (props) => <Async load = {import('./landing.jsx')} componentProps = {props} />
+const Create2 = (props) => <Async load = {import('./create2.jsx')} componentProps = {props} />
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -58,7 +61,7 @@ class App extends React.Component {
     return (
       <div>
         <Route exact path="/" render={props => <Landing {...props} vote={this.vote} user={user} />} />
-        <Route exact path="/create" render={(props) => <Create {...props} user={user} userId={userId} logout={this.logout}/>} />
+        <Route exact path="/create" render={(props) => <Create2 {...props} user={user} userId={userId} logout={this.logout}/>} />
         <Route exact path="/edit/:pollId" render={(props) => <Create {...props} user={user} userId={userId} logout={this.logout} returnToDash={this.returnToDash}/>} />
         <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} userId={userId} logout={this.logout} /*history={this.props.history}*/ />} />
         <Route exact path="/analytics/:id" render={({match}) => <Analytics match={match} user={user} logout={this.logout} />} />
