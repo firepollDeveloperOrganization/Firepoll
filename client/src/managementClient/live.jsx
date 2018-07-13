@@ -146,7 +146,7 @@ class Live extends React.Component {
         );
       return (
         <div id = "live-view" className="live-view-wrapper" style={{textAlign: "center"}}>
-        <Navbar />
+        <Navbar history = {this.props.history}/>
           <h1 className = 'poll-title'>Live View - Poll: {this.state.poll.title}</h1>
             {this.state.questions.map((q, i, arr) => {
               return (
