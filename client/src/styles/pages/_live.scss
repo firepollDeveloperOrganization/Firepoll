@@ -57,15 +57,17 @@
 
   .box {
     width: 70%;
-    background-image: linear-gradient(to right bottom, $primary-light-1, $primary-dark);
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: $primary;
     margin: 1.3em 0 1.3em 0;
     color: #ffffff;
     padding: 2em;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .box-selected {
+    background-color: $primary-dark;
   }
 
   .question-question {
