@@ -14,16 +14,35 @@
   $lightGrey: #F5F5F5;
   $white: #ffffff;
 
+  .navbar {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .live-view-container {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
   .poll-title {
-    width: 85%;
+    background-image: linear-gradient(to right bottom, $primary-light-1, $primary-dark);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: -1em;
+    margin-bottom: 1.5em;
+    padding: 2%;
+    padding-bottom: 2%;
+    box-shadow: 0 .5rem .5rem rgba($black, .15);
+    color: #ffffff;
+    width: 100%;
     font-size: 3rem;
     font-weight: 400;
-    letter-spacing: 1.5rem;
+    letter-spacing: 1rem;
     margin-bottom: 1.5rem;
-    line-height: 1.5;
-    padding: 0.7em 0.7em;
-    border-top: solid $red 2px;
-    border-bottom: solid $red 2px;  
+    line-height: 1.8;
   }
 
   .status {
@@ -38,7 +57,7 @@
 
   .box {
     width: 70%;
-    background-color: $red;
+    background-color: $primary;
     margin: 1.3em 0 1.3em 0;
     color: #ffffff;
     padding: 2em;
@@ -47,10 +66,15 @@
     justify-content: center;
   }
 
+  .box-selected {
+    background-color: $primary-dark;
+  }
+
   .question-question {
+    margin-left: 0.7rem;
     width: 40%;
     text-align: left;
-    font-weight: 350;
+    font-weight: 400;
     letter-spacing: 0.25rem;
     margin: 0;
     margin-bottom: 0.2em;
@@ -61,12 +85,12 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    font-size: 1.2em;
+    font-size: 1.3em;
     text-align: left;
   }
 
   .question-answers-container {
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -78,7 +102,7 @@
       background: none;
       border: 0;
       box-sizing: border-box;
-      padding: 2em;
+      padding: 1.4em;
       text-align: left;
       font-weight: 300;
       letter-spacing: 0.3rem;
@@ -86,7 +110,7 @@
       // Using inset box-shadow instead of border for sizing simplicity
       box-shadow: inset 0 0 0 2px $white;
       color: $white;
-      font-size: 1.2em;
+      font-size: 1.3em;
     
       // Required, since we're setting absolute on pseudo-elements
       position: relative;
@@ -99,6 +123,11 @@
         width: 100%;
         height: 100%;
       }
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
     }
 
     .button-container > .draw.meet {

@@ -9,18 +9,17 @@ const Navbar = (props) => (
       <span className="brand__name">FIREPOLL</span>
     </div>
     <nav className="user-nav">
-      <div className="user-nav__button-box">
-        <a href="/create" className="user-nav__button">Create Poll &nbsp;<i className="fa-fw far fa-calendar-plus"></i></a>
+      <div className="user-nav__button-box" onClick = {() => {props.history.push('/dashboard')}}>
+        <a className="user-nav__button nav-button">Dashboard &nbsp;<i className="fa-fw fas fa-home"></i></a>
+      </div>
+      <div className="user-nav__button-box" onClick = {() => {props.history.push('/create')}}>
+        <a className="user-nav__button nav-button">Create Poll &nbsp;<i className="fa-fw far fa-calendar-plus"></i></a>
       </div>
       <div className="user-nav__button-box">
-        <a href="/dashboard" className="user-nav__button">Dashboard &nbsp;<i className="fa-fw fas fa-home"></i></a>
-      </div>
-      <div className="user-nav__button-box">
-        <a href="#" className="user-nav__button" onClick={props.logout}>Log Out &nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></a>
+        <a className="user-nav__button nav-button" onClick={props.logout}>Log Out &nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></a>
       </div>
     </nav>
   </header>
-
 )
 
 export default Navbar;

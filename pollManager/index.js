@@ -34,8 +34,13 @@ function shouldCompress (req, res) {
 
 app.use(express.static(__dirname + '/../client/dist'));
 
-
 app.options('*', cors());
+
+app.get('/ip', ((req, res) => {
+  console.log('hey');
+  console.log(req.connection.remoteAddress);
+  res.status(200).send(req.connection.remoteAddress);
+}))
 
 app.use('/polls', cors(), pollRouter);
 

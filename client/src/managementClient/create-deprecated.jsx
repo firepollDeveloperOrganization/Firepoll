@@ -4,9 +4,8 @@ import CreatedQuestions from './createdQuestions.jsx';
 import axios from 'axios';
 import {firepoll} from '../firepollManagementClient';
 import { EIO } from 'constants';
-import Navbar from './navbar';
 
-class Create2 extends React.Component {
+class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -84,6 +83,8 @@ class Create2 extends React.Component {
           })
           //then redirect to dashboard
         });
+      }).then(() => {
+        this.props.history.push('/dashboard');
       })
       .catch(err => {
         console.error(err);
@@ -177,32 +178,60 @@ class Create2 extends React.Component {
 
   render() {
     let pathurl = this.props.location.pathname;
-   // if (this.props.user === null) return <Redirect to='/login' />
+    if (this.props.user === 'anonymous') return <Redirect to='/login' />
       return (
-        <div className="create-view">
-          <div className="container">
-            <Navbar />
-            <main className="create-view__content">
-              <div className="create-poll">
-                <div className="title">
-                  Create a new poll!
-                </div>
-                <div className="poll-form">
-                  <label className="form-label"><i className="fa-fw far fa-question-circle"></i> Question #{this.state.questions.length + 1}</label>
-                  <input type="text" className="form-input" placeholder="Give your poll a name"/>
-                  <label className="form-label">Poll Title</label>
-                  <input type="text" className="form-input" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here"/>
-
-                </div>
+        <div id="create-view">
+          <div className="outer-banner">
+            {/*HEADER*/}
+            <div className="nav">
+              <h1 className="title is-1">{pathurl === '/create' ? 'Create' : 'Edit'} Your Fire Poll!</h1>
+              <h2 className="subtitle is-3">🔥 Logged in as {this.props.user}</h2>
+            </div>
+          {/*NAVBAR*/}
+            <div id="topnav">
+              <button className="button is-danger is-rounded is-large is-inverted is-outlined" onClick={() => this.props.logout()}>Log Out <span className="fa-fw fas fa-sign-out-alt"></span></button>
+              <Link to="/dashboard"><button className="button is-danger is-rounded is-large is-inverted is-outlined">Dashboard <i className="fa-fw fas fa-address-card"></i></button></Link>
+            </div>
+          </div>
+          <div id="create-poll">
+            <label className="label subtitle is-5"><i className="fa-fw fas fa-boxes"></i> Poll Title:</label>
+            <div className="control">
+              <input className="input" type="text" id="pollname" value={this.state.pollname} onChange={this.handleChange} placeholder="Name your poll"/>
+            </div>
+          </div>
+          {/*NEW QUESTION*/}
+          <div className="new-question box">
+            {this.state.invalid ? <div className = 'error-message'>Oops! You've left a field blank or entered an invalid value. Try again!</div>: ''}
+            <div className="subtitle is-5"><i className="fa-fw far fa-question-circle"></i> Question #{this.state.questions.length + 1}</div>
+            <div className="field">
+              <div className="control">
+                <input className="input" type="text" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here" />
               </div>
-              <div className="questions">
-                Questions
+            </div>
+            {/*CURRENT ANSWERS*/}
+            {this.state.answers.length > 0 &&
+              this.state.answers.map((answer, i) => {
+                return (<li className="answer" key={i}><button id={i.toString()} onClick={this.deleteAnswer} className="button is-danger is-rounded is-small is-inverted is-outlined">X</button><span>&nbsp;{answer.choice}</span></li>)
+              })
+            }
+            <form onSubmit={this.addAnswer} className="field">
+              <div className="control">
+                <input className="input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here and press enter to add" />
               </div>
-            </main>
+            </form>
+            <div className="addQuestionWrapper">
+              <button className="button is-danger is-rounded is-small is-inverted is-outlined" onClick={this.addQuestion}>Add Question</button>
+            </div>
+          </div>
+          {/*SIDE ELEMENT CREATED QUESTIONS*/}
+          <CreatedQuestions questions={this.state.questions} deleteQuestion={this.deleteQuestion} updateAnswer={this.updateAnswer} updateQuestion={this.updateQuestion}/>
+          <div id="createPollButtonWrapper">
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.createPoll}>{pathurl === '/create' ? 'Create' : 'Finish Editing'} Poll&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button>
+            <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={this.resetPoll}>Clear Poll&nbsp;<i className="fa-fw fas fa-ban"></i></button>
           </div>
         </div>
       )
   }
 }
 
-export default Create2;
+export default CreateDeprecated;

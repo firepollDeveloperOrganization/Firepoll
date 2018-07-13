@@ -16,3 +16,12 @@ body {
   margin: 1rem;
 }
 
+.body-wrapper {
+  background-image: linear-gradient(to right bottom, $primary-light-1, $primary-dark);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 1px;
+  margin: -3.1rem;
+
+  min-height: 100vh;
+}
