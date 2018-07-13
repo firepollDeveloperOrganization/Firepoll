@@ -20,7 +20,6 @@ const Navbar = (props) => (
       </div>
     </nav>
   </header>
-
 )
 
 export default Navbar;
