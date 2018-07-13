@@ -209,6 +209,12 @@ circle {
   flex-wrap: wrap;
 }
 
+.ReactModal__Content--after-open {
+  height: 50%;
+  background: $red;
+  color: $white;
+}
+
 .poll-item-title {
   width: 100%;
   background-color: $primary;

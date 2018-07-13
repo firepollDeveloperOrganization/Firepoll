@@ -9,10 +9,10 @@ const Navbar = (props) => (
       <span className="brand__name">FIREPOLL</span>
     </div>
     <nav className="user-nav">
-      <div className="user-nav__button-box" onClick = {() => {props.history.push('./dashboard')}}>
+      <div className="user-nav__button-box" onClick = {() => {props.history.push('/dashboard')}}>
         <a className="user-nav__button nav-button">Dashboard &nbsp;<i className="fa-fw fas fa-home"></i></a>
       </div>
-      <div className="user-nav__button-box" onClick = {() => {props.history.push('./create')}}>
+      <div className="user-nav__button-box" onClick = {() => {props.history.push('/create')}}>
         <a className="user-nav__button nav-button">Create Poll &nbsp;<i className="fa-fw far fa-calendar-plus"></i></a>
       </div>
       <div className="user-nav__button-box">

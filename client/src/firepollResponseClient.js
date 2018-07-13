@@ -67,9 +67,13 @@ firepoll.listen = {}
     }
     for (let aQuestion of questions) {
       firestoreDB.collection(`polls/${poll_id}/questions`).doc(aQuestion._id).onSnapshot((snapshot) => {
-        const snapShotData = snapshot.data();
-        snapShotData._id = snapshot.id;
-        cb(snapShotData);
+        try {
+          const snapShotData = snapshot.data();
+          snapShotData._id = snapshot.id;
+          cb(snapShotData);
+        } catch (err) {
+          console.log(err);
+        }
       });
     }
   }
@@ -94,9 +98,13 @@ firepoll.get = {}
     return firestoreDB.collection('polls').get().then( (snapshot) => {
       const data = [];
       snapshot.forEach((doc) => {
-          var docData = doc.data();
-          docData._id = doc.id;
-          data.push(docData);
+          try {
+            var docData = doc.data();
+            docData._id = doc.id;
+            data.push(docData);
+          } catch(error) {
+            console.log(error);
+          }
       });
         return data;
       });

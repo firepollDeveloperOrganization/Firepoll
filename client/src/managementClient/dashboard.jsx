@@ -7,7 +7,6 @@ import axios from 'axios';
 import { firepoll, realTimeDB } from '../firepollManagementClient';
 import Navbar from './navbar';
 
-// Modal.setAppElement('#app');
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
 
 const customStyles = {
@@ -245,6 +244,11 @@ class Dashboard extends React.Component {
           return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
         }
       })}</div>
+      let modalStyles = {
+        height: '50%',
+        background: '$red',
+        color: '$white',
+      }
       return (
         <div className="body-wrapper">
           <div className="container">
