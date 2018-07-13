@@ -70,6 +70,12 @@
     border: solid 2px $red;
     margin: 0.4rem;
     background: #ffffff;
+    transition: all 0.1s;
+  }
+  .create-poll-button:hover {
+    background: $primary;
+    color: $white;
+    transition: all 0.1s;
   }
 
   .no-polls-message {
@@ -314,9 +320,17 @@
   font-size: 1rem;
 }
 
+.ReactModal__Content--after-open {
+  height: 50%;
+  background: $red;
+  color: $white;
+}
+
 .poll-item-title {
   width: 100%;
   background-color: $primary;
+  display: flex;
+  flex-direction: column;
 }
 
 .poll-item {
