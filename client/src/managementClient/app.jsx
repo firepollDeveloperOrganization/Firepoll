@@ -61,16 +61,12 @@ class App extends React.Component {
     return (
       <div>
         <Route exact path="/" render={props => <Landing {...props} vote={this.vote} user={user} />} />
-        <Route exact path="/create" render={(props) => <Create2 {...props} user={user} userId={userId} logout={this.logout}/>} />
+        <Route exact path="/create" render={(props) => <Create {...props} user={user} userId={userId} logout={this.logout} history = {this.props.history}/>} />
         <Route exact path="/edit/:pollId" render={(props) => <Create {...props} user={user} userId={userId} logout={this.logout} returnToDash={this.returnToDash}/>} />
-        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} userId={userId} logout={this.logout} /*history={this.props.history}*/ />} />
-        <Route exact path="/analytics/:id" render={({match}) => <Analytics match={match} user={user} logout={this.logout} />} />
-        <Route exact path="/live/:id" render={props => <Live {...props} user={user} email={email} history = {this.props.history}/>} />
+        <Route exact path="/dashboard" render={props => <Dashboard {...props} user={user} userId={userId} logout={this.logout} history = {this.props.history} />} />
+        <Route exact path="/analytics/:id" render={({match}) => <Analytics match={match} user={user} logout={this.logout} history = {this.props.history} />} />
+        <Route exact path="/live/:id" render={props => <Live {...props} user={user} email={email} history = {this.props.history} logout={this.logout}/>} />
         <Route exact path="/login" render={props => <Login {...props} />} />
-        {/* <Route exact path="/polls/:id" render={props => <Register {...props} />} /> */}
-        {/* <AuthRoute exact path="/auth" component={Auth} /> */}
-        {/* <PollAudienceClientTest />  enter any nonexistent route to render your test components */}
-        {/* <PollManagerClientTest /> */}
       </div>
     )
   }

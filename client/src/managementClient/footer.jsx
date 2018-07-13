@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Footer = (props) => (
   <footer className="footer">
     <div className="footer__logo-box">
-      <img src={require('../../dist/images/logo.png')} alt="Full logo" className="footer__logo" />
+      <img src={require('../../dist/images/logo-white.png')} alt="Full logo" className="footer__logo" />
     </div>    
     <div className="footer__name-box">
       <p className="footer__name">FIREPOLL</p>
