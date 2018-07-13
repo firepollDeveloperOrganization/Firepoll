@@ -25,7 +25,6 @@
   margin: 1em;
   font-size: $default-font-size;
   display: inline-block;
-  border-radius: 10rem;
   transition: all .2s;
   position: relative;
   letter-spacing: .3em;
@@ -37,15 +36,23 @@
   $yellow: #fbca67;
   $orange: #ff8a30;
   $red: #C20114;
-
   margin: 0;
   padding: 0;
-  min-height: 90vh;
+  min-height: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   margin: -3.1rem;
   padding: 1px;
+
+  .created-poll-button {
+    font-family: "Lato", sans-serif;
+    font-weight: 350;
+    color: $red;
+    border: solid 1px $red;
+    background: none;
+    padding: 0.7rem;
+  }
 
   .create-poll-button {
     position: relative;
@@ -147,10 +154,11 @@
   }
 
   .loading-container {
+    position: absolute;
+    top: 40%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80%;
     width: 100%;
   }
 
@@ -294,7 +302,28 @@
   flex-direction: row;
 }
 
+.dashboard-options-group, .response-url {
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+}
+
+.dashboard-options-group > .created-poll-button {
+  padding: 0.7rem;
+  font-size: 1rem;
+}
+
+.poll-item-title {
+  width: 100%;
+  background-color: $primary;
+}
+
 .poll-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
   padding: 2em;
   margin: 2em;
   width: 30%;
@@ -315,18 +344,18 @@
     }
   }
   h1, .questions-box {
-    color: $black;
+    color: $white;
     text-align: center;
     cursor: default;
     text-shadow: 0 .2rem .5rem rgba($black, .2);
   }
   h1 {
-    margin: 0;
-    margin-top: .5rem;
-    font-size: $default-font-size * 2;
+    color: #ffffff;
+    font-size: 1.4rem;
+    font-weight: 500;
   }
   .questions-box {
-    color: $black;
+    color: $grey-dark;
     font-size: $default-font-size;
     margin: 0;
     p {
