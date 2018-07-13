@@ -80,3 +80,11 @@ body {
   color: $grey-dark;
   transition: color .5s ease;
 }
+
+.error-message {
+  text-align: center;
+  font-size: 1rem;
+  color: rgb(255, 0, 0);
+  margin: 1.5rem 0;
+}
+

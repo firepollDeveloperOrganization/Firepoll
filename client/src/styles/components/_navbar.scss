@@ -1,5 +1,5 @@
 .navbar {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   height: 6rem;
   background-color: #fff;
   border-bottom: 1px solid $grey-light-2;
@@ -49,9 +49,6 @@
   }
   &__button-box {
     position: relative;
-  }
-
-  &__button {
     &:link,
     &:visited{
       text-decoration: none;
