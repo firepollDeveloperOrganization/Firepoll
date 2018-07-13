@@ -12,7 +12,8 @@ class Live extends React.Component {
       questions: null,
       closed: false,
       userCount: 0,
-      results: null
+      results: null,
+      fetchedLive: false
     }
     this.fetchPoll = this.fetchPoll.bind(this);
     this.getResults = this.getResults.bind(this);
@@ -25,32 +26,34 @@ class Live extends React.Component {
   }
 
   getResults() {
-    for (let question of this.state.questions) {
-      realTimeDB.ref(`/polls/${this.state.poll._id}/questions/${question._id}/aggregates`).on('value', snapshot => {
-        let data = snapshot.val();
-        console.log('got my live data', data);
-        let ansObj = {};
-        for (let ans of question.answers) {
-          ansObj[ans.value] = ansObj[ans.value] || 0;
-        }
-        if (data) {
-          for (let ans of Object.keys(data)) {
-            console.log('answer of data', ans)
-            ansObj[data[ans].answer_value] = data[ans].vote_count;
+    if (!this.state.fetchedLive) {
+      for (let question of this.state.questions) {
+        realTimeDB.ref(`/polls/${this.state.poll._id}/questions/${question._id}/aggregates`).on('value', snapshot => {
+          let data = snapshot.val();
+          console.log('got my live data', data);
+          let ansObj = {};
+          for (let ans of question.answers) {
+            ansObj[ans.value] = ansObj[ans.value] || 0;
           }
-        }
-        // let results = this.state.results || {};
-        let results = Object.assign({}, this.state.results);
-        console.log('current results obj', results);
-        results[question._id] = ansObj;
-        console.log('current ans obj', ansObj);
-        console.log('this', this);
-        // this.setState({results: results}, () => console.log('CURRENT STATE RESULTS', this.state.results));
-        this.setState({results});
-        
-      });
-
+          if (data) {
+            for (let ans of Object.keys(data)) {
+              console.log('answer of data', ans)
+              ansObj[data[ans].answer_value] = data[ans].vote_count;
+            }
+          }
+          // let results = this.state.results || {};
+          let results = Object.assign({}, this.state.results);
+          results[question._id] = ansObj;
+          console.log('current ans obj', ansObj);
+          console.log('current results obj', results);
+          console.log('this', this);
+          // this.setState({results: results}, () => console.log('CURRENT STATE RESULTS', this.state.results));
+          this.setState({results}, () => console.log('SET STATE!', this.state.results));
+          this.state({fetchedLive: true});
+        });
+      }
     }
+
 
   }
 
