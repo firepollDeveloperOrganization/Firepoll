@@ -11,26 +11,44 @@ class Live extends React.Component {
       poll: null,
       questions: null,
       closed: false,
-      userCount: 0
+      userCount: 0,
+      results: []
     }
     this.fetchPoll = this.fetchPoll.bind(this);
+    this.getResults = this.getResults.bind(this);
     this.computeTimeRemaining = this.computeTimeRemaining.bind(this);
   }
-
   componentDidMount() {
-    firepoll.user.get(this.props.match.params.id).then(data => {
-      let userCount = 0;
-      for (let item of data) {
-        if (item) {
-          userCount +=1;
-        }
-      }
-      this.setState({
-        userCount
-      });
-    }).catch(err => console.error(err))
+    // firepoll.user.get(this.props.match.params.id).then(data => {
+    //   let userCount = 0;
+    //   for (let item of data) {
+    //     if (item) {
+    //       userCount +=1;
+    //     }
+    //   }
+    //   this.setState({
+    //     userCount
+    //   });
+    // })
+    // .catch(err => console.error(err))
     // (this.props.match.params.id).then((data) => {console.log(data)});
     this.fetchPoll();
+
+  }
+
+  getResults() {
+    console.log('getting results');
+    console.log(this.state.questions);
+    for (let question of this.state.questions) {
+      firepoll.getResults(this.state.poll._id, question._id)
+      .then((data) => {
+        console.log('firepoll results', data)
+      })
+      .catch(err => console.log('firepoll results error', err));
+      // firepoll.listenToResults(this.state.poll._id, question._id, (data) => {
+      //   console.log(data);
+      // });
+    }
   }
 
   fetchPoll() {
@@ -50,8 +68,9 @@ class Live extends React.Component {
                   firepoll.get.allQuestionsFromPoll(pollId).then((data) => {
                     this.setState({
                       questions: data
-                    });
-                  }).catch((err) => {console.log(err)});
+                    }, () => this.getResults());
+                  })
+                  // .catch((err) => {console.log(err)});
                 });
               });
           });
@@ -175,6 +194,7 @@ class Live extends React.Component {
               {this.state.closed && 
                 <p className="pollIsClosedAlert" style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
               }
+          <div id="live-results-container">LIVE RESULTS POPULATE HERE</div>
         </div>
       );
 

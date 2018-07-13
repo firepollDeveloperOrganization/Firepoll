@@ -24,6 +24,29 @@ firestore.settings(settings);
 
 const firepoll = {}
 
+// taken from client
+firepoll.getResults = (poll_id, question_id) => {
+  return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`).once('value').then((snap) => {
+    let results = snap.val();
+    let data = [];
+    for (let result in results) {
+      data.push(results[result]);
+    }
+    return data;
+  });
+}
+firepoll.listenToResults = (poll_id, question_id, cb) => {
+  return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`)
+  .on('value', (snapshot) => {
+    let results = snapshot.val();
+    let data = [];
+    for (let result in results) {
+      data.push(results[result]);
+    }
+    cb(data);
+  });
+}
+
   firepoll.user = {};
 
   firepoll.user.get = (pollId, cb) => {
