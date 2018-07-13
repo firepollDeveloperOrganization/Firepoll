@@ -107,7 +107,7 @@ $white: #ffffff;
     font-size: 1em;
     width: 60%;
     max-height: 70%;
-    transition: flex-grow 0.3s 0.1s, height 0.3s 0.1s, font-size 0.3s, width 0.5s 0.35s;
+    transition: margin 0.3s 0.1s flex-grow 0.2s 0.1s, height 0.3s 0.1s, font-size 0.3s, width 0.5s 0.35s;
     margin: 1vh auto;
   }
 
@@ -116,6 +116,7 @@ $white: #ffffff;
     font-size: 0;
     height: 1%;
     width: 0%;
+    transition: flex-grow 0.3s 0.1s, font-size 0.2s 0.1s, width 0.5s 0.35s;
   }
 
   .question-title {

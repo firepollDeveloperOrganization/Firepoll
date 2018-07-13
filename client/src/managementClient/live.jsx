@@ -77,7 +77,7 @@ class Live extends React.Component {
   }
   
   nextQuestion = (i) => {
-    let questions = this.state.questions;
+    let questions = this.state.questions.slice();
     questions[i].active = false;
     questions[i+1].active = true;
     firepoll.updateQuestion(this.state.poll._id, questions[i]._id, {active: false})
@@ -150,8 +150,9 @@ class Live extends React.Component {
           <div className = "live-view-container"> 
             <h1 className = 'poll-title'>Live View - Poll: {this.state.poll.title}</h1>
               {this.state.questions.map((q, i, arr) => {
+                console.log(q.active);
                 return (
-                  <div className="box" key={q.id}>
+                  <div className={"box"} key={q.id}>
                     <h1 className="question-question">Q: {q.question_title}</h1>
                     <div className = "question-answers-container">
                       <div className="question-answers">

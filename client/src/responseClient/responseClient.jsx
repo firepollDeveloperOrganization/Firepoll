@@ -2,6 +2,7 @@ import React from 'react';
 import firePollResponseClient from '../firepollResponseClient.js';
 import MultipleChoiceQuestion from './multipleChoiceQuestion.jsx';
 import QuestionIntro from './questionIntro.jsx';
+import axios from 'axios';
 
 class ResponseClient extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class ResponseClient extends React.Component {
       answers: false,
       currChoice: 1,
       results: false,
-      user_id: 1,
+      user_id: null,
       exists: true,
       loading: true,
       active: false,
@@ -26,6 +27,12 @@ class ResponseClient extends React.Component {
   };
 
   componentDidMount() {
+
+      axios.get('/ip').then((res) => {
+        this.setState({
+          user_id: res.data || null
+        });
+      });
 
       var pollId = window.location.pathname.slice(10);
 
@@ -153,7 +160,6 @@ class ResponseClient extends React.Component {
 
     const answer = JSON.parse(this.state.currChoice);
 
-    this.setState({user_id: this.state.user_id+1});
     let userAnswer = {
       poll_id: this.state.poll._id,
       answer_id: answer.id,
