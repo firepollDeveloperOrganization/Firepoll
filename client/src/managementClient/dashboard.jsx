@@ -7,7 +7,6 @@ import axios from 'axios';
 import { firepoll, realTimeDB } from '../firepollManagementClient';
 import Navbar from './navbar';
 
-// Modal.setAppElement('#app');
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
 
 const customStyles = {
@@ -245,6 +244,11 @@ class Dashboard extends React.Component {
           return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
         }
       })}</div>
+      let modalStyles = {
+        height: '50%',
+        background: '$red',
+        color: '$white',
+      }
       return (
         <div id="dashboard">
           <div id="dash-banner">
@@ -271,7 +275,7 @@ class Dashboard extends React.Component {
               <button onClick = {() => {this.props.history.push('/create')}} className = "create-poll-button">+</button>
               {pollDisplay}
             </div>
-          <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
+          <Modal style = {modalStyles} isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
             <button onClick={this.closeModal}>X</button>
             <h2 ref={subtitle => this.subtitle = subtitle}>Please input any numbers you'd like to text!</h2>
             <form id="text-polls-form" onSubmit={e => e.preventDefault()}>

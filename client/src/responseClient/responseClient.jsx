@@ -66,6 +66,7 @@ class ResponseClient extends React.Component {
               poll: data
             }, () => {
               firePollResponseClient.listen.poll(this.state.poll, (data) => {
+                console.log(data);
                 this.setState({
                   poll: data
                 }, () => {
@@ -124,6 +125,7 @@ class ResponseClient extends React.Component {
             if (this.state.questions && this.state.questions[this.state.currQuestion].active === true) {
               var duration = this.state.questions[this.state.currQuestion].question_title.length * 200;
               duration = duration > 8000 ? 8000 : duration; 
+              duration = duration < 2000 ? 2000 : duration;
               setTimeout(() => {this.setState({questionIntroLeave: true})}, duration);
               setTimeout(() => {this.setState({reveal: true})}, duration + 1000);
             }
