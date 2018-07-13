@@ -38,16 +38,41 @@ class Live extends React.Component {
 
   getResults() {
     console.log('getting results');
-    console.log(this.state.questions);
+    // console.log(this.state.questions);
+
+    // for (let question of this.state.questions) {
+    //   // console.log('AYYYYYYYYY',question);
+    //   firepoll.getResults(this.state.poll._id, question._id)
+    //   .then((data) => {
+    //     console.log('firepoll results', data);
+    //     let answers = [];
+    //     data.forEach(ans => answers.push({answer_value, vote_count}));
+    //     let resultsObj = {question: question.question_title, answers};
+    //     let currentResults = this.state.results;
+    //     currentResults.push(resultsObj);
+    //     this.setState({results: currentResults});
+    //   })
+    //   .catch(err => console.log('firepoll results error', err));
+    //   // firepoll.listenToResults(this.state.poll._id, question._id, (data) => {
+    //   //   console.log(data);
+    //   // });
+    // }
+
     for (let question of this.state.questions) {
-      firepoll.getResults(this.state.poll._id, question._id)
-      .then((data) => {
-        console.log('firepoll results', data)
-      })
-      .catch(err => console.log('firepoll results error', err));
-      // firepoll.listenToResults(this.state.poll._id, question._id, (data) => {
-      //   console.log(data);
-      // });
+      firepoll.getResults(this.state.poll._id, question._id).then((data) => {
+        let newResults = Object.assign({}, this.state.results);
+        newResults[question.question_title] = data;
+        this.setState({
+          results: newResults
+        }, () => console.log('results', this.state.results));
+      });
+      firepoll.listenToResults(this.state.poll._id, question._id, (data) => {
+        let newResults = Object.assign({}, this.state.results);
+        newResults[question.question_title] = data;
+        this.setState({
+          results: newResults
+        }, () => console.log('new results', this.state.results));
+      });
     }
   }
 
@@ -127,6 +152,15 @@ class Live extends React.Component {
   }
 
   render() {
+    let r = this.state.results;
+    let resultsDiv = r ? Object.keys(r).map(q => (
+    <div className="live-results-question">
+      <h1>{q}</h1>
+      {r[q].map(ans => <span>{ans.answer_value}:{ans.vote_count}</span>)}
+    </div>
+  )) : <div>Results will populate here</div>
+
+
     let {user, email} = this.props;
     if (!user) {
       setTimeout(() => {
@@ -194,7 +228,10 @@ class Live extends React.Component {
               {this.state.closed && 
                 <p className="pollIsClosedAlert" style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
               }
-          <div id="live-results-container">LIVE RESULTS POPULATE HERE</div>
+          <div id="live-results-container">
+            <h1>Live Results</h1>
+            {resultsDiv}
+          </div>
         </div>
       );
 
