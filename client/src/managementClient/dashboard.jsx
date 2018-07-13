@@ -5,6 +5,7 @@ import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
 import axios from 'axios';
 import { firepoll, realTimeDB } from '../firepollManagementClient';
+import Navbar from './navbar';
 
 // Modal.setAppElement('#app');
 if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#app');
@@ -239,7 +240,7 @@ class Dashboard extends React.Component {
         </div>
         );
     } else if (this.state.signedIn) {
-      let pollDisplay = !this.state.filteredPolls.length ? <h1 id="no-polls-notification">No Polls! Make a new one by clicking the "CREATE" button above!</h1> : <div id="filtered-polls">{this.state.filteredPolls.map((poll, i) => {
+      let pollDisplay = !this.state.filteredPolls.length ? <div className = "no-polls-message">No polls created, click the button below!</div> : <div id="filtered-polls">{this.state.filteredPolls.map((poll, i) => {
         if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
           return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
         }
@@ -247,23 +248,27 @@ class Dashboard extends React.Component {
       return (
         <div id="dashboard">
           <div id="dash-banner">
-            <div className="dash-nav">
-              <div className="dash-logo"><img alt="logo" src="/7a93ab2d8edcc0f88d8aadde58d3245c.png" className="header__logo"/></div>
-              <div className="dash-header"><h1 className="heading-primary--main">Welcome <span>{user}</span>!</h1></div>
-              <div id="dashboard-nav">
-                <Link to="/create"><button className="dash-button">Create a poll!&nbsp;<i className="fa-fw far fa-calendar-plus"></i></button></Link>
-                <div><button className="dash-button" onClick={() => this.props.logout()}>Log Out&nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></button></div>
+            <div>
+              <Navbar history = {this.props.history}/>
+            </div>
+            <div className="brand">
+              <div><div className="welcome-message">Welcome <span>{user}</span>!</div>
+            </div>
+              <div id="navbar">
               </div>
             </div>
-            <div id="polls-filter">
-              <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
-              <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
-              <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
-              <button className="button is-danger is-rounded is-medium is-inverted is-outlined" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+            <div className = "input-menu"> 
+              <div className = "input-buttons-container">
+                <button className="filter-button" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
+                <button className="filter-button" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
+                <button className="filter-button" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
+                <button className="filter-button" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+              </div>
+              <input className = 'filter-input' placeholder="Type to filter your polls by name" type="text" onChange = {e => this.handleInput(e)}></input>
             </div>
-            <input placeholder="Type to filter your polls by name" type="text" onChange = {e => this.handleInput(e)}></input>
           </div>
             <div id="polls-container">
+              <button onClick = {() => {this.props.history.push('/create')}} className = "create-poll-button">+</button>
               {pollDisplay}
             </div>
           <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
