@@ -181,7 +181,7 @@ class Create2 extends React.Component {
       return (
         <div className="create-view">
           <div className="container">
-            <Navbar />
+            <Navbar history = {this.props.history}/>
             <main className="create-view__content">
               <div className="create-poll">
                 <div className="title">

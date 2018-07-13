@@ -19,6 +19,7 @@ responseClient.bundle.js.gz
 node_modules
 client/dist/main.css
 .env
+firebaseAdminSecret.json
 firebase-debug.log
 client/dist/0.bundle.js
 client/dist/0.bundle.js.gz
