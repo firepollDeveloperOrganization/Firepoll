@@ -94,16 +94,54 @@
   text-align: center;
 }
 
-.btn--add-question {
+.btn--standard {
   cursor: pointer;
   background-image: linear-gradient(to bottom right, $primary-light, $primary-dark);
-  padding: 1rem 2rem;
+  padding: .7rem 1.5rem;
   display: inline-block; /* gets centered because inline-block is treated as if text (inline) and can get centered by text-align center from parent  */
   border-radius: 100px;
   transition: all .2s; /* simpler way to do animation compared to @keyframes; in this case makes the change from normal to hover and hover to active smooth rather than jumpy*/
   position: relative; /* set so that btn::after has a reference*/
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: #fff;
+  margin: 0 2.5rem;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:hover {
+    box-shadow: 0 1rem 2rem rgba($black, .15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    box-shadow: 0 .5rem 1rem rgba($black, .15);
+    transform: translateY(0);
+  }
+}
+
+.btn--small {
+  font-size: 1.3rem;
+  padding: .5rem 1rem;
+  margin: 0 .3rem;
+}
+
+.btn--grey {
+  background-color: $grey-light-3;
+  color: $primary;
+}
+
+.btn--standard-small-grey {
+  cursor: pointer;
+  display: inline-block; /* gets centered because inline-block is treated as if text (inline) and can get centered by text-align center from parent  */
+  border-radius: 100px;
+  transition: all .2s; /* simpler way to do animation compared to @keyframes; in this case makes the change from normal to hover and hover to active smooth rather than jumpy*/
+  font-size: 1.3rem;
+  padding: .5rem 1rem;
+  margin: 0 .3rem;
+  background-color: $grey-light-3;
+  color: $primary;
 
   &:focus {
     outline: 0;

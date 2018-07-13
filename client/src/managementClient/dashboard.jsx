@@ -215,12 +215,12 @@ class Dashboard extends React.Component {
           this.props.history.push('/login');
         }}, 2000);
       return (
-        <div id = "dashboard">
-          <div className = "loading-container">
-            <svg className = "loader-rotate" height = "100" width = "100">
+        <div className="body-wrapper">
+          <div className="loading-container">
+            <svg className="loader-rotate" height="100" width="100">
               <circle cx="50" cy="50" r="40" />
             </svg>
-            <div className = "loading-text"></div>
+            <div className="loading-text"></div>
           </div>
         </div>
         );
@@ -230,47 +230,43 @@ class Dashboard extends React.Component {
           signedIn: true
         })}, 1510);
       return (
-        <div id = "dashboard">
-          <div className = "loading-container">
-            <svg className = "loader-rotate" height = "100" width = "100">
+        <div className="body-wrapper">
+          <div className="loading-container">
+            <svg className="loader-rotate" height="100" width="100">
               <circle cx="50" cy="50" r="40" />
             </svg>
-            <div className = "loading-text"></div>
+            <div className="loading-text"></div>
           </div>
         </div>
         );
     } else if (this.state.signedIn) {
-      let pollDisplay = !this.state.filteredPolls.length ? <div className = "no-polls-message">No polls created, click the button below!</div> : <div id="filtered-polls">{this.state.filteredPolls.map((poll, i) => {
+      let pollDisplay = !this.state.filteredPolls.length ? <div className="no-polls-message">No polls created, click the button below!</div> : <div id="filtered-polls">{this.state.filteredPolls.map((poll, i) => {
         if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
           return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
         }
       })}</div>
       return (
-        <div id="dashboard">
-          <div id="dash-banner">
-            <div>
-              <Navbar history = {this.props.history}/>
-            </div>
-            <div className="brand">
-              <div><div className="welcome-message">Welcome <span>{user}</span>!</div>
-            </div>
-              <div id="navbar">
+        <div className="body-wrapper">
+          <div className="container">
+            <Navbar history = {this.props.history}/>
+              <div className="welcome-message">Welcome {user}!</div>
+              
+            <main className="dashboard-content">
+              <div className="input-menu"> 
+                <div className="input-buttons-container">
+                  <button className="btn--standard" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
+                  <button className="btn--standard" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
+                  <button className="btn--standard" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
+                  <button className="btn--standard" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+                </div>
+                <input className='filter-input' placeholder="Search polls" type="text" onChange={e => this.handleInput(e)}></input><i className="fas fa-search"></i>
               </div>
-            </div>
-            <div className = "input-menu"> 
-              <div className = "input-buttons-container">
-                <button className="filter-button" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
-                <button className="filter-button" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
-                <button className="filter-button" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
-                <button className="filter-button" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+
+              <div id="polls-container">
+                {pollDisplay}
               </div>
-              <input className = 'filter-input' placeholder="Type to filter your polls by name" type="text" onChange = {e => this.handleInput(e)}></input>
-            </div>
-          </div>
-            <div id="polls-container">
-              <button onClick = {() => {this.props.history.push('/create')}} className = "create-poll-button">+</button>
-              {pollDisplay}
-            </div>
+            </main>
+
           <Modal isOpen={this.state.modalIsOpen} onAfterOpen={this.afterOpenModal} onRequestClose={this.closeModal} style={customStyles} contentLabel="Example Modal">
             <button onClick={this.closeModal}>X</button>
             <h2 ref={subtitle => this.subtitle = subtitle}>Please input any numbers you'd like to text!</h2>
@@ -279,6 +275,7 @@ class Dashboard extends React.Component {
               <button type="submit" onClick={this.sendTexts}>Send Texts</button>
             </form>
           </Modal>
+          </div>
         </div>
       );
     }
