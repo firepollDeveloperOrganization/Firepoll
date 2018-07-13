@@ -23,3 +23,7 @@
 .u-is-absolute {
   position: absolute;
 }
+
+.hr--dotted {
+  border-top:1px dotted $grey-light-2;
+}

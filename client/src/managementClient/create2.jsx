@@ -5,6 +5,7 @@ import axios from 'axios';
 import {firepoll} from '../firepollManagementClient';
 import { EIO } from 'constants';
 import Navbar from './navbar';
+import QuestionsList from "./questionsList";
 
 class Create2 extends React.Component {
   constructor(props) {
@@ -177,26 +178,47 @@ class Create2 extends React.Component {
 
   render() {
     let pathurl = this.props.location.pathname;
-   // if (this.props.user === null) return <Redirect to='/login' />
       return (
         <div className="create-view">
           <div className="container">
             <Navbar />
             <main className="create-view__content">
               <div className="create-poll">
-                <div className="title">
-                  Create a new poll!
+                <div className="create-poll__title">
+                  Create a New Poll!
                 </div>
                 <div className="poll-form">
-                  <label className="form-label"><i className="fa-fw far fa-question-circle"></i> Question #{this.state.questions.length + 1}</label>
-                  <input type="text" className="form-input" placeholder="Give your poll a name"/>
-                  <label className="form-label">Poll Title</label>
-                  <input type="text" className="form-input" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here"/>
+                  
+                  <label className="poll-form__label" >Poll Title</label>
+                  <input type="text" className="poll-form__input" placeholder="Give your poll a name"/>
+                
+                  <label className="poll-form__label"> Question {this.state.questions.length + 1}</label>
+                  <input type="text" className="poll-form__input" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here"/>
 
+                  <label className="poll-form__label">Answers</label>
+                    <div className="poll-form__answers">
+                      {this.state.answers.length > 0 &&
+                      this.state.answers.map((answer, i) => {
+                        return (<p className="poll-form__answer" key={i}>{answer.choice} <span id={i.toString()} onClick={this.deleteAnswer}><i className="far fa-trash-alt"></i></span></p>)
+                      })}
+                    </div>
+                  <form onSubmit={this.addAnswer} className="poll-form__form">
+                    <input className="poll-form__input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here and press enter to add" />
+                  </form>
+                </div>
+                <div className="poll-form__button-box">
+                      <button className="btn--add-question" onClick={this.addQuestion}>Add Question</button>
+                </div>
+                {this.state.invalid && <p className='error-message'>Oops! You've left a field blank or entered an invalid value. Try again!</p>}
+              
+                <div className="poll-form__main-buttons-box">
+                  <div className="poll-form__cancel"><span className="poll-form__main-button-text--1"> <span className="poll-form__cancel__icon">X</span>&nbsp; Cancel</span></div>
+                  <div className="poll-form__submit"><span className="poll-form__main-button-text--2">Submit &rarr;</span></div>
                 </div>
               </div>
+
               <div className="questions">
-                Questions
+                <QuestionsList questions={this.state.questions}/>
               </div>
             </main>
           </div>
