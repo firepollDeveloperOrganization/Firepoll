@@ -9,7 +9,7 @@ const QuestionsList = ({questions}) => {
       </div>
       <ol className="questions-list__list">
         {questions.map((question, i) => {
-
+          let hr = i === questions.length - 1 ? null : <hr className="hr--dotted"/>;
           return (
             <li className="questions-list__question">
               <div className="questions-list__question-title">{question.question}</div>
@@ -20,7 +20,7 @@ const QuestionsList = ({questions}) => {
                   )
                 })}
               </ul>
-              <hr className="hr--dotted"/>
+              {hr}
             </li>
           )
         })}

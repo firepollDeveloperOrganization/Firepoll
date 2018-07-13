@@ -85,8 +85,6 @@ class Create extends React.Component {
           })
           //then redirect to dashboard
         });
-      }).then(() => {
-        this.props.history.push('/dashboard');
       })
       .catch(err => {
         console.error(err);
@@ -181,7 +179,7 @@ class Create extends React.Component {
   render() {
     let pathurl = this.props.location.pathname;
       return (
-        <div className="create-view">
+        <div className="body-wrapper">
           <div className="container">
             <Navbar history = {this.props.history}/>
             <main className="create-view__content">
@@ -209,7 +207,7 @@ class Create extends React.Component {
                   </form>
                 </div>
                 <div className="poll-form__button-box">
-                      <button className="btn--add-question" onClick={this.addQuestion}>Add Question</button>
+                      <button className="btn--standard" onClick={this.addQuestion}>Add Question</button>
                 </div>
                 {this.state.invalid && <p className='error-message'>Oops! You've left a field blank or entered an invalid value. Try again!</p>}
               
