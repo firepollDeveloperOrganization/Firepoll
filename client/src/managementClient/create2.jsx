@@ -190,7 +190,7 @@ class Create2 extends React.Component {
                 <div className="poll-form">
                   
                   <label className="poll-form__label" >Poll Title</label>
-                  <input type="text" className="poll-form__input" placeholder="Give your poll a name"/>
+                  <input type="text" className="poll-form__input" id="pollname" value={this.state.pollname} onChange={this.handleChange} placeholder="Give your poll a name"/>
                 
                   <label className="poll-form__label"> Question {this.state.questions.length + 1}</label>
                   <input type="text" className="poll-form__input" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here"/>
@@ -212,8 +212,8 @@ class Create2 extends React.Component {
                 {this.state.invalid && <p className='error-message'>Oops! You've left a field blank or entered an invalid value. Try again!</p>}
               
                 <div className="poll-form__main-buttons-box">
-                  <div className="poll-form__cancel"><span className="poll-form__main-button-text--1"> <span className="poll-form__cancel__icon">X</span>&nbsp; Cancel</span></div>
-                  <div className="poll-form__submit"><span className="poll-form__main-button-text--2">Submit &rarr;</span></div>
+                  <div className="poll-form__cancel" onClick={this.resetPoll}><span className="poll-form__main-button-text--1"> <span className="poll-form__cancel__icon">X</span>&nbsp; Cancel</span></div>
+                  <div className="poll-form__submit" onClick={this.createPoll}><span className="poll-form__main-button-text--2">Submit &rarr;</span></div>
                 </div>
               </div>
 

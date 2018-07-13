@@ -101,6 +101,7 @@
 
 .poll-form {
   &__cancel {
+    cursor: pointer;
     line-height: 8rem;
     background-color: $grey-dark-2;
     color: rgb(131, 131, 131);
@@ -109,6 +110,7 @@
   }
 
   &__submit {
+    cursor: pointer;
     line-height: 8rem;
     background-image: linear-gradient(to bottom right, $primary-light, $primary-dark);
     color: $white;
