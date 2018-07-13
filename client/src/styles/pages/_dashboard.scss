@@ -40,10 +40,111 @@
 
   margin: 0;
   padding: 0;
-  height: 90vh;
+  min-height: 90vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin: -3.1rem;
+  padding: 1px;
+
+  .create-poll-button {
+    position: relative;
+    top: 3%;
+    left: 2%;
+    padding: 1rem;
+    line-height: 0.6;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 4vh;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    color: $red;
+    border-radius: 50%;
+    border: solid 2px $red;
+    margin: 0.4rem;
+    background: #ffffff;
+  }
+
+  .no-polls-message {
+    top: 3%;
+    left: 5%;
+    color: $red;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1rem 2.5rem;
+  }
+
+  .input-menu {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .fal.fa-plus-circle {
+    color: $red;
+  }
+
+  .input-buttons-container {
+    display: flex;
+    justify-content: right;
+  }
+
+  .filter-button, .filter-input {
+    font-size: 1.4rem;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    color: #ffffff !important;
+    border: solid 2px white;
+    margin: 0.4rem;
+    background: none;
+    padding: 1rem;
+  }
+
+  input::-webkit-input-placeholder {
+  color: white !important;
+  }
+    
+  input:-moz-placeholder { /* Firefox 18- */
+  color: white !important;  
+  }
+    
+  input::-moz-placeholder {  /* Firefox 19+ */
+  color: white !important;  
+  }
+    
+  input:-ms-input-placeholder {  
+  color: white !important;  
+  }
+
+  .welcome-message {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.4rem;
+    margin: 3.5rem;
+  }
+
+  .brand {
+    margin-left: 2rem;
+    display: flex;
+    align-content: center;
+  
+    &__logo {
+      height: 3rem;
+    }
+  
+    &__name {
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: .1rem;
+      margin-left: 1rem;
+      
+      display: inline-block;
+      background-image: linear-gradient(to right, $primary-light, $primary-dark);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  }
 
   .loading-container {
     display: flex;
@@ -96,13 +197,16 @@
   }
 
   #dash-banner {
-    background: linear-gradient(to right bottom, rgba($primary-light, .7), rgba($primary-dark, .7)), url("/images/dashboard_bg.jpg");
+    background-image: linear-gradient(to right bottom, $primary-light-1, $primary-dark);
+    background-size: cover;
+    background-repeat: no-repeat;
     margin: -1em;
     margin-bottom: 1.5em;
     padding: 2%;
     padding-bottom: 1%;
     box-shadow: 0 .5rem .5rem rgba($black, .15);
   }
+  
   .dash-nav {
     height: 18vh;
     display: flex;
@@ -114,17 +218,8 @@
         height: 35px;
       }
     }
-    .dash-header {
-      flex: 20;
-      h1 {
-        font-size: $default-font-size *2;
-        color: $white;
-        letter-spacing: 1.2rem;
-        cursor: default;
-        text-align: center;
-        text-transform: uppercase;
-      }
-    }
+
+
     #dashboard-nav {
       flex: 8;
       display: flex;
@@ -147,23 +242,6 @@
         }
       }
     }
-  }
-}
-
-#polls-filter button {
-  @include button-style();
-  // height: 5vh;
-  font-size: $default-font-size * .7;
-  padding: 1.1em;
-  margin: 1.5em;
-  &:hover {
-    box-shadow: 0 .5rem .75rem rgba($black, .2);
-    transition: 2s;
-  }
-  &:active {
-    box-shadow: 0 .5rem 1rem rgba($black, .15);
-    transform: translateY(0);
-    transition: 2s;
   }
 }
 
@@ -215,8 +293,6 @@
   flex-wrap: wrap;
   flex-direction: row;
 }
-
-
 
 .poll-item {
   padding: 2em;

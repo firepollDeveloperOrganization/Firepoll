@@ -37,7 +37,7 @@ class Analytics extends React.Component {
     let title = this.state.poll ? <h1>{this.state.poll.title}</h1> : '';
     return (
       <div id="analytics">
-        <Navbar logout={this.props.logout}/>
+        <Navbar logout={this.props.logout} history={this.props.history}/>
         {/* {this.state.questions.map(q => <div key={q._id} id={q._id}>{q._id}</div>)} */}
         {/* {this.state.questions.map(q => createPie(q._id, q.question, createData(q.answers)))} */}
         {/* <AnalyticsSub questions={this.state.questions}/> */}

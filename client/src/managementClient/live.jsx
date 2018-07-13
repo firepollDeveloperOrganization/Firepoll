@@ -146,35 +146,37 @@ class Live extends React.Component {
         );
       return (
         <div id = "live-view" className="live-view-wrapper" style={{textAlign: "center"}}>
-        <Navbar />
-          <h1 className = 'poll-title'>Live View - Poll: {this.state.poll.title}</h1>
-            {this.state.questions.map((q, i, arr) => {
-              return (
-                <div className="box" key={q.id}>
-                  <h1 className="question-question">Q: {q.question_title}</h1>
-                  <div className = "question-answers-container">
-                    <div className="question-answers">
-                      {q.answers.map(ans => (
-                        <p key={ans.id}>A{ans.position}:   {ans.value}</p>
-                      )
-                        )}
-                    </div>
-                      {
-                        i === arr.length - 1 ? 
-                        <div className = "button-container">
+          <Navbar history = {this.props.history}/>
+          <div className = "live-view-container"> 
+            <h1 className = 'poll-title'>Live View - Poll: {this.state.poll.title}</h1>
+              {this.state.questions.map((q, i, arr) => {
+                return (
+                  <div className="box" key={q.id}>
+                    <h1 className="question-question">Q: {q.question_title}</h1>
+                    <div className = "question-answers-container">
+                      <div className="question-answers">
+                        {q.answers.map(ans => (
+                          <p key={ans.id}>A{ans.position}:   {ans.value}</p>
+                        )
+                          )}
+                      </div>
+                        {
+                          i === arr.length - 1 ? 
+                          <div className = "button-container">
+                            <button className="draw meet id=" onClick={() => this.nextQuestion(i)}>Next Question</button>
+                            <button className="draw meet" id="closePollButton" onClick={this.close}>Close Poll</button>
+                          </div>
+                          :
                           <button className="draw meet id=" onClick={() => this.nextQuestion(i)}>Next Question</button>
-                          <button className="draw meet" id="closePollButton" onClick={this.close}>Close Poll</button>
-                        </div>
-                        :
-                        <button className="draw meet id=" onClick={() => this.nextQuestion(i)}>Next Question</button>
-                      }
-                    </div>
-                </div>
-              )
-            })}
-              {this.state.closed && 
-                <p className="pollIsClosedAlert" style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
-              }
+                        }
+                      </div>
+                  </div>
+                )
+              })}
+                {this.state.closed && 
+                  <p className="pollIsClosedAlert" style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is closed!</p>
+                }
+          </div>
         </div>
       );
 
