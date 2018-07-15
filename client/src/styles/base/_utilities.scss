@@ -10,10 +10,15 @@
 .u-margin-top-huge {margin-top: 10rem};
 
 .u-horizontal-divider {
-  width: $default-width;
+  width: 90%;
   border-bottom: .1rem solid $grey-dark;
   margin-left: auto;
   margin-right: auto;
+
+  &--red {
+    width: 100%;
+    border-bottom-color: $primary;
+  }
 }
 
 .u-is-relative {
@@ -27,4 +32,8 @@
 .hr--dotted {
   border: 1px dashed $grey;
   margin: 1rem 0;
+}
+
+.hr--solid--red{
+  border: .5px solid $primary;
 }

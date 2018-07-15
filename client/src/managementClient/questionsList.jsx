@@ -1,6 +1,6 @@
 import React from 'react';
 
-const QuestionsList = ({questions}) => {
+const QuestionsList = ({questions, deleteQuestion}) => {
   if (questions.length === 0) return null;
   return (
     <div className="questions-list__component-wrapper">
@@ -12,7 +12,7 @@ const QuestionsList = ({questions}) => {
           let hr = i === questions.length - 1 ? null : <hr className="hr--dotted"/>;
           return (
             <li className="questions-list__question">
-              <div className="questions-list__question-title">{question.question}</div>
+              <div className="questions-list__question-title">{question.question}<span style={{marginLeft: ".5rem"}} onClick={() => deleteQuestion(i)}><i className="far fa-trash-alt"></i></span></div>
               <ul className="questions-list__answers">
                 {question.answers.map((answer, i) => {
                   return (
