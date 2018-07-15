@@ -20,9 +20,7 @@ class Live extends React.Component {
     this.computeTimeRemaining = this.computeTimeRemaining.bind(this);
   }
   componentDidMount() {
-
     this.fetchPoll();
-
   }
 
   getResults() {
@@ -80,6 +78,8 @@ class Live extends React.Component {
                 });
               });
           });
+        }).catch(() => {
+          this.fetchPoll();
         })
         // IF POLL IS COMPLETED JUST SHOW RESULTS
       } else {
@@ -113,6 +113,7 @@ class Live extends React.Component {
   }
 
   close = () => {
+    this.setState({closed: true})
     let poll = this.state.poll;
     poll.questions = this.state.questions;
     axios.put(`/polls/close/${poll._id}`, poll)
@@ -125,7 +126,10 @@ class Live extends React.Component {
       console.log("closed poll ", poll.title);
       console.log('Saved: ', res.data);
     }).then(() => {
-      this.props.history.push('/dashboard');
+      setTimeout(() => {
+        this.props.history.push('/dashboard');
+      }, 400)
+      
     })
     .catch(err => {
       console.error('Closing Poll: ', err);
@@ -159,7 +163,7 @@ class Live extends React.Component {
           this.props.history.push('/login');
         }}, 2000);
       return (
-        <div id = "live-view">
+        <div className="live-view">
           <div className = "loading-view">
             <div className = "loading-container">
               <svg className = "loader-rotate" height = "100" width = "100">
@@ -170,7 +174,7 @@ class Live extends React.Component {
           </div>
         </div>
         );
-    } else if (this.props.user && !this.state.signedIn) {
+    } else if (this.props.user) {
       setTimeout(() => {
         this.setState({
           signedIn: true
@@ -188,6 +192,7 @@ class Live extends React.Component {
           </div>
         </div>
         );
+<<<<<<< HEAD
         return (
           <div id = "live-view" className="live-view-wrapper" style={{textAlign: "center"}}>
             <Navbar history = {this.props.history}/>
@@ -226,6 +231,75 @@ class Live extends React.Component {
                 <h1 className = "poll-results-title">{this.state.poll.title} - Results</h1>
                 {resultsDiv}
               </div>
+=======
+      return (
+<<<<<<< HEAD
+        <div className="body-wrapper">
+          <div className="container">
+            <Navbar history = {this.props.history}/>
+            <div className="live-view__container"> 
+              <h1 className='live-view__poll-title'>Live Poll: "{this.state.poll.title}"</h1>
+              <div className="u-horizontal-divider u-horizontal-divider--red u-margin-bottom-medium"></div>
+                {this.state.questions.map((q, i, arr) => {
+                  let border;
+                  if(q.active === true) { border = '2px solid rgb(0, 255, 0)'};
+                  return (
+                    <div className="live-view__question-box" style = {{border: border}} key={q.id}>
+                      <div className="live-view__question-title">{q.question_title}</div>
+                      <hr className="hr--solid--red"/>
+                      <div className="live-view__answers-box">
+                        <ul className="live-view__answers-list">
+                          {q.answers.map(ans => (
+                            <li className="live-view__answer" key={ans.id}>{ans.value}</li>
+                          )
+                            )}
+                        </ul>
+                          {q.active === true && i !== arr.length -1 && 
+                            <button className="btn--standard" id="nextQuestionButton" onClick={() => this.nextQuestion(i)}>Next Question</button>
+                          }
+                          {i === arr.length -1 &&
+                          <button className="btn--standard" id="closeQuestionButton" onClick={this.close}>Close Poll</button>
+                          }
+                        </div>
+                    </div>
+                  )
+                })}
+=======
+        <div id = "live-view" className="live-view-wrapper" style={{textAlign: "center"}}>
+          <Navbar history = {this.props.history}/>
+          <div className = "live-view-container"> 
+            <h1 className = 'poll-title'>Live View - Poll: {this.state.poll.title}</h1>
+              {this.state.questions.map((q, i, arr) => {
+                let background = q.active ? '$primary' : '$primary-dark';
+                return (
+                  <div className="box" style = {{backgroundColor: background}} key={q.id}>
+                    <h1 className="question-question">Q: {q.question_title}</h1>
+                    <div className = "question-answers-container">
+                      <div className="question-answers">
+                        {q.answers.map(ans => (
+                          <p key={ans.id}>A{ans.position}:   {ans.value}</p>
+                        )
+                          )}
+                      </div>
+                        {
+                          i === arr.length - 1 ? 
+                          <div className = "button-container">
+                            <button className="draw meet id=" onClick={() => this.nextQuestion(i)}>Next Question</button>
+                            <button className="draw meet" id="closePollButton" onClick={this.close}>Close Poll</button>
+                          </div>
+                          :
+                          <button className="draw meet id=" onClick={() => this.nextQuestion(i)}>Next Question</button>
+                        }
+                      </div>
+                  </div>
+                )
+              })}
+>>>>>>> 7aecb18b37a51d31484c795c96fa5dd2003195e4
+                {this.state.closed && 
+                  <p className="pollIsClosedAlert" style={{color: "#e83800", fontWeight: "700", margin: "30px auto"}}>This poll is now closed!</p>
+                }
+            </div>
+>>>>>>> dev
           </div>
         );
   
