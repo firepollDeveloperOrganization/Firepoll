@@ -43,13 +43,28 @@ firepoll.vote = {}
 
 // LISTEN TO DATA FROM firestoreDB INTERFACE
 firepoll.listen = {}
+  //listen for changes to poll status
+  firepoll.listen.pollStatus = (polls, cb) => {
+    if (!Array.isArray(polls)) {
+      polls = [polls]
+    }
+    for (let aPoll of polls) {
+      firestoreDB.collection('stagedPolls').doc(aPoll).onSnapshot((snapshot) => {
+        const snapShotData = snapshot.data();
+        if(snapShotData) {
+          snapShotData._id = snapshot.id;
+          cb(snapShotData);
+        }
+      });
+    }
+  }
+
   //listen for changes to poll
   firepoll.listen.poll = (polls, cb) => {
     if (!Array.isArray(polls)) {
       polls = [polls]
     }
     for (let aPoll of polls) {
-      console.log('aPoll: ', aPoll);
       firestoreDB.collection('polls').doc(aPoll._id).onSnapshot((snapshot) => {
         const snapShotData = snapshot.data();
         if(snapShotData) {
