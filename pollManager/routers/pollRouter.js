@@ -35,14 +35,11 @@ pollRouter.put('/:id', (req, res) => {
       // if the poll is now active, create a cron job to aggregate votes
         if (!cronJobs[result._id]) {
           // if the cron job doesn't exist, create it
-          cronJobs[result._id] = new CronJob('*/5 * * * * *', () => {
-            console.log('doing a thing');
+          cronJobs[result._id] = new CronJob('* * * * * *', () => {
             for (let question of result.questions) {
               axios.post('https://us-central1-live-poll-ravenclaw.cloudfunctions.net/mapReduceVotes', { poll_id: result._id, question_id: question._id }).then((data) => {
                 if (data.status != 200) {
                   console.log('There was an error');
-                } else {
-                  console.log('Aggregated for the question', question.title);
                 }
               })
             }
