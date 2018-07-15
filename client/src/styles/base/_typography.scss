@@ -46,6 +46,7 @@ body {
   // THE BELOW 3 LINES CREATE THE EFFECT OF MAKING THE TEXT BE IN A GRADIENT COLOR
   background-image: linear-gradient(to right, $primary-light, $primary-dark);
   -webkit-background-clip: text; // will clip the background to exactly the places where the text sits
+  background-clip: text;
   color: transparent;
 
   letter-spacing: .2rem;
@@ -80,3 +81,11 @@ body {
   color: $grey-dark;
   transition: color .5s ease;
 }
+
+.error-message {
+  text-align: center;
+  font-size: 1rem;
+  color: rgb(255, 0, 0);
+  margin: 1.5rem 0;
+}
+

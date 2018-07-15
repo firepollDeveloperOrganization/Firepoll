@@ -107,7 +107,7 @@ $white: #ffffff;
     font-size: 1em;
     width: 60%;
     max-height: 70%;
-    transition: flex-grow 0.3s 0.1s, height 0.3s 0.1s, font-size 0.3s, width 0.5s 0.35s;
+    transition: margin 0.3s 0.1s flex-grow 0.2s 0.1s, height 0.3s 0.1s, font-size 0.3s, width 0.5s 0.35s;
     margin: 1vh auto;
   }
 
@@ -116,6 +116,7 @@ $white: #ffffff;
     font-size: 0;
     height: 1%;
     width: 0%;
+    transition: flex-grow 0.3s 0.1s, font-size 0.2s 0.1s, width 0.5s 0.35s;
   }
 
   .question-title {
@@ -218,7 +219,7 @@ $white: #ffffff;
     align-items: center;
     justify-content: center;
     font-size: 0.5em;
-    width: 100%;
+    width: 80%;
     flex-grow: 0.28;
     animation: slidein 1.5s forwards;
     transition: color 0.3s background-color 200ms linear, width 0.5s, font-size 0.5s, height 0.5s;
@@ -279,8 +280,9 @@ $white: #ffffff;
   .answer.answer-selected {
     .answer-position {
       border: 2px solid $white; /* Light grey */
-      border-right: 2px solid $white; /* Blue */
+      border-right: 2px solid $red; /* Blue */
       transition: border 0.3s;
+      color: $white;
     }
   } 
 

@@ -31,261 +31,143 @@
   transition: 2s;
 }
 
-#dashboard {
 
-  $yellow: #fbca67;
-  $orange: #ff8a30;
-  $red: #C20114;
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
-  overflow: hidden;
+.no-polls-message {
+  top: 3%;
+  left: 5%;
+  color: $red;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 1rem 2.5rem;
+}
+
+.input-menu {
+  text-align: center;
+  border-bottom: 1px solid $grey-light-4;
+}
+
+.input-buttons-container {
   display: flex;
-  flex-direction: column;
-  margin: -3.1rem;
-  padding: 1px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
-  .created-poll-button {
-    font-family: "Lato", sans-serif;
-    font-weight: 350;
-    color: $red;
-    border: solid 1px $red;
-    background: none;
-    padding: 0.7rem;
-  }
 
-  .create-poll-button {
-    position: relative;
-    top: 3%;
-    left: 2%;
-    padding: 1rem;
-    line-height: 0.6;
-    vertical-align: middle;
-    text-align: center;
-    font-size: 4vh;
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    color: $red;
-    border-radius: 50%;
-    border: solid 2px $red;
-    margin: 0.4rem;
-    background: #ffffff;
-  }
+.filter-input {
+  margin: 0 auto;
+  font-family: inherit;
+  font-size: 1.2rem;
+  color: $almost-black;
+  background-color: $grey-light-2;
+  border: none;
+  padding: .7rem 2rem;
+  border-radius: 100px;
+  min-width: 30rem;
+  max-width: 90rem;
+  transition: all .2s;
+  margin: 1.5rem -3.25rem 1.5rem 0rem;
 
-  .no-polls-message {
-    top: 3%;
-    left: 5%;
-    color: $red;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 1rem 2.5rem;
-  }
-
-  .input-menu {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .fal.fa-plus-circle {
-    color: $red;
-  }
-
-  .input-buttons-container {
-    display: flex;
-    justify-content: right;
-  }
-
-  .filter-button, .filter-input {
-    font-size: 1.4rem;
-    font-family: "Lato", sans-serif;
-    font-weight: 400;
-    line-height: 1.7;
-    color: #ffffff !important;
-    border: solid 2px white;
-    margin: 0.4rem;
-    background: none;
-    padding: 1rem;
-  }
-
-  input::-webkit-input-placeholder {
-  color: white !important;
-  }
-    
-  input:-moz-placeholder { /* Firefox 18- */
-  color: white !important;  
-  }
-    
-  input::-moz-placeholder {  /* Firefox 19+ */
-  color: white !important;  
-  }
-    
-  input:-ms-input-placeholder {  
-  color: white !important;  
-  }
-
-  .welcome-message {
-    color: #ffffff;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 1.4rem;
-    margin: 3.5rem;
-  }
-
-  .brand {
-    margin-left: 2rem;
-    display: flex;
-    align-content: center;
-  
-    &__logo {
-      height: 3rem;
-    }
-  
-    &__name {
-      font-size: 2rem;
-      font-weight: 500;
-      letter-spacing: .1rem;
-      margin-left: 1rem;
-      
-      display: inline-block;
-      background-image: linear-gradient(to right, $primary-light, $primary-dark);
-      -webkit-background-clip: text;
+  &:focus {
+    outline: none;
+    transform: scaleX(1.1);
+    background-color: $grey-light-3;
+    &::-webkit-input-placeholder {
       color: transparent;
     }
   }
 
-  .loading-container {
-    position: absolute;
-    top: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  &::-webkit-input-placeholder {
+    color: $grey;
+  }
+}
+
+
+.welcome-message {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: transparent;
+  background-image: linear-gradient(to right, $primary-light, $primary-dark);
+  -webkit-background-clip: text; // will clip the background to exactly the places where the text sits
+  background-clip: text;
+//  letter-spacing: 1.4rem;
+  margin: 1rem;
+  margin-left: 2rem;
+}
+
+
+.brand {
+  margin-left: 2rem;
+  display: flex;
+  align-content: center;
+
+  &__logo {
+    height: 3rem;
   }
 
-  circle {
-    fill: white;
+  &__name {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: .1rem;
+    margin-left: 1rem;
+    
+    display: inline-block;
+    background-image: linear-gradient(to right, $primary-light, $primary-dark);
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}
+
+.loading-container {
+  position: absolute;
+  top: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+circle {
+  fill: $primary-dark;
+  stroke: $white;
+  stroke-width: 4;
+  stroke-dasharray: 250;
+  stroke-dashoffset: 1000;
+  animation: rotate 2s cubic-bezier(0.39, 0.575, 0.565, 1) infinite, change-color 4s 0.7s linear infinite;
+}
+
+@keyframes rotate {
+  to {
+    stroke-dashoffset: 500;
+  }
+}
+
+@keyframes change-color {
+  49% {
     stroke: $red;
-    stroke-width: 4;
-    stroke-dasharray: 250;
-    stroke-dashoffset: 1000;
-    animation: rotate 2s cubic-bezier(0.39, 0.575, 0.565, 1) infinite, change-color 4s 0.7s linear infinite;
-  }
-  
-  @keyframes rotate {
-    to {
-      stroke-dashoffset: 500;
-    }
   }
 
-  @keyframes change-color {
-    49% {
-      stroke: $red;
-    }
-
-    50% {
-      stroke: $yellow;
-    }
-
-    99% {
-      stroke: $yellow;
-    }
-
-    100% {
-      stroke: $red;
-    }
+  50% {
+    stroke: yellow;
   }
 
-  .loader-rotate {
-    animation: spin 3s linear infinite;
+  99% {
+    stroke: yellow;
   }
 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  #dash-banner {
-    background-image: linear-gradient(to right bottom, $primary-light-1, $primary-dark);
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin: -1em;
-    margin-bottom: 1.5em;
-    padding: 2%;
-    padding-bottom: 1%;
-    box-shadow: 0 .5rem .5rem rgba($black, .15);
-  }
-  
-  .dash-nav {
-    height: 18vh;
-    display: flex;
-    flex-direction: row;
-    .dash-logo {
-      flex: 1;
-      img {
-        width: 35px;
-        height: 35px;
-      }
-    }
-
-
-    #dashboard-nav {
-      flex: 8;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      >* {
-        align-self: right;
-        button {
-          @include button-style();
-          padding: .8em;
-          margin: .5em;
-          font-size: $default-font-size;
-          &:hover {
-            box-shadow: 0 1rem 1.5rem rgba($black, .2);
-          }
-          &:active {
-            box-shadow: 0 .5rem 1rem rgba($black, .15);
-            transform: translateY(0);
-          }
-        }
-      }
-    }
+  100% {
+    stroke: $red;
   }
 }
 
-#dashboard input {
-  // height: 5vh;
-  width: 35%;
-  font-size:  $default-font-size;
-  background-color: $grey-light;
-  text-transform: uppercase;
-  padding: .2em;
-  margin: 1em;
-  text-align: center;
-  letter-spacing: .15em;
+.loader-rotate {
+  animation: spin 3s linear infinite;
 }
 
-// POLLS STYLING
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-// #polls-container>* {
-//   border: 3px dotted purple;
-// }
-
-// #dashboard {
-//   height: 100%;
-//   width: 100%;
-//   overflow: hidden;
-// }
-
-// #polls-container {
-//   height: 100%;
-//   width: 100%;
-//   overflow: hidden;
-// }
-// #filtered-polls::scrollbar {
-//   width: 0 !important;
-
-// }
 
 ::-webkit-scrollbar {
   width: 0 !important;
@@ -294,29 +176,49 @@
 #filtered-polls {
   position: relative;
   bottom: 0;
-  height: 50vh;
   width: 100%;
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  justify-content: space-evenly;
+  
 }
 
-.dashboard-options-group, .response-url {
+.dashboard-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid $grey-light-3;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.response-url {
   width:100%;
   display: flex;
-  justify-content: space-between;
-  align-items: left;
+  justify-content: space-evenly;
+  margin: 1rem 0;
+  flex-wrap: wrap;
 }
 
-.dashboard-options-group > .created-poll-button {
-  padding: 0.7rem;
-  font-size: 1rem;
+.dashboard-options-group {
+  width:100%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.ReactModal__Content--after-open {
+  height: 50%;
+  background: $red;
+  color: $white;
 }
 
 .poll-item-title {
   width: 100%;
   background-color: $primary;
+  font-size: 1.6rem;
 }
 
 .poll-item {
@@ -324,137 +226,46 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  padding: 2em;
-  margin: 2em;
-  width: 30%;
+  margin: 2rem;
+  width: 35rem;
+  border-radius: 3px;
+  overflow: hidden;
+  
   background: linear-gradient(to right bottom, rgba($grey-light, 0), rgba($grey-light, .1));
   // background-color: $grey;
   // background: linear-gradient(to right bottom, rgba($primary-light, .7), rgba($primary-dark, .7)), url("/images/tallymarks.jpg");
   box-shadow: 0 1rem 1.5rem rgba($black, .2);
-  button {
-    @include button-style();
-    padding: .8em;
-    margin: .2em;
-    font-size: $default-font-size * .6;
-    letter-spacing: 0;
-    color: $primary;
-    a {
-      text-decoration: none;
-      color: $primary;
-    }
   }
-  h1, .questions-box {
-    color: $white;
-    text-align: center;
-    cursor: default;
-    text-shadow: 0 .2rem .5rem rgba($black, .2);
-  }
+
   h1 {
     color: #ffffff;
     font-size: 1.4rem;
     font-weight: 500;
+    text-align: center;
+    text-shadow: 0 .2rem .5rem rgba($black, .2);
   }
+
   .questions-box {
-    color: $grey-dark;
-    font-size: $default-font-size;
-    margin: 0;
-    p {
-      text-shadow: 0 .2rem .5rem rgba($black, .2);
+    margin: 1rem 0;
+    &__question {
+      background-image: linear-gradient(to right, $primary, $primary-dark);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 1.4rem;
+    }
+
+    &__question-number {
+      font-size: 1.4rem;
+      color: $primary-dark;
     }
   }
-}
-
-.dashboard-options, .dashboard-options-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.dashboard-options-group {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
 
 
-
-
-
-
-
-
-
-
-/*#dashboard {
-  background: url("./tic-tac-toe.png") $redder;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  .nav {
-    font-family: 'Courgette', cursive;
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    // align-items: center;
-    padding: 2em;
-    background-color: rgba($red, .7);
-    div {
-      flex: 6;
-    }
-    h1 {
-      font-size: 3em;
-      color: white;
-    }
+.email-link {
+  &:link, &:visited {
+    text-decoration: none;
+    color: $primary;
   }
-}
 
-#dashboard-nav {
-  float: right;
-  flex: 1;
-  button {
-    float: right;
-    margin: 10px;
-  }
 }
-
-#polls-filter {
-  background-color: rgba($red, .7);
-  padding: 10px;
-  .button {
-    margin: 10px;
-  }
-}
-
-#polls-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  // align-items: flex-start;
-  // justify-content: flex-start;
-  background-color: rgba($red, .7);
-  text-align: center;
-  box-shadow: 2px 1px 2px 2px rgba($black, .5);
-  overflow: scroll;
-}
-
-.poll-item {
-  flex: 1;
-  max-width: 30%;
-  margin: 1em;
-  padding: 1em;
-  background-color: rgba(white, .7);
-  h1 {
-    display: inline;
-  }
-  button {
-    float: right;
-  }
-}
-
-.response-url {
-  // word-wrap: break-word;
-  display: block;
-}
-*/

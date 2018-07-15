@@ -10,7 +10,6 @@ const Live = (props) => <Async load = {import('./live.jsx')} componentProps = {p
 const Create = (props) => <Async load = {import('./create.jsx')} componentProps = {props} />
 const Analytics = (props) => <Async load = {import('./analytics.jsx')} componentProps = {props} />
 const Landing = (props) => <Async load = {import('./landing.jsx')} componentProps = {props} />
-const Create2 = (props) => <Async load = {import('./create2.jsx')} componentProps = {props} />
 
 
 
