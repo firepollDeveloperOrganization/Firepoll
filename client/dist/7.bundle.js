@@ -1,12 +1,22 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
+<<<<<<< HEAD
+/***/ "./client/src/managementClient/live.jsx":
+/*!**********************************************!*\
+  !*** ./client/src/managementClient/live.jsx ***!
+  \**********************************************/
+=======
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
   \*************************************/
+>>>>>>> 7aecb18b37a51d31484c795c96fa5dd2003195e4
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
+<<<<<<< HEAD
+eval("throw new Error(\"Module build failed (from ./node_modules/babel-loader/lib/index.js):\\nSyntaxError: Unexpected token, expected : (156:66)\\n\\n\\u001b[0m \\u001b[90m 154 | \\u001b[39m              \\u001b[33m<\\u001b[39m\\u001b[33mh1\\u001b[39m className\\u001b[33m=\\u001b[39m\\u001b[32m'live-view__poll-title'\\u001b[39m\\u001b[33m>\\u001b[39m\\u001b[33mLive\\u001b[39m \\u001b[33mView\\u001b[39m\\u001b[33m:\\u001b[39m \\u001b[33mPoll\\u001b[39m \\u001b[32m\\\"{this.state.poll.title}\\\"\\u001b[39m\\u001b[33m<\\u001b[39m\\u001b[33m/\\u001b[39m\\u001b[33mh1\\u001b[39m\\u001b[33m>\\u001b[39m\\n \\u001b[90m 155 | \\u001b[39m                {\\u001b[36mthis\\u001b[39m\\u001b[33m.\\u001b[39mstate\\u001b[33m.\\u001b[39mquestions\\u001b[33m.\\u001b[39mmap((q\\u001b[33m,\\u001b[39m i\\u001b[33m,\\u001b[39m arr) \\u001b[33m=>\\u001b[39m {\\n\\u001b[31m\\u001b[1m>\\u001b[22m\\u001b[39m\\u001b[90m 156 | \\u001b[39m                  let background \\u001b[33m=\\u001b[39m q\\u001b[33m.\\u001b[39mactive \\u001b[33m?\\u001b[39m \\u001b[32m'rgb(166, 255, 166)'\\u001b[39m\\u001b[33m;\\u001b[39m\\n \\u001b[90m     | \\u001b[39m                                                                  \\u001b[31m\\u001b[1m^\\u001b[22m\\u001b[39m\\n \\u001b[90m 157 | \\u001b[39m                  \\u001b[36mreturn\\u001b[39m (\\n \\u001b[90m 158 | \\u001b[39m                    \\u001b[33m<\\u001b[39m\\u001b[33mdiv\\u001b[39m className\\u001b[33m=\\u001b[39m\\u001b[32m\\\"live-view__question-box\\\"\\u001b[39m style \\u001b[33m=\\u001b[39m {{backgroundColor\\u001b[33m:\\u001b[39m background}} key\\u001b[33m=\\u001b[39m{q\\u001b[33m.\\u001b[39mid}\\u001b[33m>\\u001b[39m\\n \\u001b[90m 159 | \\u001b[39m                      \\u001b[33m<\\u001b[39m\\u001b[33mh1\\u001b[39m className\\u001b[33m=\\u001b[39m\\u001b[32m\\\"live-view__question-title\\\"\\u001b[39m\\u001b[33m>\\u001b[39m\\u001b[33mQ\\u001b[39m\\u001b[33m:\\u001b[39m {q\\u001b[33m.\\u001b[39mquestion_title}\\u001b[33m<\\u001b[39m\\u001b[33m/\\u001b[39m\\u001b[33mh1\\u001b[39m\\u001b[33m>\\u001b[39m\\u001b[0m\\n\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9jbGllbnQvc3JjL21hbmFnZW1lbnRDbGllbnQvbGl2ZS5qc3guanMiLCJzb3VyY2VzIjpbXSwibWFwcGluZ3MiOiIiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./client/src/managementClient/live.jsx\n");
+=======
 eval("module.exports = __webpack_require__(/*! ./lib/axios */ \"./node_modules/axios/lib/axios.js\");//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvYXhpb3MvaW5kZXguanMuanMiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9ub2RlX21vZHVsZXMvYXhpb3MvaW5kZXguanM/YmMzYSJdLCJzb3VyY2VzQ29udGVudCI6WyJtb2R1bGUuZXhwb3J0cyA9IHJlcXVpcmUoJy4vbGliL2F4aW9zJyk7Il0sIm1hcHBpbmdzIjoiQUFBQSIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./node_modules/axios/index.js\n");
 
 /***/ }),
@@ -307,6 +317,7 @@ eval("\n\nvar bind = __webpack_require__(/*! ./helpers/bind */ \"./node_modules/
 /***/ (function(module, exports) {
 
 eval("/*!\n * Determine if an object is a Buffer\n *\n * @author   Feross Aboukhadijeh <https://feross.org>\n * @license  MIT\n */\n\n// The _isBuffer check is for Safari 5-7 support, because it's missing\n// Object.prototype.constructor. Remove this eventually\nmodule.exports = function (obj) {\n  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)\n}\n\nfunction isBuffer (obj) {\n  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)\n}\n\n// For Node v0.10 support. Remove this eventually.\nfunction isSlowBuffer (obj) {\n  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))\n}\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9ub2RlX21vZHVsZXMvaXMtYnVmZmVyL2luZGV4LmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vbm9kZV9tb2R1bGVzL2lzLWJ1ZmZlci9pbmRleC5qcz8wNDRiIl0sInNvdXJjZXNDb250ZW50IjpbIi8qIVxuICogRGV0ZXJtaW5lIGlmIGFuIG9iamVjdCBpcyBhIEJ1ZmZlclxuICpcbiAqIEBhdXRob3IgICBGZXJvc3MgQWJvdWtoYWRpamVoIDxodHRwczovL2Zlcm9zcy5vcmc+XG4gKiBAbGljZW5zZSAgTUlUXG4gKi9cblxuLy8gVGhlIF9pc0J1ZmZlciBjaGVjayBpcyBmb3IgU2FmYXJpIDUtNyBzdXBwb3J0LCBiZWNhdXNlIGl0J3MgbWlzc2luZ1xuLy8gT2JqZWN0LnByb3RvdHlwZS5jb25zdHJ1Y3Rvci4gUmVtb3ZlIHRoaXMgZXZlbnR1YWxseVxubW9kdWxlLmV4cG9ydHMgPSBmdW5jdGlvbiAob2JqKSB7XG4gIHJldHVybiBvYmogIT0gbnVsbCAmJiAoaXNCdWZmZXIob2JqKSB8fCBpc1Nsb3dCdWZmZXIob2JqKSB8fCAhIW9iai5faXNCdWZmZXIpXG59XG5cbmZ1bmN0aW9uIGlzQnVmZmVyIChvYmopIHtcbiAgcmV0dXJuICEhb2JqLmNvbnN0cnVjdG9yICYmIHR5cGVvZiBvYmouY29uc3RydWN0b3IuaXNCdWZmZXIgPT09ICdmdW5jdGlvbicgJiYgb2JqLmNvbnN0cnVjdG9yLmlzQnVmZmVyKG9iailcbn1cblxuLy8gRm9yIE5vZGUgdjAuMTAgc3VwcG9ydC4gUmVtb3ZlIHRoaXMgZXZlbnR1YWxseS5cbmZ1bmN0aW9uIGlzU2xvd0J1ZmZlciAob2JqKSB7XG4gIHJldHVybiB0eXBlb2Ygb2JqLnJlYWRGbG9hdExFID09PSAnZnVuY3Rpb24nICYmIHR5cGVvZiBvYmouc2xpY2UgPT09ICdmdW5jdGlvbicgJiYgaXNCdWZmZXIob2JqLnNsaWNlKDAsIDApKVxufVxuIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./node_modules/is-buffer/index.js\n");
+>>>>>>> 7aecb18b37a51d31484c795c96fa5dd2003195e4
 
 /***/ })
 
