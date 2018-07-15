@@ -18,17 +18,17 @@ class Live extends React.Component {
   }
 
   componentDidMount() {
-    firepoll.user.get(this.props.match.params.id).then(data => {
-      let userCount = 0;
-      for (let item of data) {
-        if (item) {
-          userCount +=1;
-        }
-      }
-      this.setState({
-        userCount
-      });
-    }).catch(err => console.error(err))
+    // firepoll.user.get(this.props.match.params.id).then(data => {
+    //   let userCount = 0;
+    //   for (let item of data) {
+    //     if (item) {
+    //       userCount +=1;
+    //     }
+    //   }
+    //   this.setState({
+    //     userCount
+    //   });
+    // }).catch(err => console.error(err))
     // (this.props.match.params.id).then((data) => {console.log(data)});
     this.fetchPoll();
   }
@@ -55,6 +55,8 @@ class Live extends React.Component {
                 });
               });
           });
+        }).catch(() => {
+          this.fetchPoll();
         })
         // IF POLL IS COMPLETED JUST SHOW RESULTS
       } else {
@@ -126,7 +128,7 @@ class Live extends React.Component {
           </div>
         </div>
         );
-    } else if (this.props.user && !this.state.signedIn) {
+    } else if (this.props.user) {
       setTimeout(() => {
         this.setState({
           signedIn: true
@@ -150,9 +152,9 @@ class Live extends React.Component {
           <div className = "live-view-container"> 
             <h1 className = 'poll-title'>Live View - Poll: {this.state.poll.title}</h1>
               {this.state.questions.map((q, i, arr) => {
-                console.log(q.active);
+                let background = q.active ? '$primary' : '$primary-dark';
                 return (
-                  <div className={"box"} key={q.id}>
+                  <div className="box" style = {{backgroundColor: background}} key={q.id}>
                     <h1 className="question-question">Q: {q.question_title}</h1>
                     <div className = "question-answers-container">
                       <div className="question-answers">

@@ -83,10 +83,8 @@ class Create extends React.Component {
             currentAnswer: '',
             answers: []
           })
-          //then redirect to dashboard
-        }).then(() => {
-          this.props.push('/dashboard');
-        });
+          this.props.history.push('/dashboard');
+        })
       })
       .catch(err => {
         console.error(err);

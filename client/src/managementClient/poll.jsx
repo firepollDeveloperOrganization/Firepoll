@@ -6,7 +6,7 @@ import axios from 'axios';
 const Poll = (props) => {
   let {poll, deletePoll, editPoll, openModal, setCurrentLink} = props;
   let deployButton = (<button className="btn--standard btn--small" onClick={() => props.deploy(props.index)}>DEPLOY <i className="fa-fw fas fa-rocket"></i></button>);
-  let liveButton = (<Link to={`/live/${poll._id}`}><button className="btn--standard btn--small">VIEW LIVE <i className="fa-fw fas fa-fire"></i></button></Link>);
+  let liveButton = (<Link to={`/live/${poll._id}`} target="_blank"><button className="btn--standard btn--small">VIEW LIVE <i className="fa-fw fas fa-fire"></i></button></Link>);
   let analyticsButton = (<Link to={`/analytics/${poll._id}`}><button className="btn--standard btn--small">VIEW ANALYTICS <i className="fa-fw fas fa-calendar-check"></i></button></Link>);
   let closeButton = <button onClick={() => props.close(props.index)} className="btn--standard btn--small">CLOSE POLL</button>
   // let status = !poll.active ? 'DEPLOY' : poll.completed ? 'VIEW ANALYTICS' : 'VIEW LIVE';
@@ -19,7 +19,7 @@ const Poll = (props) => {
   </Link>);
   // let completedDelete = <button onClick={() => deletePoll(poll._id)}>DELETE POLL</button>;
   // let deleteButton = poll.completed ? completedDelete : poll.active ? '' : undeployedDelete;
-  let linkUrl = `https://firepoll.herokuapp.com/response/${poll._id}`;
+  let linkUrl = `firepoll.solutions/response/${poll._id}`;
   return (
     <div className="poll-item">
       <div className="poll-item-title">
