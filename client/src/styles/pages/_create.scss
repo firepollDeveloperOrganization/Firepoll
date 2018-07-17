@@ -11,12 +11,14 @@
 // POLL FORM
 .create-poll {
   background-color: #fff;
+  min-height: 50rem;
   width: 70rem;
   margin: 2rem;
   box-shadow: 0 2rem 6rem rgba(0, 0, 0, .3);
   border-radius: 3px;
   overflow: hidden;
-  padding-bottom: 4rem;
+  position: relative;
+  padding-bottom: 10rem;
 }
 
 .create-poll__title {
@@ -80,15 +82,11 @@
 }
 
 .poll-form__main-buttons-box {
-  position: relative;
+  position: absolute;
   bottom: 0;
   display: flex;
-  margin: 2rem;
   height: 7rem;
-  width: 70rem;
-  border-radius: 3px;
-  overflow: hidden;
-  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  width: 100%;
 }
 
 .poll-form {

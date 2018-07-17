@@ -151,7 +151,8 @@ class Create extends React.Component {
     }
   }
 
-  deleteAnswer = (i) => {
+  deleteAnswer = (e) => {
+    let i = parseInt(e.target.id);
     this.setState(prevState => {
       prevState.answers.splice(i, 1)
       return {answers: prevState.answers}
@@ -182,43 +183,42 @@ class Create extends React.Component {
           <div className="container">
             <Navbar history = {this.props.history}/>
             <main className="create-view__content">
-              <div className="create-and-sumbit-wrapper">
-                <div className="create-poll">
-                  <div className="create-poll__title">
-                    Create a New Poll!
-                  </div>
-                  <div className="poll-form">
-                    
-                    <label className="poll-form__label" >Poll Title</label>
-                    <input type="text" className="poll-form__input" id="pollname" value={this.state.pollname} onChange={this.handleChange} placeholder="Give your poll a name"/>
-                  
-                    <label className="poll-form__label"> Question {this.state.questions.length + 1}</label>
-                    <input type="text" className="poll-form__input" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here"/>
-
-                    <label className="poll-form__label">Answers</label>
-                      <div className="poll-form__answers">
-                        {this.state.answers.length > 0 &&
-                        this.state.answers.map((answer, i) => {
-                          return (<p className="poll-form__answer" key={i}>{answer.choice} <span id={i.toString()} onClick={() => this.deleteAnswer(i)}><i className="far fa-trash-alt"></i></span></p>)
-                        })}
-                      </div>
-                    <form onSubmit={this.addAnswer} className="poll-form__form">
-                      <input className="poll-form__input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here and press enter to add" />
-                    </form>
-                  </div>
-                  <div className="poll-form__button-box u-margin-top-small">
-                        <button className="btn--standard" onClick={this.addQuestion}>Add Question</button>
-                  </div>
-                  {this.state.invalid && <p className='error-message'>Oops! You've left a field blank or entered an invalid value. Try again!</p>}
+              <div className="create-poll">
+                <div className="create-poll__title">
+                  Create a New Poll!
                 </div>
+                <div className="poll-form">
+                  
+                  <label className="poll-form__label" >Poll Title</label>
+                  <input type="text" className="poll-form__input" id="pollname" value={this.state.pollname} onChange={this.handleChange} placeholder="Give your poll a name"/>
+                
+                  <label className="poll-form__label"> Question {this.state.questions.length + 1}</label>
+                  <input type="text" className="poll-form__input" id="currentQuestion" value={this.state.currentQuestion} onChange={this.handleChange} placeholder="Type your question here"/>
+
+                  <label className="poll-form__label">Answers</label>
+                    <div className="poll-form__answers">
+                      {this.state.answers.length > 0 &&
+                      this.state.answers.map((answer, i) => {
+                        return (<p className="poll-form__answer" key={i}>{answer.choice} <span id={i.toString()} onClick={this.deleteAnswer}><i className="far fa-trash-alt"></i></span></p>)
+                      })}
+                    </div>
+                  <form onSubmit={this.addAnswer} className="poll-form__form">
+                    <input className="poll-form__input" type="text" id="currentAnswer"  value={this.state.currentAnswer} onChange={this.handleChange} placeholder="Type answer here and press enter to add" />
+                  </form>
+                </div>
+                <div className="poll-form__button-box">
+                      <button className="btn--standard" onClick={this.addQuestion}>Add Question</button>
+                </div>
+                {this.state.invalid && <p className='error-message'>Oops! You've left a field blank or entered an invalid value. Try again!</p>}
+              
                 <div className="poll-form__main-buttons-box">
-                    <div className="poll-form__cancel" onClick={this.resetPoll}><span className="poll-form__main-button-text--1"> <span className="poll-form__cancel__icon">X</span>&nbsp; Cancel</span></div>
-                    <div className="poll-form__submit" onClick={this.createPoll}><span className="poll-form__main-button-text--2">Submit Poll &rarr;</span></div>
-                  </div>
+                  <div className="poll-form__cancel" onClick={this.resetPoll}><span className="poll-form__main-button-text--1"> <span className="poll-form__cancel__icon">X</span>&nbsp; Cancel</span></div>
+                  <div className="poll-form__submit" onClick={this.createPoll}><span className="poll-form__main-button-text--2">Submit &rarr;</span></div>
+                </div>
               </div>
 
               <div className="questions">
-                <QuestionsList questions={this.state.questions} deleteQuestion={this.deleteQuestion}/>
+                <QuestionsList questions={this.state.questions}/>
               </div>
             </main>
           </div>
