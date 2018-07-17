@@ -239,8 +239,7 @@ class Dashboard extends React.Component {
     } else if (this.state.signedIn) {
       let pollDisplay =
         <div id="filtered-polls">
-          <i onClick = {() => {this.props.history.push('/create')}} className="fas fa-plus-circle add-poll-button"></i>
-          {!this.state.filteredPolls.length ? <div className = "no-polls-message">No polls yet. Click the button to get Started!</div> : ''}
+          {!this.state.filteredPolls.length ? <div className = "no-polls-message"><p>No polls found!</p></div> : ''}
           {this.state.filteredPolls.map((poll, i) => {
             if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
               return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
