@@ -1,7 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
-import { Redirect, Link } from 'react-router-dom';
 import Poll from './poll';
 import axios from 'axios';
 import { firepoll, realTimeDB } from '../firepollManagementClient';
@@ -240,11 +238,16 @@ class Dashboard extends React.Component {
         </div>
         );
     } else if (this.state.signedIn) {
-      let pollDisplay = !this.state.filteredPolls.length ? <div className="no-polls-message">No polls created, click the button below!</div> : <div id="filtered-polls">{this.state.filteredPolls.map((poll, i) => {
-        if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
-          return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
-        }
-      })}</div>
+      let pollDisplay =
+        <div id="filtered-polls">
+          <i onClick = {() => {this.props.history.push('/create')}} className="fas fa-plus-circle add-poll-button"></i>
+          {!this.state.filteredPolls.length ? <div className = "no-polls-message">No polls yet. Click the button to get Started!</div> : ''}
+          {this.state.filteredPolls.map((poll, i) => {
+            if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
+              return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
+            }
+          })}
+        </div>
       let modalStyles = {
         height: '50%',
         background: '$red',

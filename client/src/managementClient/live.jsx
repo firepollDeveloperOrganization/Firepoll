@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
 import {firepoll, realTimeDB} from '../firepollManagementClient';
 import axios from 'axios';
 import Navbar from './navbar';
@@ -26,29 +25,43 @@ class Live extends React.Component {
   getResults() {
     if (!this.state.fetchedLive) {
       for (let question of this.state.questions) {
-        realTimeDB.ref(`/polls/${this.state.poll._id}/questions/${question._id}/aggregates`).on('value', snapshot => {
-          let data = snapshot.val();
-          console.log('got my live data', data);
-          let ansObj = {};
-          for (let ans of question.answers) {
-            ansObj[ans.value] = ansObj[ans.value] || 0;
+        // Replace with firepoll
+        firepoll.listen.results(this.state.poll._id, question._id, (data, question_id) => {
+          
+          let newResults = Object.assign({}, this.state.results);
+
+          for (let result of data) {
+            newResults[result.answer_id] = data;
           }
-          if (data) {
-            for (let ans of Object.keys(data)) {
-              console.log('answer of data', ans)
-              ansObj[data[ans].answer_value] = data[ans].vote_count;
+          
+          this.setState({results: newResults}, () => {
+            let total;
+            if (this.state.results) {
+              total = Object.keys(this.state.results).reduce((acc, result) => {
+                if (this.state.results[result][0].question_id === question_id) {
+                  acc = acc + this.state.results[result][0].vote_count;
+                }
+                return acc;
+              }, 0)
+            } else {
+              total = 0;
             }
-          }
-          // let results = this.state.results || {};
-          let results = Object.assign({}, this.state.results);
-          results[question._id] = ansObj;
-          console.log('current ans obj', ansObj);
-          console.log('current results obj', results);
-          console.log('this', this);
-          // this.setState({results: results}, () => console.log('CURRENT STATE RESULTS', this.state.results));
-          this.setState({results}, () => console.log('SET STATE!', this.state.results));
-          this.setState({fetchedLive: true});
+
+            let newQuestions = this.state.questions.slice();
+            for (let question of newQuestions) {
+              if (question._id === question_id) {
+                question.total = total;
+              }
+            }
+            this.setState({
+              questions: newQuestions
+            });
+          });
+
         });
+
+        this.setState({fetchedLive: true});
+
       }
     }
 
@@ -123,8 +136,6 @@ class Live extends React.Component {
       .catch(err => {
         console.error('deleting poll from realTimeDB', err)
       })
-      console.log("closed poll ", poll.title);
-      console.log('Saved: ', res.data);
     }).then(() => {
       setTimeout(() => {
         this.props.history.push('/dashboard');
@@ -137,25 +148,6 @@ class Live extends React.Component {
   }
 
   render() {
-    let r = this.state.results;
-    let resultsDiv = !r ? <div>Wait for results!</div> : this.state.questions.map(q => (
-    <div key={q._id}>
-      <h2>{q.question_title}</h2>
-      {q.answers.map(ans => <h3 key={ans.value}>{ans.value} : {r[q._id][ans.value]}</h3>)}
-    </div>
-    ));
-
-    // const renderResults = () => {
-    //   if (r) {
-    //     return (
-    //       this.state.questions.map(q => (
-    //         <div key={q._id}>
-    //           <h2>{q.question_title}</h2>
-    //           {q.answers.map(ans => <h3>{ans.value} : {r[q._id][ans.value]}</h3>)}
-    //         </div>
-    //     )
-    //   }
-    // }
     let {user, email} = this.props;
     if (!user) {
       setTimeout(() => {
@@ -201,16 +193,27 @@ class Live extends React.Component {
                 <div className="u-horizontal-divider u-horizontal-divider--red u-margin-bottom-medium"></div>
                   {this.state.questions.map((q, i, arr) => {
                     let border;
-                    if(q.active === true) { border = '2px solid rgb(0, 255, 0)'};
+                    if(q.active === true) { border = '2px solid #fbca67'};
                     return (
                       <div className="live-view__question-box" style = {{border: border}} key={q.id}>
                         <div className="live-view__question-title">{q.question_title}</div>
                         <hr className="hr--solid--red"/>
                         <div className="live-view__answers-box">
                           <ul className="live-view__answers-list">
-                            {q.answers.map(ans => (
-                              <li className="live-view__answer" key={ans.id}>{ans.value}</li>
-                            )
+                            {q.answers.map(ans => {
+                              let resultKey;
+                              let voteCount;
+                              if (this.state.results) {
+                                resultKey = Object.keys(this.state.results).filter((key) => key === ans.id);
+                                voteCount = this.state.results ? this.state.results[ans.id] ? this.state.results[ans.id][0] ? this.state.results[ans.id][0].vote_count : 0 : 0 : 0;
+                              }
+                              return (
+                                <li className = "live-view__answer" key={ans.id}> 
+                                  <div>{ans.value}</div>
+                                  {resultKey ? <div className = "results-bar" key = {resultKey} style = {{width: voteCount/q.total ? `${voteCount/q.total*90 + 10}%` : '10%'}}>{voteCount/q.total ? `${voteCount/q.total*100}%` : '0%'}</div> : <div style = {{width: '5%'}}>0%</div>}
+                                </li>
+                              )
+                            }
                               )}
                           </ul>
                             {q.active === true && i !== arr.length -1 && 
@@ -228,10 +231,6 @@ class Live extends React.Component {
                   }
               </div>
             </div>
-            <div id="live-results-container">
-                <h1 className = "poll-results-title">{this.state.poll.title} - Results</h1>
-                {resultsDiv}
-            </div>
           </div>
         );
   
@@ -243,92 +242,3 @@ class Live extends React.Component {
 
 
 export default Live;
-
-    // console.log(this.state.questions);
-
-    // for (let question of this.state.questions) {
-    //   // console.log('AYYYYYYYYY',question);
-    //   firepoll.getResults(this.state.poll._id, question._id)
-    //   .then((data) => {
-    //     console.log('firepoll results', data);
-    //     let answers = [];
-    //     data.forEach(ans => answers.push({answer_value, vote_count}));
-    //     let resultsObj = {question: question.question_title, answers};
-    //     let currentResults = this.state.results;
-    //     currentResults.push(resultsObj);
-    //     this.setState({results: currentResults});
-    //   })
-    //   .catch(err => console.log('firepoll results error', err));
-    //   // firepoll.listenToResults(this.state.poll._id, question._id, (data) => {
-    //   //   console.log(data);
-    //   // });
-    // }
-        // for (let question of this.state.questions) {
-    //   firepoll.getResults(this.state.poll._id, question._id).then((data) => {
-    //     let newResults = Object.assign({}, this.state.results);
-    //     newResults[question._id] = data;
-    //     this.setState({
-    //       results: newResults
-    //     }, () => console.log('results', this.state.results));
-    //   });
-    //   firepoll.listenToResults(this.state.poll._id, question._id, (data) => {
-    //     let newResults = Object.assign({}, this.state.results);
-    //     newResults[question._id] = data;
-    //     this.setState({
-    //       results: newResults
-    //     }, () => console.log('new results', this.state.results));
-    //   });
-    // }
-          // console.log('dskfljsdf', question);
-      // firepoll.getLiveResults(this.state.poll._id, question._id)
-      // .then(data => {
-      //   console.log('GOT FRESH DATA FROM FIREPOLL', data);
-      //   let ansObj = {};
-      //   for (let ans of question.answers) {
-      //     ansObj[ans.value] = ansObj[ans.value] || 0;
-      //   }
-      //   for (let ans of data) {
-      //     // console.log('answer of data', ans)
-      //     ansObj[ans.answer_value] = ans.vote_count;
-      //   }
-      //   // let results = {[question._id]: ansObj}
-      //   let results = this.state.results || {};
-      //   results[question._id] = ansObj;
-      //   this.setState({results}, () => console.log('current results', this.state.results));
-      // })
-      // .catch(err => console.log(err));
-
-      // firepoll.getLiveResults(this.state.poll._id, question._id, data => {
-      //   console.log('got my live data', data);
-      //   let ansObj = {};
-      //   for (let ans of question.answers) {
-      //     ansObj[ans.value] = ansObj[ans.value] || 0;
-      //   }
-      //   if (data) {
-      //     for (let ans of Object.keys(data)) {
-      //       console.log('answer of data', ans)
-      //       ansObj[data[ans].answer_value] = data[ans].vote_count;
-      //     }
-      //   }
-      //   // let results = {[question._id]: ansObj}
-      //   let results = this.state.results || {};
-      //   console.log('current results obj', results);
-      //   results[question._id] = ansObj;
-      //   console.log('current ans obj', ansObj);
-      //   console.log('this', this);
-      //   this.setState({results}, () => console.log('CURRENT STATE RESULTS', this.state.results));
-      //   this.forceUpdate();
-      // })
-          // firepoll.user.get(this.props.match.params.id).then(data => {
-    //   let userCount = 0;
-    //   for (let item of data) {
-    //     if (item) {
-    //       userCount +=1;
-    //     }
-    //   }
-    //   this.setState({
-    //     userCount
-    //   });
-    // })
-    // .catch(err => console.error(err))
-    // (this.props.match.params.id).then((data) => {console.log(data)});
