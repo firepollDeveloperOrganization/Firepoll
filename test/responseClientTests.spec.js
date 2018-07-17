@@ -8,7 +8,7 @@ import ResponseClient from '../client/src/responseClient/responseClient.jsx';
 
 configure({ adapter: new Adapter() })
 
-describe('Response Client Tests', function() {
+describe.skip('Response Client Tests', function() {
 
   var wrapper;
   var responseClient;
