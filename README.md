@@ -1,52 +1,57 @@
 [![Waffle.io - Issues Board](https://badge.waffle.io/Team-Ravenclaw/LivePoll.svg?columns=In%20Progress,Done)](http://waffle.io/Team-Ravenclaw/LivePoll)
 
-# [Live Poll](LinkHere)
+# Project Title 
 
-Looking to engage your audience through live participation? Having trouble finding a way to gather the results of your survey? _**Live Poll**_ does the legwork for you, transforming your questions and answers into easy-to-use polls delivered directly to the audience. We display the results in real time, scaled for thousands of users, and even save and analyze the data for you to view later on. The process is fast, easy, and seamless -- we do the heavy lifting behind the scenes so you can focus on connecting to your audience and expanding your business!
+Firepoll is living polling app that allows you to measure your audience's knowledge or opinion in realtime and at massive scale and is built with the intention to serve as a technology for other applications/developers as well.
 
-<img src="https://slack-files2.s3-us-west-2.amazonaws.com/avatars/2016-01-03/17670668547_3b5cda05986fc6c0d978_512.png" alt="Live Poll" width="100px" height="100px">
+## Getting Started
 
-## Team
+1. Download or clone this repo.
+2. Run npm install
+3. Input your credentials in example.env
 
-- __Product Owner__: --
-- __Scrum Master__: --
-- __Development Team__: --
+### Prerequisites
+You will need to have installed node.js
 
-## Table of Contents
+## Running the tests
 
-- [Live Poll](#live-polllinkhere)
-  - [Team](#team)
-  - [Table of Contents](#table-of-contents)
-  - [Planning](#planning)
-  - [Development](#development)
-    - [Running the Development App](#running-the-development-app)
-    - [Roadmap](#roadmap)
-    - [Contributing](#contributing)
-
-## Planning
-
-- [Specs](#)
-- [Epics/User Stories](https://docs.google.com/spreadsheets/d/1hRcaUfP0kl2Ttw2uqlaQ7f7ede7f64S-bpEY9-YsukY/)
-- [Waffle Board](https://waffle.io/Team-Ravenclaw/LivePoll)
-
-
-## Development
-
-### Running the Development App
-
-From within the root directory:
-
-```sh
-npm install
-npm start
+Tests are currently being skipped as we had to abandon TDD due to time constraints towards the end of the project.
+Feel free to reactivate the already written tests by removing *.skip* form describe() and it() statements.
+Then run: 
+```
+npm test
 ```
 
+## Built With
 
-### Roadmap
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
-- **Database**
-- **Server**
-- **Authentication**
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+## Authors
+
+* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
+
 - **Client-side**
 
 ### Contributing
