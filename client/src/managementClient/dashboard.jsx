@@ -172,9 +172,8 @@ class Dashboard extends React.Component {
   }
 
   filterPolls = (event, active, completed) => {
-     //node.id = "selected"
-    let docs = document.getElementsByClassName('btn--standard'); //forEach(doc => doc.removeClass = 'selected');
-    [].forEach.call(docs, function (doc) {doc.id =''});
+    let docs = document.getElementsByClassName('btn--standard-filter'); //forEach(doc => doc.removeClass = 'selected');
+    [].forEach.call(docs, function (doc, i) {doc.id = `unselected-${i}`});
     event.target.id ='selected';
     if(active === undefined) {
       this.setState({filteredPolls: this.state.allPolls})
@@ -262,10 +261,10 @@ class Dashboard extends React.Component {
             <main className="dashboard-content">
               <div className="input-menu"> 
                 <div className="input-buttons-container">
-                  <button className="btn--standard" id="selected" onClick={(e) => this.filterPolls(e)}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
-                  <button className="btn--standard" onClick={(e) => this.filterPolls(e, false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
-                  <button className="btn--standard" onClick={(e) => this.filterPolls(e, true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
-                  <button className="btn--standard" onClick={(e) => this.filterPolls(e, false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+                  <button className="btn--standard-filter" id="selected" onClick={(e) => this.filterPolls(e)}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
+                  <button className="btn--standard-filter" onClick={(e) => this.filterPolls(e, false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
+                  <button className="btn--standard-filter" onClick={(e) => this.filterPolls(e, true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
+                  <button className="btn--standard-filter" onClick={(e) => this.filterPolls(e, false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
                 </div>
                 <input className='filter-input' placeholder="Search polls" type="text" onChange={e => this.handleInput(e)}></input><i className="fas fa-search"></i>
               </div>
