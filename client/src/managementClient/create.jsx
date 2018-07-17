@@ -151,8 +151,7 @@ class Create extends React.Component {
     }
   }
 
-  deleteAnswer = (e) => {
-    let i = parseInt(e.target.id);
+  deleteAnswer = (i) => {
     this.setState(prevState => {
       prevState.answers.splice(i, 1)
       return {answers: prevState.answers}
@@ -200,7 +199,7 @@ class Create extends React.Component {
                       <div className="poll-form__answers">
                         {this.state.answers.length > 0 &&
                         this.state.answers.map((answer, i) => {
-                          return (<p className="poll-form__answer" key={i}>{answer.choice} <span id={i.toString()} onClick={this.deleteAnswer}><i className="far fa-trash-alt"></i></span></p>)
+                          return (<p className="poll-form__answer" key={i}>{answer.choice} <span id={i.toString()} onClick={() => this.deleteAnswer(i)}><i className="far fa-trash-alt"></i></span></p>)
                         })}
                       </div>
                     <form onSubmit={this.addAnswer} className="poll-form__form">
