@@ -119,6 +119,7 @@
     box-shadow: 0 .5rem 1rem rgba($black, .15);
     transform: translateY(0);
   }
+
 }
 
 .btn--small {
@@ -156,4 +157,8 @@
     box-shadow: 0 .5rem 1rem rgba($black, .15);
     transform: translateY(0);
   }
+}
+
+#selected {
+  color: black;
 }
