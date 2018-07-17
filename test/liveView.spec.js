@@ -7,20 +7,18 @@ import testData from './testData';
 import sinon from 'sinon';
 import {firepoll, realTimeDB} from '../client/src/firepollManagementClient';
 import axios from 'axios';
-// import mockServer from './mockServer';
 
-// // import the component you want to test
-// import Live from '../client/src/managementClient/live.jsx';
+import Live from '../client/src/managementClient/live.jsx';
 
-// configure({ adapter: new Adapter() })
+configure({ adapter: new Adapter() })
 
-// describe('Live View Component', function() {
+describe.skip('Live View Component', function() {
 
 var wrapper;
 var poll;
 var questions;
 var match;
-c
+
 before(function() {
   match = {params: {}};
   match.params.id = '1a2b3c4d5e6f';
@@ -151,4 +149,6 @@ it('should call fetchPolls when being mounted', () => {
   let fakeFetchPolls = sinon.stub(Live.prototype, 'fetchPoll');
   let wrapper = shallow(<Live match={match} user={'Dorothea Schoepfer'} email={'dorothea.schoepfer@gmail.com'}/>);
   expect(fakeFetchPolls.calledOnce).to.be.true;
+});
+
 });
