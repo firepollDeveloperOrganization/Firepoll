@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
 import {firepoll, realTimeDB} from '../firepollManagementClient';
 import axios from 'axios';
 import Navbar from './navbar';
