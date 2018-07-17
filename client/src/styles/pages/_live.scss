@@ -4,6 +4,7 @@
     width: 90%;
     margin: 0 auto;
     text-align: center;
+    height: 90vh;
   }
 
   &__poll-title {
@@ -27,7 +28,7 @@
 
   &__question-box {
     background-color: #fff;
-    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.2);
     border-radius: 3px;
     margin: 0 auto 2rem auto;
     max-width: 75rem; 
@@ -50,6 +51,7 @@
     padding: .5rem 0 0 1.6rem;
     color: $grey-dark-2;
     font-size: 1.3rem;
+    width: 60%;
   }
   
   &__answer {
@@ -61,6 +63,13 @@
 #nextQuestionButton, #closeQuestionButton {
   flex-shrink: 0;
   margin: .5rem 0 .5rem 1rem;
+}
+
+.results-bar {
+  width: 0%;
+  transition: width 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: $red;
+  color: #fff;
 }
 
 // LOADING CIRCLE 

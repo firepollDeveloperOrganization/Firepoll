@@ -24,57 +24,7 @@ firestore.settings(settings);
 
 const firepoll = {}
 
-// taken from client
-firepoll.getResults = (poll_id, question_id) => {
-  return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`).once('value').then((snap) => {
-    let results = snap.val();
-    let data = [];
-    for (let result in results) {
-      data.push(results[result]);
-    }
-    return data;
-  });
-}
-firepoll.listenToResults = (poll_id, question_id, cb) => {
-  return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`)
-  .on('value', (snapshot) => {
-    let results = snapshot.val();
-    let data = [];
-    for (let result in results) {
-      data.push(results[result]);
-    }
-    cb(data);
-  });
-}
-
-firepoll.getLiveResults = (poll_id, question_id, cb) => {
-//   return new Promise((resolve, reject) => {
-//   realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`).on('value', (snap) => {
-//     let results = resolve(snap.val());
-//     let data = [];
-//     for (let result in results) {
-//       data.push(results[result]);
-//     }
-//     return data;
-//   });
-// });
-// var db = admin.database();
-// var ref = db.ref("server/saving-data/fireblog/posts");
-
-// // Attach an asynchronous callback to read the data at our posts reference
-// ref.on("value", function(snapshot) {
-//   console.log(snapshot.val());
-// }, function (errorObject) {
-//   console.log("The read failed: " + errorObject.code);
-// });
-
-  realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`).on('value', snapshot => {
-    cb(snapshot.val());
-  });
-
-}
-
-  firepoll.user = {};
+firepoll.user = {};
 
   firepoll.user.get = (pollId, cb) => {
     return new Promise((resolve, reject) => {
@@ -187,8 +137,6 @@ firepoll.listen = {}
     }
   }
 
-
-
   //listen for changes to question
   firepoll.listen.question = (poll_id, questions, cb) => {
     if (!Array.isArray(questions)) {
@@ -202,6 +150,18 @@ firepoll.listen = {}
         cb(snapShotData);
       });
     }
+  }
+
+  firepoll.listen.results = (poll_id, question_id, cb) => {
+    return realTimeDB.ref(`/polls/${poll_id}/questions/${question_id}/aggregates`)
+    .on('value', (snapshot) => {
+      let results = snapshot.val();
+      let data = [];
+      for (let result in results) {
+        data.push(results[result]);
+      }
+      cb(data, question_id);
+    });
   }
 
 // GET DATA FROM FIRESTORE INTERFACE

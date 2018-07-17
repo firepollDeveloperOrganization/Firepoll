@@ -1,9 +1,6 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
-import CreatedQuestions from './createdQuestions.jsx';
 import axios from 'axios';
 import {firepoll} from '../firepollManagementClient';
-import { EIO } from 'constants';
 import Navbar from './navbar';
 import QuestionsList from "./questionsList";
 
