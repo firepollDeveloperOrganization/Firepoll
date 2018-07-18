@@ -4,7 +4,7 @@ const pollRouter = require('./routers/pollRouter');
 const resultHistRouter = require('./routers/resultsRouter');
 const stageRouter = require('./routers/stageRouter');
 const notificationsRouter = require('./routers/notificationsRouter');
-const cors = require('cors');
+
 const path = require('path');
 var compression = require('compression');
 require('dotenv').config();

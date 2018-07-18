@@ -7,7 +7,9 @@ class Login extends React.Component {
     super(props);
   }
   componentDidMount() {
+    if (ui.isPendingRedirect()) {
       ui.start('#firebaseui-auth-container', uiConfig);
+    }
   }
   render() {
       return (
