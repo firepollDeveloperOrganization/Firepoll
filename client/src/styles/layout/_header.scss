@@ -4,7 +4,7 @@
     to right bottom,  
     rgba($primary-light, .7),
     rgba($primary, .7)), 
-    url('/images/background-header.jpg'); /*first image is on top of second*/
+    url('/images/background-header.png'); /*first image is on top of second*/
   background-size: cover; /*whatever the viewport width it will try to fit the element in that*/
   background-position: bottom; /*ensures the top of the image always stays at the top of the conteiner*/
   position: relative;

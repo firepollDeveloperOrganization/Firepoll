@@ -132,14 +132,9 @@ class Dashboard extends React.Component {
     }, 200);
   }
   
-  // THIS SHOULD RUN, BUT IT NEVER GETS RUN
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log('will receive props', this.props);
-    //this.getPolls(this.props.userId);
-  }
-  
   close = (index) => {
     let poll = this.state.filteredPolls[index];
+    
     axios.put(`/polls/close/${poll._id}`, poll)
     .then(res => {
       firepoll.close(poll);
@@ -177,7 +172,13 @@ class Dashboard extends React.Component {
     })
   }
 
-  filterPolls = (active, completed) => {
+  filterPolls = (event, active, completed) => {
+    let docs = document.getElementsByClassName('btn--standard-filter'); //forEach(doc => doc.removeClass = 'selected');
+    [].forEach.call(docs, function (doc, i) {doc.id = `unselected-${i}`});
+    event.target.id ='selected';
+    if(active === undefined) {
+      this.setState({filteredPolls: this.state.allPolls})
+    }
     let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.active === active);
     this.setState({filteredPolls: filtered});
   }
@@ -239,8 +240,7 @@ class Dashboard extends React.Component {
     } else if (this.state.signedIn) {
       let pollDisplay =
         <div id="filtered-polls">
-          <i onClick = {() => {this.props.history.push('/create')}} className="fas fa-plus-circle add-poll-button"></i>
-          {!this.state.filteredPolls.length ? <div className = "no-polls-message">No polls yet. Click the button to get Started!</div> : ''}
+          {!this.state.filteredPolls.length ? <div className = "no-polls-message"><p>No polls found!</p></div> : ''}
           {this.state.filteredPolls.map((poll, i) => {
             if (poll.title.toLowerCase().indexOf(this.state.userFilterInput.toLowerCase()) !== -1) {
               return (<Poll key={i} index={i} poll={poll} close={this.close} deploy={this.deploy} deletePoll={this.deletePoll} openModal={this.openModal} setCurrentLink={this.setCurrentLink}/>);
@@ -261,10 +261,10 @@ class Dashboard extends React.Component {
             <main className="dashboard-content">
               <div className="input-menu"> 
                 <div className="input-buttons-container">
-                  <button className="btn--standard" onClick={() => this.setState({filteredPolls: this.state.allPolls})}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
-                  <button className="btn--standard" onClick={() => this.filterPolls(false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
-                  <button className="btn--standard" onClick={() => this.filterPolls(true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
-                  <button className="btn--standard" onClick={() => this.filterPolls(false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
+                  <button className="btn--standard-filter" id="selected" onClick={(e) => this.filterPolls(e)}>Show All Polls 	&nbsp;<i className="fa-fw fas fa-sync-alt"></i></button>
+                  <button className="btn--standard-filter" onClick={(e) => this.filterPolls(e, false, false)}>Show Only Undeployed &nbsp;<i className="fa-fw fas fa-rocket"></i></button>
+                  <button className="btn--standard-filter" onClick={(e) => this.filterPolls(e, true, false)}>Show Only Live 	&nbsp;<i className="fa-fw fas fa-fire"></i></button>
+                  <button className="btn--standard-filter" onClick={(e) => this.filterPolls(e, false, true)}>Show Only Completed 	&nbsp;<i className="fa-fw fas fa-calendar-check"></i></button>
                 </div>
                 <input className='filter-input' placeholder="Search polls" type="text" onChange={e => this.handleInput(e)}></input><i className="fas fa-search"></i>
               </div>
