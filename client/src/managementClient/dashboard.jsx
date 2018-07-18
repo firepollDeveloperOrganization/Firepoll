@@ -254,7 +254,7 @@ class Dashboard extends React.Component {
       return (
         <div className="body-wrapper">
           <div className="container">
-            <Navbar history = {this.props.history}/>
+            <Navbar history = {this.props.history} logout={this.props.logout}/>
               <div className="welcome-message">Welcome {user}!</div>
               
             <main className="dashboard-content">

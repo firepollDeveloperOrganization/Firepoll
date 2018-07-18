@@ -16,7 +16,7 @@ const Navbar = (props) => (
         <a className="user-nav__button nav-button">Create Poll &nbsp;<i className="fa-fw far fa-calendar-plus"></i></a>
       </div>
       <div className="user-nav__button-box">
-        <a className="user-nav__button nav-button" onClick={props.logout}>Log Out &nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></a>
+        <a className="user-nav__button nav-button" onClick={() => {console.log('logging out'); props.logout();}}>Log Out &nbsp;<i className="fa-fw fas fa-sign-out-alt"></i></a>
       </div>
     </nav>
   </header>
