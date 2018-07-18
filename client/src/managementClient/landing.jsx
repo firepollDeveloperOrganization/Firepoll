@@ -47,7 +47,7 @@ class Landing extends React.Component {
                   <p className="paragraph">
                     Realtime user participation is growing in populairty through apps like HQ Trivia. Now you can do the same, without having to know how to write code for it.
                     Just use our API and connect it with your own front-end.                  </p>
-                  <a href="#" className="btn-text"> Learn more on GitHub &rarr;</a>
+                  <a href="https://github.com/Team-Ravenclaw/LivePoll" className="btn-text"> Learn more on GitHub &rarr;</a>
                 </div>
               </div>
 
@@ -75,7 +75,7 @@ class Landing extends React.Component {
                 <p className="paragraph">
                   Whether business meeting, conference or lecture. Firepoll is designed to give you all you need to conduct live polls.
                 </p>
-                <a href="#" className="btn-text"> Learn more &rarr;</a>
+                {/*<a href="#" className="btn-text"> Learn more &rarr;</a>*/}
               </div>
             </div>
                 
@@ -151,7 +151,7 @@ class Landing extends React.Component {
             </div>
 
             <div className="u-center-text u-margin-top-big">
-              <a href="#" className="btn btn--white">GET STARTED</a>
+              <a href="/dashboard" className="btn btn--white">GET STARTED</a>
             </div>
 
           </section>

@@ -129,6 +129,12 @@ class Live extends React.Component {
     this.setState({closed: true})
     let poll = this.state.poll;
     poll.questions = this.state.questions;
+    poll.questions.forEach(q => {
+      q.answers.forEach(a => {
+        a.choice = a.value;
+        delete a.value;
+      })
+    })
     axios.put(`/polls/close/${poll._id}`, poll)
     .then(res => {
       firepoll.close(poll);
