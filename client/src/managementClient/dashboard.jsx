@@ -134,7 +134,7 @@ class Dashboard extends React.Component {
   
   close = (index) => {
     let poll = this.state.filteredPolls[index];
-    
+    console.log('poll when closing from db', poll);
     axios.put(`/polls/close/${poll._id}`, poll)
     .then(res => {
       firepoll.close(poll);
