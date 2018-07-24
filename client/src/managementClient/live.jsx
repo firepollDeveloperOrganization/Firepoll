@@ -127,29 +127,28 @@ class Live extends React.Component {
 
   close = () => {
     this.setState({closed: true})
-    let poll = this.state.poll;
-    poll.questions = this.state.questions;
-    poll.questions.forEach(q => {
-      q.answers.forEach(a => {
-        a.choice = a.value;
-        delete a.value;
-      })
-    })
-    axios.put(`/polls/close/${poll._id}`, poll)
+    let pollId = this.props.match.params.id;
+    let poll;
+    axios.get(`/polls/${pollId}`)
     .then(res => {
-      firepoll.close(poll);
-      realTimeDB.ref(`/polls/${poll._id}`).remove()
-      .catch(err => {
-        console.error('deleting poll from realTimeDB', err)
+      poll = res.data;
+      axios.put(`/polls/close/${pollId}`, poll)
+      .then(res => {
+        firepoll.close(poll);
+        realTimeDB.ref(`/polls/${poll._id}`).remove().catch(err => {
+          console.error('deleting poll from realTimeDB', err)
+        })
+      }).then(() => {
+        setTimeout(() => {
+          this.props.history.push('/dashboard');
+        }, 350) 
       })
-    }).then(() => {
-      setTimeout(() => {
-        this.props.history.push('/dashboard');
-      }, 400)
-      
+      .catch(err => {
+        console.error('Closing Poll: ', err);
+      })
     })
     .catch(err => {
-      console.error('Closing Poll: ', err);
+      console.err('getting poll from MongoDB', err);
     })
   }
 
