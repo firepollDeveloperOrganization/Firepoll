@@ -11,8 +11,6 @@ const Create = (props) => <Async load = {import('./create.jsx')} componentProps 
 const Analytics = (props) => <Async load = {import('./analytics.jsx')} componentProps = {props} />
 const Landing = (props) => <Async load = {import('./landing.jsx')} componentProps = {props} />
 
-
-
 class App extends React.Component {
   constructor(props) {
     super(props);
