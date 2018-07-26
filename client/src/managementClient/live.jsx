@@ -83,6 +83,9 @@ class Live extends React.Component {
                   poll: data
                 }, () => {
                   firepoll.get.allQuestionsFromPoll(pollId).then((data) => {
+                    data.sort((a, b) => {
+                      return a.position - b.position;
+                    })
                     this.setState({
                       questions: data
                     }, () => this.getResults());

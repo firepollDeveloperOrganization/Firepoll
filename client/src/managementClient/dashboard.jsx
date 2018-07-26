@@ -38,7 +38,7 @@ const destructurePoll = (poll) => {
     }
   };
 
-  let questions = poll.questions.map(question => {
+  let questions = poll.questions.map((question, q_i) => {
     let answers = question.answers.map((answer, i) => {
       let answerObj = {
         id: answer._id,
@@ -48,6 +48,7 @@ const destructurePoll = (poll) => {
       return answerObj;
     })
     let obj = {
+      position: q_i + 1,
       answers: answers,
       display_results: true,
       num_responses: question.answers.length,
@@ -178,9 +179,10 @@ class Dashboard extends React.Component {
     event.target.id ='selected';
     if(active === undefined) {
       this.setState({filteredPolls: this.state.allPolls})
+    } else {
+      let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.active === active);
+      this.setState({filteredPolls: filtered});
     }
-    let filtered = this.state.allPolls.filter(poll => poll.completed === completed && poll.active === active);
-    this.setState({filteredPolls: filtered});
   }
 
   deletePoll = id => {
