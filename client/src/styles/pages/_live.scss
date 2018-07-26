@@ -4,7 +4,8 @@
     width: 90%;
     margin: 0 auto;
     text-align: center;
-    height: 90vh;
+    min-height: 90vh;
+    padding-bottom: 3rem;
   }
 
   &__poll-title {
