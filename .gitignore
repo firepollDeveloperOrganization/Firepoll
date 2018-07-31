@@ -23,7 +23,6 @@ client/dist/main.css
 .env
 firebaseAdminSecret.json
 firebase-debug.log
-
 client/dist/0.bundle.js.gz
 client/dist/1.bundle.js
 client/dist/1.bundle.js.gz
