@@ -125,7 +125,6 @@ class Dashboard extends React.Component {
     console.log(this.props);
     var that = this;
     var interval = setInterval(() => {
-      console.log('running interval');
       if(that.props.userId !== null) {
         that.getPolls();
         clearInterval(interval);
