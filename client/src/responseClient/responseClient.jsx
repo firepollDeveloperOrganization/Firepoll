@@ -88,6 +88,9 @@ class ResponseClient extends React.Component {
                 }, () => {
                   //GET ALL QUESTION FOR A POLL WHEN POLL DATA CHANGES
                   firePollResponseClient.get.allQuestionsFromPoll(pollId).then((data) => {
+                    data.sort((a, b) => {
+                      return a.position - b.position;
+                    });
                     if (this.state.currQuestion < data.length-1) {
                       this.setState({
                         questions: data,
@@ -101,12 +104,18 @@ class ResponseClient extends React.Component {
           }).then(() => {
           // GET ALL QUESTIONS FROM POLL
             firePollResponseClient.get.allQuestionsFromPoll(pollId).then((data) => {
+              data.sort((a, b) => {
+                return a.position - b.position;
+              });
               this.setState({
                 questions: data
               }, () => {
                 // LISTEN FOR ALL QUESTIONS FROM POLL
                 firePollResponseClient.listen.question(this.state.poll._id, this.state.questions, () => {
                   firePollResponseClient.get.allQuestionsFromPoll(this.state.poll._id).then((data) => {
+                    data.sort((a, b) => {
+                      return a.position - b.position;
+                    });
                     let newCurrQuestion = false;
                     data.filter((question, i) => {
                       if (question.active === true) {
@@ -150,7 +159,6 @@ class ResponseClient extends React.Component {
                 }
               }
             }).then(() => {
-
               // UPDATES currQuestion IN STATE IF CURRQUESTION IS BEHIND ACTIVE QUESTION
               for (let questionIndex = 0; questionIndex < this.state.questions.length; questionIndex++) {
                 if (this.state.questions[questionIndex].active === true) {
