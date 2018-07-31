@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pollRouter = require('./routers/pollRouter');
 const resultHistRouter = require('./routers/resultsRouter');
-const stageRouter = require('./routers/stageRouter');
 const notificationsRouter = require('./routers/notificationsRouter');
 
 const path = require('path');
@@ -39,8 +38,6 @@ app.get('/ip', ((req, res) => {
 app.use('/polls', pollRouter);
 
 app.use('/results', resultHistRouter);
-
-app.use('/stage', stageRouter);
 
 app.use('/notifications', notificationsRouter);
 
